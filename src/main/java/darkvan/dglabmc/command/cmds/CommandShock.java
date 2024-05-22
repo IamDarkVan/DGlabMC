@@ -1,0 +1,54 @@
+package darkvan.dglabmc.command.cmds;
+
+import darkvan.dglabmc.Client;
+import darkvan.dglabmc.command.CmdException;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+import static darkvan.dglabmc.utils.ClientUtils.*;
+import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
+import static org.bukkit.Bukkit.getPlayer;
+
+public class CommandShock extends Command{
+    public CommandShock(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
+        super(sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,0停止", perm);
+    }
+
+    private Client client;
+    private Integer second;
+    @Override
+    protected void errorHandle() throws CmdException {
+        if (length == 2) {
+            if (!(sender instanceof Player player)) throw new CmdException("服务器后台请使用 /dglab shock <clientId|player> <time(sec)>");
+            if (!isClientPlayerExist(player)) throw new CmdException("你还没有绑定的app");
+            if (!args[1].matches("^-?\\d+$")) throw new CmdException("时间(秒)必须为不含小数的纯数字");
+            this.client = getClientByPlayer(player);
+            this.second = Integer.parseInt(args[1]);
+        }
+        if(length == 3){
+            if (!isClientIdExist(args[1]) && !isClientPlayerExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
+            if (!args[3].matches("^-?\\d+$")) throw new CmdException("时间(秒)必须为不含小数的纯数字");
+            this.client = isClientIdExist(args[1]) ? getClientById(args[1]) : getClientByPlayer(getPlayer(args[1]));
+            this.second = Integer.parseInt(args[2]);
+        }
+        if (client.getAPulse() == null && client.getBPulse() == null) throw new CmdException("频道A,B中必须有至少一个设置了波形");
+    }
+
+    @Override
+    protected void run() {
+        client.giveShock(second);
+        if (second > 0)sender.sendMessage("电击时间+"+second+"秒");
+        if (second < 0)sender.sendMessage("电击时间"+second+"秒");
+        if (second == 0)sender.sendMessage("成功停止电击");
+    }
+
+    @Override
+    public List<String> tabComplete() {
+        if (length == 2) return playerAndClients();
+        return null;
+    }
+}

@@ -1,0 +1,19 @@
+name: DGlabMC
+version: '${version}'
+main: darkvan.dglabmc.DGlabMC
+api-version: '1.19'
+commands:
+  dglab:
+    description: 在mc中控制郊狼喵
+    permission: dglab
+    usage: /dglab ...
+permissions:
+  dglab.*:
+    description: 所有权限喵
+    default: op
+  dglab.bind:
+    description: a
+    default: true
+  dglab.ctrl:
+    description: a
+    default: true
