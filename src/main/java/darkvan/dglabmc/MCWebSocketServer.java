@@ -84,7 +84,7 @@ public class MCWebSocketServer extends WebSocketServer{
                 client.setAMaxStrength(strength[2]);
                 client.setBMaxStrength(strength[3]);
                 if (client.getPlayer() == null) return;
-                client.getBossbar().setTitle("A:" + strength[0] + "/" + strength[2] + " B:" + strength[1] + "/" + strength[3]);
+                client.resetBossbarTitle();
                 return;
             }
             if (message.contains("feedback")) {
