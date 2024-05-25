@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static darkvan.dglabmc.utils.DGlabUtils.sendHelp;
+import static darkvan.dglabmc.utils.CommandUtils.sendHelp;
 
 
 public class CommandHelp extends Command{

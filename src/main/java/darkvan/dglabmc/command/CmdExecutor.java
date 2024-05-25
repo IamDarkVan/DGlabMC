@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-import static darkvan.dglabmc.utils.DGlabUtils.*;
+import static darkvan.dglabmc.utils.CommandUtils.sendHelp;
 
 public class CmdExecutor implements CommandExecutor {
     @Override
@@ -17,7 +17,7 @@ public class CmdExecutor implements CommandExecutor {
         String[] lowerArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
         switch (args[0].toLowerCase()) {
             case "bind" ->          {return new CommandBind(sender, lowerArgs, null).execute();}
-            case "bind-get" ->      {return new CommandInfo(sender, lowerArgs,  null).execute();}
+            case "info" ->          {return new CommandInfo(sender, lowerArgs,  null).execute();}
             case "bind-list" ->     {return new CommandBindList(sender, lowerArgs, null).execute();}
             case "ctrl-pulse" ->    {return new CommandCtrlPulse(sender, lowerArgs,  null).execute();}
             case "ctrl-strength" -> {return new CommandCtrlStrength(sender, lowerArgs, null).execute();}

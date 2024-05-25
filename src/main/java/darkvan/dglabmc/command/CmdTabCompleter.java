@@ -9,10 +9,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
+import static darkvan.dglabmc.utils.CommandUtils.cmds;
+
 public class CmdTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args){
-        if (args.length == 1) return Arrays.asList("help", "list", "getQRCode", "info", "bind",  "bind-list", "unbind", "ctrl-strength","ctrl-pulse","shock", "send-msg", "send-dgjson", "server-run", "server-stop");
+        if (args.length == 1) return cmds();
         String[] lowerArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
         switch(lowerArgs[0]){
             case "bind" ->          {return new CommandBind(sender, lowerArgs, null).tabComplete();}
