@@ -32,20 +32,14 @@ public abstract class Command{
             checkPermission();
             checkArgsCount();
             errorHandle();
+            run();
         } catch (CmdException e){
             sender.sendMessage(e.getMessage());
             return true;
-        } catch (Exception ex){
-            getLogger().info(sender.getName() + "整幺蛾子了" + ex);
-            ex.printStackTrace();
-            return true;
-        }
-        try {
-            run();
         } catch (IllegalArgumentException e) {
             sender.sendMessage("非法参数");
             return true;
-        } catch (Exception ex){
+        }catch (Exception ex){
             getLogger().info(sender.getName() + "整幺蛾子了" + ex);
             ex.printStackTrace();
             return true;
