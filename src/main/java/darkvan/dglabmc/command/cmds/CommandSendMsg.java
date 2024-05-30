@@ -15,7 +15,7 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 
 public class CommandSendMsg extends Command{
     public CommandSendMsg(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 3, null, "/dglab send-msg <clientId> <message> -- 直接向app发送消息(可空格 不推荐使用)", perm);
+        super("send-msg", sender, args, 3, null, "/dglab send-msg <clientId> <message> -- 直接向app发送消息(可空格 不推荐使用)", perm);
     }
 
     @Override

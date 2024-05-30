@@ -16,7 +16,7 @@ import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandShock extends Command{
     public CommandShock(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", perm);
+        super("shock", sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", perm);
     }
 
     private Client client;

@@ -20,7 +20,7 @@ import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandCtrlStrength extends Command{
     public CommandCtrlStrength(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 4, 5, "/dglab ctrl-strength [clientId|player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)", perm);
+        super("ctrl-strength", sender, args, 4, 5, "/dglab ctrl-strength [clientId|player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)", perm);
     }
 
     String channel, mode, value;

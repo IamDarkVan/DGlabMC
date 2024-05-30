@@ -19,7 +19,7 @@ public class CommandInfo extends Command{
 
 
     public CommandInfo(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, null, 2, "/dglab info [clientId|player] 查询app信息", perm);
+        super("info", sender, args, null, 2, "/dglab info [clientId|player] 查询app信息", perm);
     }
     private Client client;
 

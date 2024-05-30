@@ -17,7 +17,7 @@ import static org.bukkit.Bukkit.getPlayer;
 public class CommandUnbind extends Command{
 
     public CommandUnbind(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 1, 2, "/dglab unbind [clientId|player] --解除玩家绑定app", perm);
+        super("unbind", sender, args, 1, 2, "/dglab unbind [clientId|player] --解除玩家绑定app", perm);
     }
 
     Client client;

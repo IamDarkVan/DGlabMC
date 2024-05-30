@@ -11,7 +11,7 @@ import static darkvan.dglabmc.DGlabMC.plugin;
 
 public class CommandGetQRCode extends Command{
     public CommandGetQRCode(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, null,null,"/dglab getQRCode -- 获取二维码", perm);
+        super("getqrcode", sender, args, null,null,"/dglab getQRCode -- 获取二维码", perm);
     }
 
     @Override

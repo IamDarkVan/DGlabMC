@@ -15,9 +15,11 @@ public abstract class Command{
     protected final Integer min;
     protected final Integer max;
     protected final String perm;
+    protected final String command;
     protected final String usage;
     protected final Integer length;
-    public Command(@NotNull CommandSender sender,@NotNull String[] args,@Nullable Integer min,@Nullable Integer max,@Nullable String usage, @Nullable String perm) {
+    public Command(@NotNull String command, @NotNull CommandSender sender,@NotNull String[] args,@Nullable Integer min,@Nullable Integer max,@Nullable String usage, @Nullable String perm) {
+        this.command = command;
         this.sender = sender;
         this.args = args;
         this.min = min;

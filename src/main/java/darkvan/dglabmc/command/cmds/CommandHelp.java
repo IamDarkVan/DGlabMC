@@ -13,7 +13,7 @@ import static darkvan.dglabmc.utils.CommandUtils.sendHelp;
 public class CommandHelp extends Command{
 
     public CommandHelp(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args,null,null, "/dglab help -- 显示帮助", perm);
+        super("help", sender, args,null,null, "/dglab help -- 显示帮助", perm);
     }
 
     @Override

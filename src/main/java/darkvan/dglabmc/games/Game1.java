@@ -2,9 +2,13 @@ package darkvan.dglabmc.games;
 
 import darkvan.dglabmc.Client;
 
+import static darkvan.dglabmc.DGlabMC.plugin;
+
 public class Game1 extends Game{
-    public Game1() {
-        super("game1",false, "受伤电人", null);
+    public static final Game game1 = getGame(Game1.class);
+    private Game1() {
+        // 电击时间: 5秒, 受伤后重置电击时间(否则累加): true
+        super("game1","受伤电人", null, plugin.config.getConfigurationSection("Game1"));
     }
 
     @Override

@@ -12,7 +12,7 @@ import static darkvan.dglabmc.DGlabMC.clients;
 
 public class CommandBindList extends Command{
     public CommandBindList(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, null,null,"/dglab bind-list -- 查询绑定app列表", perm);
+        super("bind-list",sender, args, null,null,"/dglab bind-list -- 查询绑定app列表", perm);
     }
 
     @Override

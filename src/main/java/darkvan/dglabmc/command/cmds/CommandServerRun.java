@@ -12,7 +12,7 @@ import static darkvan.dglabmc.utils.DGlabUtils.*;
 
 public class CommandServerRun extends Command{
     public CommandServerRun(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, null, 2, "/dglab server-run [port] -- 启动WebSocket服务器 不填端口默认config", perm);
+        super("server-run", sender, args, null, 2, "/dglab server-run [port] -- 启动WebSocket服务器 不填端口默认config", perm);
     }
 
     protected Integer port;

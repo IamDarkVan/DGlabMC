@@ -15,8 +15,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 
 import static darkvan.dglabmc.DGlabMC.*;
-import static darkvan.dglabmc.games.Game.games;
-import static darkvan.dglabmc.games.Game.getGame;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.createBossBar;
 import static org.bukkit.Bukkit.getLogger;
@@ -43,7 +41,6 @@ public class Client {
         this.player = player;
         clients.add(this);
         bossbar.setProgress(0);
-        games.forEach((k, game) -> {if (game.isEnabled()) enabledGames.add(game);});
     }
     public void output(String text){
         output(text, true);
@@ -118,22 +115,4 @@ public class Client {
                         " 电击剩余时间:" + (totalTime - ticks / 20) + "秒");
     }
 
-    public void addGame(Game game) {
-        enabledGames.add(game);
-        game.onEnable(this);
-    }
-    public void removeGame(Game game) {
-        enabledGames.remove(game);
-        game.onDisable(this);
-    }
-    public void toggleGame(Game game) {
-        if (isGameEnabled(game)) removeGame(game);
-        else addGame(game);
-    }
-    public boolean isGameEnabled(Game game){
-        return enabledGames.contains(game);
-    }
-    public boolean isGameEnabled(Class<? extends Game> gameClass){
-        return enabledGames.contains(getGame(gameClass));
-    }
 }

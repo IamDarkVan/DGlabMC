@@ -17,7 +17,7 @@ import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 public class CommandSendDGJson extends Command{
 
     public CommandSendDGJson(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 6, 6, "/dglab send-dgjson <clientId> <typ> <cid> <tid> <msg>-- 直接向app发送DGJson(不推荐使用)", perm);
+        super("send-dgjson", sender, args, 6, 6, "/dglab send-dgjson <clientId> <typ> <cid> <tid> <msg>-- 直接向app发送DGJson(不推荐使用)", perm);
     }
 
     @Override

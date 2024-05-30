@@ -12,7 +12,7 @@ import static darkvan.dglabmc.DGlabMC.*;
 public class CommandList extends Command{
 
     public CommandList(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args,null,null, "/dglab list -- 显示app列表", perm);
+        super("list", sender, args,null,null, "/dglab list -- 显示app列表", perm);
     }
 
     @Override

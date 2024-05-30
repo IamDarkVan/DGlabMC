@@ -11,7 +11,7 @@ import static darkvan.dglabmc.DGlabMC.plugin;
 
 public class CommandServerStop extends Command{
     public CommandServerStop(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, null,null,"/dglab server-stop -- 关闭目前WebSocket服务器", perm);
+        super("server-stop", sender, args, null,null,"/dglab server-stop -- 关闭目前WebSocket服务器", perm);
     }
 
     @Override

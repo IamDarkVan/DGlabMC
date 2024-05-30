@@ -20,7 +20,7 @@ import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandCtrlPulse extends Command{
     public CommandCtrlPulse(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 3, 4, "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]", perm);
+        super("ctrl-pulse", sender, args, 3, 4, "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]", perm);
     }
 
     String channel, hex;

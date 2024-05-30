@@ -12,7 +12,7 @@ import static darkvan.dglabmc.utils.DGlabUtils.reloadConfigFile;
 public class CommandReload extends Command{
 
     public CommandReload(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, null,null,"/dglab reload -- 重载配置文件", perm);
+        super("reload", sender, args, null,null,"/dglab reload -- 重载配置文件", perm);
     }
 
     @Override

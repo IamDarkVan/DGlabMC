@@ -17,7 +17,7 @@ import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandBind extends Command{
     public CommandBind(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super(sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", perm);
+        super("bind",sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", perm);
     }
     Client client;
     @Override
