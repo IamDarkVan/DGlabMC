@@ -1,5 +1,6 @@
 package darkvan.dglabmc;
 
+import darkvan.dglabmc.games.Game;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.boss.BarColor;
@@ -11,7 +12,11 @@ import org.bukkit.scheduler.BukkitTask;
 import org.java_websocket.WebSocket;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
+
 import static darkvan.dglabmc.DGlabMC.*;
+import static darkvan.dglabmc.games.Game.games;
+import static darkvan.dglabmc.games.Game.getGame;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.createBossBar;
 import static org.bukkit.Bukkit.getLogger;
@@ -19,7 +24,7 @@ import static org.bukkit.Bukkit.getLogger;
 public class Client {
     @Getter private final String clientId;
     @Getter private final WebSocket webSocket;
-    @Getter private final BossBar bossbar;
+    @Getter private final BossBar bossbar = createBossBar(null, BarColor.RED, BarStyle.SOLID);
     @Getter @Nullable private Player player;
     @Getter @Setter private Integer aStrength = 0;
     @Getter @Setter private Integer bStrength = 0;
@@ -30,14 +35,15 @@ public class Client {
     @Getter private double totalTime = 0;
     @Getter private int ticks = 0;
     @Getter @Nullable private BukkitTask shockTask;
+    private final HashSet<Game> enabledGames = new HashSet<>();
 
     public Client(String clientId, WebSocket webSocket, @Nullable Player player){
         this.clientId = clientId;
         this.webSocket = webSocket;
         this.player = player;
         clients.add(this);
-        this.bossbar = createBossBar(null, BarColor.RED, BarStyle.SOLID);
-        this.bossbar.setProgress(0);
+        bossbar.setProgress(0);
+        games.forEach((k, game) -> {if (game.isEnabled()) enabledGames.add(game);});
     }
     public void output(String text){
         output(text, true);
@@ -48,12 +54,15 @@ public class Client {
     }
     public void removeClient(){
         clients.remove(this);
-        getLogger().info("已断开" + this.clientId + "的连接");
-        if (this.player != null) this.player.sendMessage("你绑定的 " + this.clientId + " 已断开连接");
-        this.bossbar.removeAll();
+        getLogger().info("已断开" + clientId + "的连接");
+        if (player != null) player.sendMessage("你绑定的 " + clientId + " 已断开连接");
+        bossbar.removeAll();
     }
     public String info(){
-        return clientId + " " + (player == null ? "未绑定" : player.getName()) + " A:" + aStrength + "/" +aMaxStrength + " B:" + bStrength + "/" + bMaxStrength + " 时间:" + totalTime + "秒";
+        return clientId + " " + (player == null ? "未绑定" : player.getName()) +
+                " A:" + aStrength + "/" + aMaxStrength +
+                " B:" + bStrength + "/" + bMaxStrength +
+                " 电击剩余时间:" + (totalTime - ticks / 20) + "秒";
     }
 
     public void sendMessage(String msg) {
@@ -104,6 +113,27 @@ public class Client {
     }
 
     public void resetBossbarTitle() {
-        bossbar.setTitle("A:" + aStrength + "/" +aMaxStrength + " B:" + bStrength + "/" + bMaxStrength + " 电击剩余时间:" + (totalTime - ticks / 20) + "秒");
+        bossbar.setTitle("A:" + aStrength + "/" +aMaxStrength +
+                        " B:" + bStrength + "/" + bMaxStrength +
+                        " 电击剩余时间:" + (totalTime - ticks / 20) + "秒");
+    }
+
+    public void addGame(Game game) {
+        enabledGames.add(game);
+        game.onEnable(this);
+    }
+    public void removeGame(Game game) {
+        enabledGames.remove(game);
+        game.onDisable(this);
+    }
+    public void toggleGame(Game game) {
+        if (isGameEnabled(game)) removeGame(game);
+        else addGame(game);
+    }
+    public boolean isGameEnabled(Game game){
+        return enabledGames.contains(game);
+    }
+    public boolean isGameEnabled(Class<? extends Game> gameClass){
+        return enabledGames.contains(getGame(gameClass));
     }
 }

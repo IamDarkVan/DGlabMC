@@ -5,6 +5,9 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class CommandUtils {
+    private CommandUtils() throws Exception {
+        throw new Exception("工具类不允许实例化");
+    }
     public static boolean sendHelp(CommandSender sender){
         sender.sendMessage(
                 "---------------------------------",

@@ -5,14 +5,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import static darkvan.dglabmc.utils.ClientUtils.getClientByPlayer;
-import static darkvan.dglabmc.utils.ClientUtils.isClientPlayerExist;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 
 public class ListenerUnbindOfflinePlayer implements Listener {
     @EventHandler
     public void onPlayerOffline(PlayerQuitEvent e){
-        if (!isClientPlayerExist(e.getPlayer())) return;
-        Client client = getClientByPlayer(e.getPlayer());
+        if (!isClientExist(e.getPlayer())) return;
+        Client client = getClient(e.getPlayer());
         client.bind(null);
     }
 }

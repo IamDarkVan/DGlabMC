@@ -10,8 +10,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.clients;
-import static darkvan.dglabmc.utils.ClientUtils.getClientById;
-import static darkvan.dglabmc.utils.ClientUtils.isClientIdExist;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static org.bukkit.Bukkit.getOnlinePlayers;
 import static org.bukkit.Bukkit.getPlayer;
 
@@ -24,8 +24,8 @@ public class CommandBind extends Command{
     protected void errorHandle() throws CmdException{
         if(length == 2 && !(sender instanceof Player)) throw new CmdException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
         if (length == 3 && getPlayer(args[2]) == null) throw new CmdException("玩家不存在");
-        if (!isClientIdExist(args[1])) throw new CmdException("客户端不存在");
-        this.client = getClientById(args[1]);
+        if (!isClientExist(args[1])) throw new CmdException("客户端不存在");
+        this.client = getClient(args[1]);
         if (client.getPlayer() != null) throw new CmdException("你要绑定的客户端已被绑定且服务器不允许多绑定");
     }
     @Override

@@ -36,10 +36,10 @@ public final class DGlabMC extends JavaPlugin{
         Bukkit.getPluginManager().registerEvents(new ListenerGame1(), this);
         saveDefaultConfig();
         mcUUID = config.getString("mcUUID") == null ? UUID.randomUUID().toString() : config.getString("mcUUID");
-        qrCode = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + this.ip + ":" + this.port + "/" + mcUUID;
+        qrCode = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + ip + ":" + port + "/" + mcUUID;
         getLogger().info("本机UUID为:" + mcUUID);
-        getLogger().info("本机生成二维码为: " + this.qrCode);
-        if(autoRunServer)  runWebSocketServer(this.port); else getLogger().info("请使用/dglab server-run启动WebSocket服务器");
+        getLogger().info("本机生成二维码为: " + qrCode);
+        if(autoRunServer)  runWebSocketServer(port); else getLogger().info("请使用/dglab server-run启动WebSocket服务器");
     }
 
     @Override

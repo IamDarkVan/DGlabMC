@@ -10,8 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.clients;
-import static darkvan.dglabmc.utils.ClientUtils.getClientById;
-import static darkvan.dglabmc.utils.ClientUtils.isClientIdExist;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 
 public class CommandSendMsg extends Command{
     public CommandSendMsg(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
@@ -20,12 +20,12 @@ public class CommandSendMsg extends Command{
 
     @Override
     protected void errorHandle() throws CmdException {
-        if (!isClientIdExist(args[1])) throw new CmdException("未找到客户端");
+        if (!isClientExist(args[1])) throw new CmdException("未找到客户端");
     }
 
     @Override
     protected void run() {
-        getClientById(args[1]).output(String.join(" ",Arrays.copyOfRange(args, 2, length)));
+        getClient(args[1]).output(String.join(" ",Arrays.copyOfRange(args, 2, length)));
         sender.sendMessage("已成功发送" + String.join(" ",Arrays.copyOfRange(args, 2, length)));
     }
 

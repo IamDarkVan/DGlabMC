@@ -2,6 +2,7 @@ package darkvan.dglabmc.command.cmds;
 
 import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.CmdException;
+import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -25,16 +26,16 @@ public class CommandShock extends Command{
     protected void errorHandle() throws CmdException {
         if (length == 2) {
             if (!(sender instanceof Player player)) throw new CmdException("服务器后台请使用 /dglab shock <clientId|player> <time(sec)>");
-            if (!isClientPlayerExist(player)) throw new CmdException("你还没有绑定的app");
+            if (!isClientExist(player)) throw new CmdException("你还没有绑定的app");
             if (!args[1].matches("^[+-]?\\d+$")) throw new CmdException("时间(秒)必须为不含小数的纯数字");
-            this.client = getClientByPlayer(player);
+            this.client = getClient(player);
             this.second = Integer.parseInt(args[1]);
             this.replace = !args[1].matches("^[+-].*");
         }
         if(length == 3){
-            if (!isClientIdExist(args[1]) && !isClientPlayerExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
+            if (!ClientUtils.isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             if (!args[2].matches("^[+-]?\\d+$")) throw new CmdException("时间(秒)必须为不含小数的纯数字");
-            this.client = isClientIdExist(args[1]) ? getClientById(args[1]) : getClientByPlayer(getPlayer(args[1]));
+            this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
             this.second = Integer.parseInt(args[2]);
             this.replace = !args[2].matches("^[+-].*");
         }

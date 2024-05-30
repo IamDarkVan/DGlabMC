@@ -1,5 +1,6 @@
 package darkvan.dglabmc;
 
+import darkvan.dglabmc.utils.ClientUtils;
 import lombok.SneakyThrows;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -25,7 +26,7 @@ public class MCWebSocketServer extends WebSocketServer{
     @SneakyThrows
     public void stop(){
         plugin.mcWebSocketServer = null;
-        this.stop(0);
+        super.stop(0);
         getLogger().info("服务器停止运行");
     }
     @Override
@@ -38,12 +39,12 @@ public class MCWebSocketServer extends WebSocketServer{
 
     @Override
     public void onClose(@NotNull WebSocket webSocket, int code, String reason, boolean remote) {
-        getClientByWebSocket(webSocket).removeClient();
+        ClientUtils.getClient(webSocket).removeClient();
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        Client client = getClientByWebSocket(webSocket);
+        Client client = ClientUtils.getClient(webSocket);
         getLogger().info("服务器收到: " + client.getClientId() + ": " + text);
         HashMap<String,String> data;
         try{
@@ -60,7 +61,7 @@ public class MCWebSocketServer extends WebSocketServer{
         }
         String type = data.get("type"), clientId = data.get("clientId"),
                targetId = data.get("targetId"), message = data.get("message");
-        if (!Objects.equals(clientId, mcUUID) && getClientById(targetId).getWebSocket() != webSocket){
+        if (!Objects.equals(clientId, mcUUID) && ClientUtils.getClient(targetId).getWebSocket() != webSocket){
             client.output(toDGJson("msg","","","404"));
             getLogger().info("该消息来源未知,已作废 404(2)");
             return;

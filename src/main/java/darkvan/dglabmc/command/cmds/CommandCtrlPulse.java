@@ -2,6 +2,7 @@ package darkvan.dglabmc.command.cmds;
 
 import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.CmdException;
+import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -28,14 +29,14 @@ public class CommandCtrlPulse extends Command{
     protected void errorHandle() throws CmdException {
         if (length == 3) {
             if (!(sender instanceof Player player)) throw new CmdException("服务器后台请使用 /dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear)");
-            if (!isClientPlayerExist(player)) throw new CmdException("你还没有绑定的app");
-            this.client = getClientByPlayer(player);
+            if (!isClientExist(player)) throw new CmdException("你还没有绑定的app");
+            this.client = getClient(player);
             this.channel = args[1];
             this.hex = args[2].toUpperCase();
         }
         if(length == 4){
-            if (!isClientIdExist(args[1]) && !isClientPlayerExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
-            this.client = isClientIdExist(args[1]) ? getClientById(args[1]) : getClientByPlayer(getPlayer(args[1]));
+            if (!ClientUtils.isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
+            this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
             this.channel = args[2];
             this.hex = args[3].toUpperCase();
         }
@@ -58,7 +59,7 @@ public class CommandCtrlPulse extends Command{
     @Override
     public List<String> tabComplete() {
         if (length == 2) return Stream.concat(Stream.of("A", "B", "both"),playerAndClients().stream()).toList();
-        if (getPlayer(args[1]) != null || isClientIdExist(args[1])) {
+        if (getPlayer(args[1]) != null || ClientUtils.isClientExist(args[1])) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return List.of("clear");
         } else {
