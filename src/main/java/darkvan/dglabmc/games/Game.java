@@ -35,7 +35,7 @@ public abstract class Game {
         games.put(name, this);
         if (settings.containsKey("default") && settings.get("default") instanceof Boolean bool && bool) enabledClients.addAll(clients);
     }
-    public static @Nullable  Game getGame(String name){
+    public static @Nullable Game getGame(String name){
         return games.get(name);
     }
     public boolean isClientEnabled(Client client){
