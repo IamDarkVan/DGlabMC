@@ -2,3 +2,16 @@ ip: "127.0.0.1"
 port: 9999
 autoRunServer: true
 mcUUID : null
+games:
+  - game1:
+      default: false
+      time: 5
+      replace: true
+
+################################
+#           Example            #
+# - game2:                     #
+#     default: false           #
+#     time: 5                  #
+#     replace: true            #
+################################

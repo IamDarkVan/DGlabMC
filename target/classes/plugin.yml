@@ -8,12 +8,101 @@ commands:
     permission: dglab
     usage: /dglab ...
 permissions:
-  dglab.*:
-    description: 所有权限喵
+################################################################
+  dglab.help:
+    default: true
+  dglab.reload:
     default: op
+  dglab.getqrcode:
+    default: true
+################################################################
+  dglab.info:
+    default: true
+    children:
+      dglab.info.others: false
+  dglab.info.others:
+    default: op
+################################################################
   dglab.bind:
-    description: a
     default: true
+    children:
+      dglab.bind.list: false
+      dglab.bind.others: false
+  dglab.bind.list:
+    default: op
+  dglab.bind.others:
+    default: op
+################################################################
   dglab.ctrl:
-    description: a
     default: true
+    children:
+      dglab.ctrl.pulse: true
+      dglab.ctrl.strength: true
+      dglab.ctrl.others: false
+  dglab.ctrl.pulse:
+    default: op
+  dglab.ctrl.strength:
+    default: op
+  dglab.ctrl.others:
+    default: op
+################################################################
+  dglab.game:
+    default: true
+    children:
+      dglab.game.enable: true
+      dglab.game.disable: true
+      dglab.game.list: false
+      dglab.game.others: false
+  dglab.game.enable:
+    default: true
+  dglab.game.disable:
+    default: true
+  dglab.game.list:
+    default: op
+  dglab.game.others:
+    default: op
+################################################################
+  dglab.send:
+    default: op
+    children:
+      dglab.send.dgjson: true
+      dglab.send.msg: true
+  dglab.send.dgjson:
+    default: op
+  dglab.send.msg:
+    default: op
+################################################################
+  dglab.server:
+    default: op
+    children:
+      dglab.server.run: true
+      dglab.server.stop: true
+  dglab.server.run:
+    default: op
+  dglab.server.stop:
+    default: op
+################################################################
+  dglab.shock:
+    default: true
+    children:
+      dglab.shock.others: false
+  dglab.shock.others:
+    default: op
+################################################################
+  dglab.list:
+    default: op
+    children:
+      dglab.bind.list: true
+      dglab.game.list: true
+################################################################
+  dglab.others:
+    default: op
+    children:
+      dglab.info.others: true
+      dglab.bind.others: true
+      dglab.ctrl.others: true
+      dglab.game.others: true
+      dglab.shock.others: true
+################################################################
+
+

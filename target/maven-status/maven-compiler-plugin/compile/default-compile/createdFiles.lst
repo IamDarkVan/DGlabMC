@@ -4,6 +4,7 @@ darkvan\dglabmc\command\cmds\CommandSendDGJson.class
 darkvan\dglabmc\command\CmdTabCompleter.class
 darkvan\dglabmc\command\cmds\CommandUnbind.class
 darkvan\dglabmc\command\cmds\CommandCtrlStrength.class
+darkvan\dglabmc\command\cmds\CommandGameList.class
 darkvan\dglabmc\listeners\ListenerGame1.class
 darkvan\dglabmc\command\cmds\CommandGetQRCode.class
 darkvan\dglabmc\utils\ClientUtils.class
@@ -24,6 +25,7 @@ darkvan\dglabmc\command\cmds\Command.class
 darkvan\dglabmc\command\cmds\CommandReload.class
 darkvan\dglabmc\command\cmds\CommandBindList.class
 darkvan\dglabmc\utils\CommandUtils.class
+darkvan\dglabmc\command\cmds\CommandGame.class
 darkvan\dglabmc\command\cmds\CommandShock.class
 darkvan\dglabmc\MCWebSocketServer.class
 darkvan\dglabmc\command\cmds\CommandList.class
