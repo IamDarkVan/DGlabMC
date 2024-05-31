@@ -6,21 +6,22 @@ import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
-import static darkvan.dglabmc.utils.ClientUtils.*;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandUnbind extends Command{
 
-    public CommandUnbind(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super("unbind", sender, args, 1, 2, "/dglab unbind [clientId|player] --解除玩家绑定app", perm);
+    public CommandUnbind(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("unbind", sender, args, 1, 2, "/dglab unbind [clientId|player] --解除玩家绑定app", "dglab.bind");
     }
 
-    Client client;
+    private Client client;
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 1){
@@ -32,11 +33,12 @@ public class CommandUnbind extends Command{
             this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
             if (client.getPlayer() == null) throw new CmdException("app还未被绑定");
         }
+        if (!sender.hasPermission("dglab.ctrl.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override
     protected void run() {
-        client.bind(null);
+        client.unbind();
         sender.sendMessage("成功解绑: " + client.getClientId());
     }
 

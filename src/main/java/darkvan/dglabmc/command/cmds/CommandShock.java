@@ -6,17 +6,18 @@ import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
-import static darkvan.dglabmc.utils.ClientUtils.*;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandShock extends Command{
-    public CommandShock(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super("shock", sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", perm);
+    public CommandShock(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("shock", sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
     }
 
     private Client client;
@@ -40,6 +41,7 @@ public class CommandShock extends Command{
             this.replace = !args[2].matches("^[+-].*");
         }
         if (client.getAPulse() == null && client.getBPulse() == null) throw new CmdException("频道A,B中必须有至少一个设置了波形");
+        if (!sender.hasPermission("dglab.shock.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override

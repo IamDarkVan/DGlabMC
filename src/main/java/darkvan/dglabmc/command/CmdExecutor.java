@@ -16,21 +16,23 @@ public class CmdExecutor implements CommandExecutor {
         if (args.length == 0) return sendHelp(sender);
         String[] lowerArgs = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
         switch (args[0].toLowerCase()) {
-            case "bind" ->          {return new CommandBind(sender, lowerArgs, null).execute();}
-            case "info" ->          {return new CommandInfo(sender, lowerArgs,  null).execute();}
-            case "bind-list" ->     {return new CommandBindList(sender, lowerArgs, null).execute();}
-            case "ctrl-pulse" ->    {return new CommandCtrlPulse(sender, lowerArgs,  null).execute();}
-            case "ctrl-strength" -> {return new CommandCtrlStrength(sender, lowerArgs, null).execute();}
-            case "getqrcode" ->     {return new CommandGetQRCode(sender, lowerArgs, null).execute();}
-            case "help" ->          {return new CommandHelp(sender, lowerArgs, null).execute();}
-            case "list" ->          {return new CommandList(sender, lowerArgs,  null).execute();}
-            case "reload" ->        {return new CommandReload(sender, lowerArgs, null).execute();}
-            case "send-dgjson" ->   {return new CommandSendDGJson(sender, args, null).execute();}
-            case "send-msg" ->      {return new CommandSendMsg(sender, args,  null).execute();}
-            case "server-run" ->    {return new CommandServerRun(sender, lowerArgs,  null).execute();}
-            case "server-stop" ->   {return new CommandServerStop(sender, lowerArgs,  null).execute();}
-            case "shock" ->         {return new CommandShock(sender, lowerArgs, null).execute();}
-            case "unbind" ->        {return new CommandUnbind(sender, lowerArgs,  null).execute();}
+            case "bind" ->          {return new CommandBind(sender, lowerArgs).execute();}
+            case "info" ->          {return new CommandInfo(sender, lowerArgs).execute();}
+            case "bind-list" ->     {return new CommandBindList(sender, lowerArgs).execute();}
+            case "ctrl-pulse" ->    {return new CommandCtrlPulse(sender, lowerArgs).execute();}
+            case "ctrl-strength" -> {return new CommandCtrlStrength(sender, lowerArgs).execute();}
+            case "game" ->          {return new CommandGame(sender,lowerArgs).execute();}
+            case "game-list" ->     {return new CommandGameList(sender,lowerArgs).execute();}
+            case "getqrcode" ->     {return new CommandGetQRCode(sender, lowerArgs).execute();}
+            case "help" ->          {return new CommandHelp(sender, lowerArgs).execute();}
+            case "list" ->          {return new CommandList(sender, lowerArgs).execute();}
+            case "reload" ->        {return new CommandReload(sender, lowerArgs).execute();}
+            case "send-dgjson" ->   {return new CommandSendDGJson(sender, args).execute();}
+            case "send-msg" ->      {return new CommandSendMsg(sender, args).execute();}
+            case "server-run" ->    {return new CommandServerRun(sender, lowerArgs).execute();}
+            case "server-stop" ->   {return new CommandServerStop(sender, lowerArgs).execute();}
+            case "shock" ->         {return new CommandShock(sender, lowerArgs).execute();}
+            case "unbind" ->        {return new CommandUnbind(sender, lowerArgs).execute();}
         }
         return sendHelp(sender);
     }

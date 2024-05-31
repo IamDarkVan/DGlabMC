@@ -50,12 +50,7 @@ public class DGlabUtils {
 
     @Deprecated
     public static <K, V> K getKeyByValue(@NotNull Map<K, V> map, @NotNull V value) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            if (Objects.equals(entry.getValue(), value)) {
-                return entry.getKey();
-            }
-        }
-        return null; // 如果没有找到对应的键，返回null
+        return map.entrySet().stream().filter(entry -> Objects.equals(entry.getValue(), value)).findFirst().map(Map.Entry::getKey).orElse(null);
     }
 
     public static String toDGJson(String type, String clientId, String targetId, String message){

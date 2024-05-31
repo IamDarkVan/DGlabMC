@@ -66,6 +66,9 @@ public class Client {
         if (player == null) return;
         player.sendMessage(msg);
     }
+    public void unbind(){
+        bind(null);
+    }
     public void bind(@Nullable Player p){
         resetBossbarTitle();
         if (player != null) bossbar.removePlayer(player);

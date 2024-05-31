@@ -1,38 +1,69 @@
 package darkvan.dglabmc.utils;
 
+import darkvan.dglabmc.command.cmds.*;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommandUtils {
     private CommandUtils() throws Exception {
         throw new Exception("工具类不允许实例化");
     }
-    public static boolean sendHelp(CommandSender sender){
-        sender.sendMessage(
-                "---------------------------------",
-                "以下命令[player]不填默认自己 [clientId]不填默认自己已绑定app",
-                "/dglab help -- 显示该页面",
-                "/dglab list -- 显示app列表",
-                "/dglab getQRCode -- 获取二维码",
-                "/dglab reload -- 重载配置文件",
-                "/dglab bind-list -- 查询绑定app列表",
-                "/dglab info [clientId|player] -- 查询app信息",
-                "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId",
-                "/dglab unbind [clientId|player] --解除玩家绑定app 默认自己",
-                "/dglab ctrl-strength [clientId|player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)",
-                "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 (通道 8字节的HEX数组)",
-                "/dglab shock [clientId|player] <time(sec)> -- 按照波形放电",
-                "/dglab server-run [port] -- 启动WebSocket服务器 不填端口默认config",
-                "/dglab server-stop -- 关闭目前WebSocket服务器",
-                "/dglab send-msg <clientId> <message> -- 直接向app发送消息(可空格 不推荐使用)",
-                "/dglab send-dgjson <clientId> <typ> <cid> <tid> <msg>-- 直接向app发送DGJson(不推荐使用)",
-                "---------------------------------"
-        );
+    public static boolean sendHelp(CommandSender sender) {
+        sender.sendMessage("---------------------------------");
+        usages(sender, false).forEach(sender::sendMessage);
+        sender.sendMessage("---------------------------------");
         return true;
     }
-
-    public static List<String> cmds(){
-        return List.of("help", "list", "getqrcode", "reload", "bind-list", "info", "bind", "unbind", "ctrl-strength", "ctrl-pulse", "shock", "server-run", "server-stop", "send-msg", "send-dgjson");
+    public static List<String> usages(CommandSender sender, boolean ignorePerm){
+        return Stream.of(
+            new CommandBind(sender, null).getUsage(ignorePerm),
+            new CommandInfo(sender, null).getUsage(ignorePerm),
+            new CommandBindList(sender, null).getUsage(ignorePerm),
+            new CommandCtrlPulse(sender, null).getUsage(ignorePerm),
+            new CommandCtrlStrength(sender, null).getUsage(ignorePerm),
+            new CommandGame(sender,null).getUsage(ignorePerm),
+            new CommandGameList(sender,null).getUsage(ignorePerm),
+            new CommandGetQRCode(sender, null).getUsage(ignorePerm),
+            new CommandHelp(sender, null).getUsage(ignorePerm),
+            new CommandList(sender, null).getUsage(ignorePerm),
+            new CommandReload(sender, null).getUsage(ignorePerm),
+            new CommandSendDGJson(sender, null).getUsage(ignorePerm),
+            new CommandSendMsg(sender, null).getUsage(ignorePerm),
+            new CommandServerRun(sender, null).getUsage(ignorePerm),
+            new CommandServerStop(sender, null).getUsage(ignorePerm),
+            new CommandShock(sender, null).getUsage(ignorePerm),
+            new CommandUnbind(sender, null).getUsage(ignorePerm)
+        ).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+    public static List<String> usages(CommandSender sender){
+        return usages(sender, false);
+    }
+    public static List<String> cmds(CommandSender sender, boolean ignorePerm){
+        return Stream.of(
+            new CommandBind(sender, null).getCommand(ignorePerm),
+            new CommandInfo(sender, null).getCommand(ignorePerm),
+            new CommandBindList(sender, null).getCommand(ignorePerm),
+            new CommandCtrlPulse(sender, null).getCommand(ignorePerm),
+            new CommandCtrlStrength(sender, null).getCommand(ignorePerm),
+            new CommandGame(sender,null).getCommand(ignorePerm),
+            new CommandGameList(sender,null).getCommand(ignorePerm),
+            new CommandGetQRCode(sender, null).getCommand(ignorePerm),
+            new CommandHelp(sender, null).getCommand(ignorePerm),
+            new CommandList(sender, null).getCommand(ignorePerm),
+            new CommandReload(sender, null).getCommand(ignorePerm),
+            new CommandSendDGJson(sender, null).getCommand(ignorePerm),
+            new CommandSendMsg(sender, null).getCommand(ignorePerm),
+            new CommandServerRun(sender, null).getCommand(ignorePerm),
+            new CommandServerStop(sender, null).getCommand(ignorePerm),
+            new CommandShock(sender, null).getCommand(ignorePerm),
+            new CommandUnbind(sender, null).getCommand(ignorePerm)
+        ).filter(Objects::nonNull).collect(Collectors.toList());
+    }
+    public static List<String> cmds(CommandSender sender){
+        return cmds(sender, false);
     }
 }

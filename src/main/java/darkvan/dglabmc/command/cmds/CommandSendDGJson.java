@@ -4,7 +4,6 @@ import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +15,8 @@ import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 
 public class CommandSendDGJson extends Command{
 
-    public CommandSendDGJson(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super("send-dgjson", sender, args, 6, 6, "/dglab send-dgjson <clientId> <typ> <cid> <tid> <msg>-- 直接向app发送DGJson(不推荐使用)", perm);
+    public CommandSendDGJson(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("send-dgjson", sender, args, 6, 6, "/dglab send-dgjson <clientId> <typ> <cid> <tid> <msg>-- 直接向app发送DGJson(不推荐使用)", "dglab.send.dgjson");
     }
 
     @Override

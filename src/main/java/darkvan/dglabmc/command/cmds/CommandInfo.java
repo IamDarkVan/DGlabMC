@@ -7,19 +7,20 @@ import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
-import static darkvan.dglabmc.utils.ClientUtils.*;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandInfo extends Command{
 
 
-    public CommandInfo(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super("info", sender, args, null, 2, "/dglab info [clientId|player] 查询app信息", perm);
+    public CommandInfo(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("info", sender, args, null, 2, "/dglab info [clientId|player] 查询app信息","dglab.info");
     }
     private Client client;
 
@@ -33,6 +34,7 @@ public class CommandInfo extends Command{
             if (!ClientUtils.isClientExist(args[1]) && isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
         }
+        if (!sender.hasPermission("dglab.info.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限查询其他玩家");
     }
     @Override
     protected void run() {

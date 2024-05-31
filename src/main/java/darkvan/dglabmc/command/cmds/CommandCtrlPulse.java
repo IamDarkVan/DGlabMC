@@ -6,25 +6,28 @@ import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static darkvan.dglabmc.DGlabMC.mcUUID;
-import static darkvan.dglabmc.utils.ClientUtils.*;
+import static darkvan.dglabmc.utils.ClientUtils.getClient;
+import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandCtrlPulse extends Command{
-    public CommandCtrlPulse(@NotNull CommandSender sender, @NotNull String[] args, @Nullable String perm) {
-        super("ctrl-pulse", sender, args, 3, 4, "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]", perm);
+    public CommandCtrlPulse(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("ctrl-pulse", sender, args, 3, 4,
+                "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]",
+                "dglab.ctrl.pulse");
     }
 
-    String channel, hex;
-    Client client;
+    private String channel, hex;
+    private Client client;
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 3) {
@@ -42,6 +45,7 @@ public class CommandCtrlPulse extends Command{
         }
         if (!Arrays.asList("a", "b", "both").contains(channel)) throw new CmdException("频道请输入 A B both 其中一个");
         if ("CLEAR".equals(hex) && hex.matches("^\\[[0-9A-F,]*]$")) throw new CmdException("hex数组不符合规范");
+        if (!sender.hasPermission("dglab.ctrl.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override
@@ -59,7 +63,7 @@ public class CommandCtrlPulse extends Command{
     @Override
     public List<String> tabComplete() {
         if (length == 2) return Stream.concat(Stream.of("A", "B", "both"),playerAndClients().stream()).toList();
-        if (getPlayer(args[1]) != null || ClientUtils.isClientExist(args[1])) {
+        if (getPlayer(args[1]) != null || isClientExist(args[1])) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return List.of("clear");
         } else {

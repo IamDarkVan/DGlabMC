@@ -12,13 +12,13 @@ import static org.bukkit.Bukkit.getLogger;
 public abstract class Command{
     protected final CommandSender sender;
     protected final String[] args;
-    protected final Integer min;
-    protected final Integer max;
-    protected final String perm;
-    protected final String command;
-    protected final String usage;
+    private final Integer min;
+    private final Integer max;
+    private final String perm;
+    private final String command;
+    private final String usage;
     protected final Integer length;
-    public Command(@NotNull String command, @NotNull CommandSender sender,@NotNull String[] args,@Nullable Integer min,@Nullable Integer max,@Nullable String usage, @Nullable String perm) {
+    public Command(@NotNull String command, @NotNull CommandSender sender,@Nullable String[] args,@Nullable Integer min,@Nullable Integer max,@Nullable String usage, @Nullable String perm) {
         this.command = command;
         this.sender = sender;
         this.args = args;
@@ -53,6 +53,12 @@ public abstract class Command{
     }
     private void checkPermission() throws CmdException {
         if (perm != null && !sender.hasPermission(perm)) throw new CmdException("你没有权限");
+    }
+    public String getCommand(boolean ignorePerm){
+        return (ignorePerm || perm == null || sender.hasPermission(perm)) ? command : null;
+    }
+    public String getUsage(boolean ignorePerm){
+        return (ignorePerm || perm == null || sender.hasPermission(perm)) ? usage : null;
     }
     protected abstract void errorHandle() throws CmdException;
     protected abstract void run();
