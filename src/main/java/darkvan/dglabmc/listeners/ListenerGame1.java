@@ -14,6 +14,7 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 
 public class ListenerGame1 implements Listener {
+    private Player player;
     @SuppressWarnings("deprecation")
     public static void playerDamageHandler(double damage, Player player) {
         Client client = getClient(player);
@@ -36,15 +37,15 @@ public class ListenerGame1 implements Listener {
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player player) || !isClientExist(player) || !game1.isClientEnabled(getClient(player)))
-            return;
+        if (e.getEntity() instanceof Player) player = (Player) e.getEntity(); else return;
+        if (!isClientExist(player) || !game1.isClientEnabled(getClient(player))) return;
         playerDamageHandler(e.getDamage(), player);
     }
 
     @EventHandler
     public void onPlayerHealthRegain(EntityRegainHealthEvent e) {
-        if (!(e.getEntity() instanceof Player player) || !isClientExist(player) || !game1.isClientEnabled(getClient(player)))
-            return;
+        if (e.getEntity() instanceof Player) player = (Player) e.getEntity(); else return;
+        if (!isClientExist(player) || !game1.isClientEnabled(getClient(player))) return;
         playerHealthRegainHandler(e.getAmount(), player);
     }
 }

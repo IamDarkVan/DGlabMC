@@ -55,7 +55,7 @@ public class MCWebSocketServer extends WebSocketServer {
             getLogger().info("该消息非JSON,已作废 403");
             return;
         }
-        if (!(data.keySet().containsAll(Set.of("type", "clientId", "targetId", "message")))) {
+        if (!(data.keySet().containsAll(Arrays.asList("type", "clientId", "targetId", "message")))) {
             client.output(toDGJson("msg", "", "", "404"));
             getLogger().info("该消息无必要键值,已作废 404(1)");
             return;

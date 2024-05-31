@@ -3,14 +3,15 @@ package darkvan.dglabmc.command.cmds;
 import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.CmdException;
 import darkvan.dglabmc.games.Game;
-import darkvan.dglabmc.utils.ClientUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static darkvan.dglabmc.games.Game.games;
@@ -32,7 +33,8 @@ public class CommandGame extends Command {
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 3) {
-            if (!(sender instanceof Player player)) throw new CmdException("服务器后台请使用 /dglab game <clientId|player> <game> (enable|disable|toggle)");
+            if (!(sender instanceof Player)) throw new CmdException("服务器后台请使用 /dglab game <clientId|player> <game> (enable|disable|toggle)");
+            Player player = (Player) sender;
             if (!isClientExist(player)) throw new CmdException("你还没有绑定的app");
             if (getGame(args[1]) == null) throw new CmdException("未找到该游戏");
             this.client = getClient(player);
@@ -40,9 +42,9 @@ public class CommandGame extends Command {
             this.type = args[2];
         }
         if (length == 4) {
-            if (!ClientUtils.isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
+            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             if (getGame(args[2]) == null) throw new CmdException("未找到该游戏");
-            this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
+            this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
             this.game = getGame(args[2]);
             this.type = args[3];
         }
@@ -60,9 +62,9 @@ public class CommandGame extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return Stream.concat(games.keySet().stream(), playerAndClients().stream()).toList();
+        if (length == 2) return Stream.concat(games.keySet().stream(), playerAndClients().stream()).collect(Collectors.toList());
         if (getPlayer(args[1]) != null || isClientExist(args[1])) {
-            if (length == 3) return games.keySet().stream().toList();
+            if (length == 3) return new ArrayList<>(games.keySet());
             if (length == 4) return Arrays.asList("enable", "disable", "toggle");
         } else {
             if (length == 3) return Arrays.asList("enable", "disable", "toggle");

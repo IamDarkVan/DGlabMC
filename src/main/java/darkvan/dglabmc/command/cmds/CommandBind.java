@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
@@ -25,8 +26,8 @@ public class CommandBind extends Command {
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 2) {
-            if (!(sender instanceof Player p)) throw new CmdException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
-            this.player = p;
+            if (!(sender instanceof Player)) throw new CmdException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
+            this.player = (Player) sender;
         }
         if (length == 3) {
             if (getPlayer(args[2]) == null) throw new CmdException("玩家不存在");
@@ -46,8 +47,8 @@ public class CommandBind extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return clients.stream().map(Client::getClientId).toList();
-        if (length == 3) return getOnlinePlayers().stream().map(Player::getName).toList();
+        if (length == 2) return clients.stream().map(Client::getClientId).collect(Collectors.toList());
+        if (length == 3) return getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
         return null;
     }
 }

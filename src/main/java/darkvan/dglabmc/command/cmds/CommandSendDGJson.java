@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
@@ -32,7 +33,7 @@ public class CommandSendDGJson extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return clients.stream().map(Client::getClientId).toList();
+        if (length == 2) return clients.stream().map(Client::getClientId).collect(Collectors.toList());
         return null;
     }
 }

@@ -40,7 +40,7 @@ public abstract class Game {
             throw new RuntimeException("未在config.yml中注册游戏");
         }
         games.put(name, this);
-        if (settings.containsKey("default") && settings.get("default") instanceof Boolean bool && bool)
+        if (settings.containsKey("default") && settings.get("default") instanceof Boolean && (Boolean) settings.get("default"))
             enabledClients.addAll(clients);
     }
 
