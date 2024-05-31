@@ -20,14 +20,14 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static org.bukkit.Bukkit.getPlayer;
 
-public class CommandGame extends Command{
+public class CommandGame extends Command {
 
-    public CommandGame(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("game", sender, args, 3, 4, "/dglab game [clientId|player] <game> (enable|disable|toggle) -- 为客户端启用/禁用游戏", "dglab.game");
-    }
     private Client client;
     private Game game;
     private String type;
+    public CommandGame(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("game", sender, args, 3, 4, "/dglab game [clientId|player] <game> (enable|disable|toggle) -- 为客户端启用/禁用游戏", "dglab.game");
+    }
 
     @Override
     protected void errorHandle() throws CmdException {
@@ -39,7 +39,7 @@ public class CommandGame extends Command{
             this.game = getGame(args[1]);
             this.type = args[2];
         }
-        if(length == 4){
+        if (length == 4) {
             if (!ClientUtils.isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             if (getGame(args[2]) == null) throw new CmdException("未找到该游戏");
             this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
@@ -55,7 +55,7 @@ public class CommandGame extends Command{
         if ("enable".equals(type)) game.enableClient(client);
         if ("disable".equals(type)) game.disableClient(client);
         if ("toggle".equals(type)) game.toggleClient(client);
-        sender.sendMessage("成功为" + client.getClientId()  + (game.isClientEnabled(client) ? "启用" : "取消") + "游戏");
+        sender.sendMessage("成功为" + client.getClientId() + (game.isClientEnabled(client) ? "启用" : "取消") + "游戏");
     }
 
     @Override

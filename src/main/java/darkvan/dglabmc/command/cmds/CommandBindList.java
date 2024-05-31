@@ -9,13 +9,14 @@ import java.util.List;
 import static darkvan.dglabmc.DGlabMC.clients;
 
 
-public class CommandBindList extends Command{
+public class CommandBindList extends Command {
     public CommandBindList(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("bind-list",sender, args, null,null,"/dglab bind-list -- 查询已绑定的app列表", "dglab.bind.list");
+        super("bind-list", sender, args, null, null, "/dglab bind-list -- 查询已绑定的app列表", "dglab.bind.list");
     }
 
     @Override
-    protected void errorHandle() throws CmdException { }
+    protected void errorHandle() throws CmdException {
+    }
 
     @Override
     protected void run() {

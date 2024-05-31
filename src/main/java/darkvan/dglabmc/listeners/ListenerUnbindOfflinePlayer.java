@@ -10,7 +10,7 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 
 public class ListenerUnbindOfflinePlayer implements Listener {
     @EventHandler
-    public void onPlayerOffline(PlayerQuitEvent e){
+    public void onPlayerOffline(PlayerQuitEvent e) {
         if (!isClientExist(e.getPlayer())) return;
         Client client = getClient(e.getPlayer());
         client.bind(null);

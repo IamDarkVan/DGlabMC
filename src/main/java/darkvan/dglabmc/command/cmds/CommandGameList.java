@@ -8,7 +8,7 @@ import java.util.List;
 
 import static darkvan.dglabmc.games.Game.games;
 
-public class CommandGameList extends Command{
+public class CommandGameList extends Command {
 
     public CommandGameList(@NotNull CommandSender sender, @NotNull String[] args) {
         super("game-list", sender, args, null, null, "/dglab game-list", "dglab.game.list");

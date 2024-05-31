@@ -19,15 +19,15 @@ import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.getPlayer;
 
-public class CommandCtrlPulse extends Command{
+public class CommandCtrlPulse extends Command {
+    private String channel, hex;
+    private Client client;
     public CommandCtrlPulse(@NotNull CommandSender sender, @NotNull String[] args) {
         super("ctrl-pulse", sender, args, 3, 4,
                 "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]",
                 "dglab.ctrl.pulse");
     }
 
-    private String channel, hex;
-    private Client client;
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 3) {
@@ -37,7 +37,7 @@ public class CommandCtrlPulse extends Command{
             this.channel = args[1];
             this.hex = args[2].toUpperCase();
         }
-        if(length == 4){
+        if (length == 4) {
             if (!ClientUtils.isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
             this.channel = args[2];
@@ -62,7 +62,7 @@ public class CommandCtrlPulse extends Command{
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return Stream.concat(Stream.of("A", "B", "both"),playerAndClients().stream()).toList();
+        if (length == 2) return Stream.concat(Stream.of("A", "B", "both"), playerAndClients().stream()).toList();
         if (getPlayer(args[1]) != null || isClientExist(args[1])) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return List.of("clear");

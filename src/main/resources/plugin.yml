@@ -67,12 +67,9 @@ permissions:
     children:
       dglab.send.dgjson: true
       dglab.send.msg: true
-      dglab.send.others: false
   dglab.send.dgjson:
     default: op
   dglab.send.msg:
-    default: op
-  dglab.send.others:
     default: op
 ################################################################
   dglab.server:
@@ -105,7 +102,6 @@ permissions:
       dglab.bind.others: true
       dglab.ctrl.others: true
       dglab.game.others: true
-      dglab.send.others: true
       dglab.shock.others: true
 ################################################################
 

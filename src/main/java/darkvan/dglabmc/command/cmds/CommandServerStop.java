@@ -8,9 +8,9 @@ import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.plugin;
 
-public class CommandServerStop extends Command{
+public class CommandServerStop extends Command {
     public CommandServerStop(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("server-stop", sender, args, null,null,"/dglab server-stop -- 关闭目前WebSocket服务器", "dglab.server.stop");
+        super("server-stop", sender, args, null, null, "/dglab server-stop -- 关闭目前WebSocket服务器", "dglab.server.stop");
     }
 
     @Override

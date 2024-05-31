@@ -15,19 +15,20 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static org.bukkit.Bukkit.getOnlinePlayers;
 import static org.bukkit.Bukkit.getPlayer;
 
-public class CommandBind extends Command{
-    public CommandBind(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("bind",sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", "dglab.bind");
-    }
+public class CommandBind extends Command {
     private Client client;
     private Player player;
+    public CommandBind(@NotNull CommandSender sender, @NotNull String[] args) {
+        super("bind", sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", "dglab.bind");
+    }
+
     @Override
-    protected void errorHandle() throws CmdException{
-        if(length == 2) {
-            if (!(sender instanceof Player p))throw new CmdException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
+    protected void errorHandle() throws CmdException {
+        if (length == 2) {
+            if (!(sender instanceof Player p)) throw new CmdException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
             this.player = p;
         }
-        if (length == 3){
+        if (length == 3) {
             if (getPlayer(args[2]) == null) throw new CmdException("玩家不存在");
             this.player = getPlayer(args[2]);
         }
@@ -36,6 +37,7 @@ public class CommandBind extends Command{
         if (client.getPlayer() != null) throw new CmdException("你要绑定的客户端已被绑定");
         if (!sender.hasPermission("dglab.bind.others") && Objects.equals(player, sender)) throw new CmdException("你没有权限控制其他玩家");
     }
+
     @Override
     protected void run() {
         client.bind(player);

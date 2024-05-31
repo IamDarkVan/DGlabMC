@@ -14,17 +14,7 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 
 public class ListenerGame1 implements Listener {
-    @EventHandler
-    public void onPlayerDamage(EntityDamageEvent e){
-        if (!(e.getEntity() instanceof Player player) || !isClientExist(player) || !game1.isClientEnabled(getClient(player))) return;
-        playerDamageHandler(e.getDamage(), player);
-    }
-    @EventHandler
-    public void onPlayerHealthRegain(EntityRegainHealthEvent e) {
-        if (!(e.getEntity() instanceof Player player) || !isClientExist(player) || !game1.isClientEnabled(getClient(player))) return;
-        playerHealthRegainHandler(e.getAmount(), player);
-    }
-
+    @SuppressWarnings("deprecation")
     public static void playerDamageHandler(double damage, Player player) {
         Client client = getClient(player);
         int valueA = (int) ((1 - (player.getHealth() - damage) / player.getMaxHealth()) * client.getAMaxStrength());
@@ -33,6 +23,8 @@ public class ListenerGame1 implements Listener {
         client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-2+2+" + valueB));
         client.giveShock(5, true);
     }
+
+    @SuppressWarnings("deprecation")
     public static void playerHealthRegainHandler(double amount, Player player) {
         Client client = getClient(player);
         int valueA = (int) ((1 - (player.getHealth() + amount) / player.getMaxHealth()) * client.getAMaxStrength());
@@ -40,5 +32,19 @@ public class ListenerGame1 implements Listener {
         client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-1+2+" + valueA));
         client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-2+2+" + valueB));
         if (valueA == 0 && valueB == 0) client.giveShock(0);
+    }
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent e) {
+        if (!(e.getEntity() instanceof Player player) || !isClientExist(player) || !game1.isClientEnabled(getClient(player)))
+            return;
+        playerDamageHandler(e.getDamage(), player);
+    }
+
+    @EventHandler
+    public void onPlayerHealthRegain(EntityRegainHealthEvent e) {
+        if (!(e.getEntity() instanceof Player player) || !isClientExist(player) || !game1.isClientEnabled(getClient(player)))
+            return;
+        playerHealthRegainHandler(e.getAmount(), player);
     }
 }

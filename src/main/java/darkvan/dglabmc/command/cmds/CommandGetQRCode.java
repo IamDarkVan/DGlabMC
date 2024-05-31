@@ -8,13 +8,14 @@ import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.plugin;
 
-public class CommandGetQRCode extends Command{
+public class CommandGetQRCode extends Command {
     public CommandGetQRCode(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("getqrcode", sender, args, null,null,"/dglab getQRCode -- 获取二维码", "dglab.getqrcode");
+        super("getqrcode", sender, args, null, null, "/dglab getQRCode -- 获取二维码", "dglab.getqrcode");
     }
 
     @Override
-    protected void errorHandle() throws CmdException { }
+    protected void errorHandle() throws CmdException {
+    }
 
     @Override
     protected void run() {

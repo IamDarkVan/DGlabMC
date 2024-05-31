@@ -8,14 +8,15 @@ import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.clients;
 
-public class CommandList extends Command{
+public class CommandList extends Command {
 
     public CommandList(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("list", sender, args,null,null, "/dglab list -- 显示app列表", "dglab.list");
+        super("list", sender, args, null, null, "/dglab list -- 显示app列表", "dglab.list");
     }
 
     @Override
-    protected void errorHandle() throws CmdException { }
+    protected void errorHandle() throws CmdException {
+    }
 
     @Override
     protected void run() {

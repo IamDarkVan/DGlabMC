@@ -31,11 +31,12 @@ public class DGlabUtils {
     private DGlabUtils() throws Exception {
         throw new Exception("工具类不允许实例化");
     }
+
     public static void runWebSocketServer(int port) {
         plugin.mcWebSocketServer = new MCWebSocketServer(port);
         try {
             plugin.mcWebSocketServer.start();
-        } catch (Exception e){
+        } catch (Exception e) {
             plugin.mcWebSocketServer.stop();
             plugin.mcWebSocketServer = null;
             getLogger().info("开启WebSocketServer失败" + e);
@@ -53,21 +54,21 @@ public class DGlabUtils {
         return map.entrySet().stream().filter(entry -> Objects.equals(entry.getValue(), value)).findFirst().map(Map.Entry::getKey).orElse(null);
     }
 
-    public static String toDGJson(String type, String clientId, String targetId, String message){
-        return "{\"type\":\"" + type + "\",\"clientId\":\"" + clientId + "\",\"targetId\":\"" + targetId + "\",\"message\":\"" + message +"\"}";
+    public static String toDGJson(String type, String clientId, String targetId, String message) {
+        return "{\"type\":\"" + type + "\",\"clientId\":\"" + clientId + "\",\"targetId\":\"" + targetId + "\",\"message\":\"" + message + "\"}";
     }
 
-    public static String toDGJson(String[] str){
-        return "{\"type\":\"" + str[0] + "\",\"clientId\":\"" + str[1] + "\",\"targetId\":\"" + str[2] + "\",\"message\":\"" + str[3] +"\"}";
+    public static String toDGJson(String[] str) {
+        return "{\"type\":\"" + str[0] + "\",\"clientId\":\"" + str[1] + "\",\"targetId\":\"" + str[2] + "\",\"message\":\"" + str[3] + "\"}";
     }
 
-    public static List<String> playerAndClients(){
+    public static List<String> playerAndClients() {
         return Stream.concat(getOnlinePlayers().stream().map(Player::getName), clients.stream().map(Client::getClientId)).collect(Collectors.toList());
     }
 
     @SuppressWarnings("unchecked")
-    public static HashMap<String,String> toHashMap(String json){
-        return new Gson().fromJson(json,HashMap.class);
+    public static HashMap<String, String> toHashMap(String json) {
+        return new Gson().fromJson(json, HashMap.class);
     }
 
     public static void generateQRCode(String text, String filePath) throws WriterException, IOException {

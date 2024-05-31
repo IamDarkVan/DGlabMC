@@ -8,14 +8,15 @@ import java.util.List;
 
 import static darkvan.dglabmc.utils.DGlabUtils.reloadConfigFile;
 
-public class CommandReload extends Command{
+public class CommandReload extends Command {
 
     public CommandReload(@NotNull CommandSender sender, @NotNull String[] args) {
-        super("reload", sender, args, null,null,"/dglab reload -- 重载配置文件", "dglab.reload");
+        super("reload", sender, args, null, null, "/dglab reload -- 重载配置文件", "dglab.reload");
     }
 
     @Override
-    protected void errorHandle() throws CmdException { }
+    protected void errorHandle() throws CmdException {
+    }
 
     @Override
     protected void run() {

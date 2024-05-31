@@ -19,15 +19,15 @@ import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.getPlayer;
 
-public class CommandCtrlStrength extends Command{
+public class CommandCtrlStrength extends Command {
+    private String channel, mode, value;
+    private Client client;
     public CommandCtrlStrength(@NotNull CommandSender sender, @NotNull String[] args) {
         super("ctrl-strength", sender, args, 4, 5,
                 "/dglab ctrl-strength [clientId|player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)",
                 "dglab.ctrl.strength");
     }
 
-    private String channel, mode, value;
-    private Client client;
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 4) {
@@ -38,7 +38,7 @@ public class CommandCtrlStrength extends Command{
             this.mode = args[2];
             this.value = args[3];
         }
-        if(length == 5){
+        if (length == 5) {
             if (!ClientUtils.isClientExist(args[1]) && isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
             this.channel = args[2];
@@ -54,14 +54,16 @@ public class CommandCtrlStrength extends Command{
     @Override
     protected void run() {
         this.mode = "add".equals(mode) ? "1" : "dec".equals(mode) ? "0" : "2";
-        if ("a".equals(channel) || "both".equals(channel)) client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-1+" + mode + "+" + value));
-        if ("b".equals(channel) || "both".equals(channel)) client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-2+" + mode + "+" + value));
+        if ("a".equals(channel) || "both".equals(channel))
+            client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-1+" + mode + "+" + value));
+        if ("b".equals(channel) || "both".equals(channel))
+            client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-2+" + mode + "+" + value));
         sender.sendMessage("通道" + channel + "成功" + ("1".equals(mode) ? "增加" : "0".equals(mode) ? "减少" : "设置为") + value);
     }
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return Stream.concat(Stream.of("A", "B", "both"),playerAndClients().stream()).toList();
+        if (length == 2) return Stream.concat(Stream.of("A", "B", "both"), playerAndClients().stream()).toList();
         if (getPlayer(args[1]) != null || isClientExist(args[1])) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return Arrays.asList("add", "dec", "set");

@@ -12,29 +12,30 @@ import java.util.*;
 
 import static darkvan.dglabmc.DGlabMC.mcUUID;
 import static darkvan.dglabmc.DGlabMC.plugin;
-import static darkvan.dglabmc.utils.ClientUtils.*;
+import static darkvan.dglabmc.utils.ClientUtils.createClient;
 import static darkvan.dglabmc.utils.DGlabUtils.*;
 import static org.bukkit.Bukkit.getLogger;
 
-public class MCWebSocketServer extends WebSocketServer{
+public class MCWebSocketServer extends WebSocketServer {
 
-    public MCWebSocketServer(int port){
+    public MCWebSocketServer(int port) {
         super(new InetSocketAddress(port));
     }
 
     @Override
     @SneakyThrows
-    public void stop(){
+    public void stop() {
         plugin.mcWebSocketServer = null;
         super.stop(0);
         getLogger().info("服务器停止运行");
     }
+
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake handshake) {
         String clientID = UUID.randomUUID().toString();
         getLogger().info("New WebSocket connection has been created, UUID:" + clientID);
         Client client = createClient(clientID, webSocket, null);
-        client.output(toDGJson("bind",clientID,"","targetId"));
+        client.output(toDGJson("bind", clientID, "", "targetId"));
     }
 
     @Override
@@ -46,23 +47,23 @@ public class MCWebSocketServer extends WebSocketServer{
     public void onMessage(WebSocket webSocket, String text) {
         Client client = ClientUtils.getClient(webSocket);
         getLogger().info("服务器收到: " + client.getClientId() + ": " + text);
-        HashMap<String,String> data;
-        try{
+        HashMap<String, String> data;
+        try {
             data = toHashMap(text);
-        }catch (Exception e){
-            client.output(toDGJson("msg","","","403"));
+        } catch (Exception e) {
+            client.output(toDGJson("msg", "", "", "403"));
             getLogger().info("该消息非JSON,已作废 403");
             return;
         }
-        if (!(data.keySet().containsAll(Set.of("type","clientId","targetId","message")))){
-            client.output(toDGJson("msg","","","404"));
+        if (!(data.keySet().containsAll(Set.of("type", "clientId", "targetId", "message")))) {
+            client.output(toDGJson("msg", "", "", "404"));
             getLogger().info("该消息无必要键值,已作废 404(1)");
             return;
         }
         String type = data.get("type"), clientId = data.get("clientId"),
-               targetId = data.get("targetId"), message = data.get("message");
-        if (!Objects.equals(clientId, mcUUID) && ClientUtils.getClient(targetId).getWebSocket() != webSocket){
-            client.output(toDGJson("msg","","","404"));
+                targetId = data.get("targetId"), message = data.get("message");
+        if (!Objects.equals(clientId, mcUUID) && ClientUtils.getClient(targetId).getWebSocket() != webSocket) {
+            client.output(toDGJson("msg", "", "", "404"));
             getLogger().info("该消息来源未知,已作废 404(2)");
             return;
         }

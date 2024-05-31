@@ -15,14 +15,15 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
 import static org.bukkit.Bukkit.getPlayer;
 
-public class CommandShock extends Command{
+public class CommandShock extends Command {
+    private Client client;
+    private Integer second;
+    private boolean replace;
+
     public CommandShock(@NotNull CommandSender sender, @NotNull String[] args) {
         super("shock", sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
     }
 
-    private Client client;
-    private Integer second;
-    private boolean replace;
     @Override
     protected void errorHandle() throws CmdException {
         if (length == 2) {
@@ -33,7 +34,7 @@ public class CommandShock extends Command{
             this.second = Integer.parseInt(args[1]);
             this.replace = !args[1].matches("^[+-].*");
         }
-        if(length == 3){
+        if (length == 3) {
             if (!ClientUtils.isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             if (!args[2].matches("^[+-]?\\d+$")) throw new CmdException("时间(秒)必须为不含小数的纯数字");
             this.client = ClientUtils.isClientExist(args[1]) ? ClientUtils.getClient(args[1]) : getClient(getPlayer(args[1]));
@@ -48,12 +49,12 @@ public class CommandShock extends Command{
     protected void run() {
         client.giveShock(second, replace);
         if (replace) {
-            sender.sendMessage("电击时间设为"+second+"秒");
+            sender.sendMessage("电击时间设为" + second + "秒");
             return;
         }
-        if (second > 0)sender.sendMessage("电击时间+"+second+"秒");
-        if (second < 0)sender.sendMessage("电击时间"+second+"秒");
-        if (second == 0)sender.sendMessage("成功停止电击");
+        if (second > 0) sender.sendMessage("电击时间+" + second + "秒");
+        if (second < 0) sender.sendMessage("电击时间" + second + "秒");
+        if (second == 0) sender.sendMessage("成功停止电击");
     }
 
     @Override

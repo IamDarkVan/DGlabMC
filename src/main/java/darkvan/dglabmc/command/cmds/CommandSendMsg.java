@@ -12,7 +12,7 @@ import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 
-public class CommandSendMsg extends Command{
+public class CommandSendMsg extends Command {
     public CommandSendMsg(@NotNull CommandSender sender, @NotNull String[] args) {
         super("send-msg", sender, args, 3, null, "/dglab send-msg <clientId> <message> -- 直接向app发送消息(可空格 不推荐使用)", "dglab.send.msg");
     }
@@ -24,8 +24,8 @@ public class CommandSendMsg extends Command{
 
     @Override
     protected void run() {
-        getClient(args[1]).output(String.join(" ",Arrays.copyOfRange(args, 2, length)));
-        sender.sendMessage("已成功发送" + String.join(" ",Arrays.copyOfRange(args, 2, length)));
+        getClient(args[1]).output(String.join(" ", Arrays.copyOfRange(args, 2, length)));
+        sender.sendMessage("已成功发送" + String.join(" ", Arrays.copyOfRange(args, 2, length)));
     }
 
     @Override
