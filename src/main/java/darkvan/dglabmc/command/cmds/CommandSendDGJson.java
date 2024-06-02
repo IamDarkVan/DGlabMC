@@ -25,8 +25,8 @@ public class CommandSendDGJson extends Command {
 
     @Override
     protected void run() {
-        getClient(args[1]).output(toDGJson(Arrays.copyOfRange(args, 2, 6)));
-        sender.sendMessage("已成功发送" + toDGJson(Arrays.copyOfRange(args, 2, 6)));
+        getClient(args[1]).output(toDGJson(Arrays.copyOfRange(rawArgs, 2, 6)));
+        sender.sendMessage("已成功发送" + toDGJson(Arrays.copyOfRange(rawArgs, 2, 6)));
     }
 
     @Override

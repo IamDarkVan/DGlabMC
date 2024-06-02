@@ -23,8 +23,8 @@ public class CommandSendMsg extends Command {
 
     @Override
     protected void run() {
-        getClient(args[1]).output(String.join(" ", Arrays.copyOfRange(args, 2, length)));
-        sender.sendMessage("已成功发送" + String.join(" ", Arrays.copyOfRange(args, 2, length)));
+        getClient(args[1]).output(String.join(" ", Arrays.copyOfRange(rawArgs, 2, length)));
+        sender.sendMessage("已成功发送" + String.join(" ", Arrays.copyOfRange(rawArgs, 2, length)));
     }
 
     @Override
