@@ -11,28 +11,13 @@ import java.util.function.BiFunction;
 
 public class CmdFactory {
     private static final Map<String, BiFunction<CommandSender, String[], Command>> commandMap = new HashMap<>();
-    static {
-        commandMap.put("bind", CommandBind::new);
-        commandMap.put("info", CommandInfo::new);
-        commandMap.put("bind-list", CommandBindList::new);
-        commandMap.put("ctrl-pulse", CommandCtrlPulse::new);
-        commandMap.put("ctrl-strength", CommandCtrlStrength::new);
-        commandMap.put("game", CommandGame::new);
-        commandMap.put("game-list", CommandGameList::new);
-        commandMap.put("getqrcode", CommandGetQRCode::new);
-        commandMap.put("help", CommandHelp::new);
-        commandMap.put("list", CommandList::new);
-        commandMap.put("reload", CommandReload::new);
-        commandMap.put("send-dgjson", CommandSendDGJson::new);
-        commandMap.put("send-msg", CommandSendMsg::new);
-        commandMap.put("server-run", CommandServerRun::new);
-        commandMap.put("server-stop", CommandServerStop::new);
-        commandMap.put("shock", CommandShock::new);
-        commandMap.put("unbind", CommandUnbind::new);
-    }
+
     private final Command command;
     public CmdFactory(@NotNull String name, @NotNull CommandSender sender, @NotNull String[] args) {
         this.command = commandMap.containsKey(name) ? commandMap.get(name).apply(sender, args) : commandMap.get("help").apply(sender, args);
+    }
+    public static void registerCommand(@NotNull String name, @NotNull BiFunction<CommandSender, String[], Command> cmd){
+        commandMap.put(name, cmd);
     }
 
     public boolean execute(){

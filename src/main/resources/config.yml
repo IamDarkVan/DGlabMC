@@ -12,6 +12,7 @@ games:
 #           Example            #
 # - game2:                     #
 #     default: false           #
-#     time: 5                  #
-#     replace: true            #
+#     setting1: value1         #
+#     setting2: value2         #
+#     ...                      #
 ################################

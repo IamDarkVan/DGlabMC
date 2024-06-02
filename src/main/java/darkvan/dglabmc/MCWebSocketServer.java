@@ -74,12 +74,13 @@ public class MCWebSocketServer extends WebSocketServer {
             } else {
                 client.output(toDGJson("bind", clientId, targetId, "400"));
                 getLogger().info("该消息未知,已作废 400");
+                return;
             }
         }
         getLogger().info(message);
         if (Objects.equals(type, "msg")) {
             if (message.contains("strength")) {
-                // strength-0+0+0+0
+                // strength-0+1+2+3, [0, 1, 2, 3]
                 Integer[] strength = Arrays.stream(message.split("-")[1].split("\\+")).map(Integer::parseInt).toArray(Integer[]::new);
                 client.setAStrength(strength[0]);
                 client.setBStrength(strength[1]);
@@ -90,9 +91,11 @@ public class MCWebSocketServer extends WebSocketServer {
                 return;
             }
             if (message.contains("feedback")) {
+                // 0 ~ 4 通道A, 5 ~ 9 通道B
                 String fb = message.split("-")[1];
                 getLogger().info(fb);
                 //待实现
+                client.sendMessage("你按下了 " + fb);
             }
         }
     }
