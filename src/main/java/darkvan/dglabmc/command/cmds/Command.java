@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -21,10 +22,10 @@ public abstract class Command {
     private final String command;
     private final String usage;
 
-    public Command(@NotNull String command, @NotNull CommandSender sender, @NotNull String[] args, @Nullable Integer min, @Nullable Integer max, @Nullable String usage, @Nullable String perm) {
+    public Command(@NotNull String command, @NotNull CommandSender sender, @Nullable String[] args, @Nullable Integer min, @Nullable Integer max, @Nullable String usage, @Nullable String perm) {
         this.command = command;
         this.sender = sender;
-        this.args = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
+        this.args = args != null ? Arrays.stream(args).filter(Objects::nonNull).map(String::toLowerCase).toArray(String[]::new) : null;
         this.rawArgs = args;
         this.min = min;
         this.max = max;

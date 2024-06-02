@@ -5,6 +5,7 @@ import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class CommandUnbind extends Command {
 
     private Client client;
 
-    public CommandUnbind(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandUnbind(@NotNull CommandSender sender, @Nullable String[] args) {
         super("unbind", sender, args, 1, 2, "/dglab unbind [clientId|player] --解除玩家绑定app", "dglab.bind");
     }
 

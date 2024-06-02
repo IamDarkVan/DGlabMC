@@ -7,6 +7,7 @@ import darkvan.dglabmc.utils.CommandUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ public class CommandGame extends Command {
     private Client client;
     private Game game;
     private String type;
-    public CommandGame(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandGame(@NotNull CommandSender sender, @Nullable String[] args) {
         super("game", sender, args, 3, 4, "/dglab game [clientId|player] <game> (enable|disable|toggle) -- 为客户端启用/禁用游戏", "dglab.game");
     }
 

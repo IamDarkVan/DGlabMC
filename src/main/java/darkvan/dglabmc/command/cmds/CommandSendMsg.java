@@ -3,6 +3,7 @@ package darkvan.dglabmc.command.cmds;
 import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,7 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.CommandUtils.getClientList;
 
 public class CommandSendMsg extends Command {
-    public CommandSendMsg(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandSendMsg(@NotNull CommandSender sender, @Nullable String[] args) {
         super("send-msg", sender, args, 3, null, "/dglab send-msg <clientId> <message> -- 直接向app发送消息(可空格 不推荐使用)", "dglab.send.msg");
     }
 

@@ -1,16 +1,16 @@
 package darkvan.dglabmc.command;
 
-import darkvan.dglabmc.command.cmds.*;
+import darkvan.dglabmc.command.cmds.Command;
+import lombok.Getter;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.BiFunction;
 
 public class CmdFactory {
-    private static final Map<String, BiFunction<CommandSender, String[], Command>> commandMap = new HashMap<>();
+    @Getter private static final HashMap<String, BiFunction<CommandSender, String[], Command>> commandMap = new HashMap<>();
 
     private final Command command;
     public CmdFactory(@NotNull String name, @NotNull CommandSender sender, @NotNull String[] args) {
@@ -27,4 +27,5 @@ public class CmdFactory {
     public List<String> tabComplete(){
         return command.tabComplete();
     }
+
 }

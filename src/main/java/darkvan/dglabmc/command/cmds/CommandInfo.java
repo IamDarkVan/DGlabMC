@@ -6,6 +6,7 @@ import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class CommandInfo extends Command {
 
     private Client client;
 
-    public CommandInfo(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandInfo(@NotNull CommandSender sender, @Nullable String[] args) {
         super("info", sender, args, null, 2, "/dglab info [clientId|player] 查询app信息", "dglab.info");
     }
 

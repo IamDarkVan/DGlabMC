@@ -12,7 +12,7 @@ import java.util.*;
 
 import static darkvan.dglabmc.DGlabMC.mcUUID;
 import static darkvan.dglabmc.DGlabMC.plugin;
-import static darkvan.dglabmc.utils.ClientUtils.createClient;
+import static darkvan.dglabmc.utils.ClientUtils.*;
 import static darkvan.dglabmc.utils.DGlabUtils.*;
 import static org.bukkit.Bukkit.getLogger;
 

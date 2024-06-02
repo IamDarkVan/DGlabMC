@@ -6,6 +6,7 @@ import darkvan.dglabmc.utils.CommandUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +22,7 @@ import static org.bukkit.Bukkit.getPlayer;
 public class CommandCtrlStrength extends Command {
     private String channel, mode, value;
     private Client client;
-    public CommandCtrlStrength(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandCtrlStrength(@NotNull CommandSender sender, @Nullable String[] args) {
         super("ctrl-strength", sender, args, 4, 5,
                 "/dglab ctrl-strength [clientId|player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)",
                 "dglab.ctrl.strength");

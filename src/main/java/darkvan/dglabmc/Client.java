@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 
 import static darkvan.dglabmc.DGlabMC.*;
-import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
+import static darkvan.dglabmc.utils.DGlabUtils.*;
 import static org.bukkit.Bukkit.createBossBar;
 import static org.bukkit.Bukkit.getLogger;
 

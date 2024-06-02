@@ -3,6 +3,7 @@ package darkvan.dglabmc.command.cmds;
 import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import static darkvan.dglabmc.utils.DGlabUtils.runWebSocketServer;
 public class CommandServerRun extends Command {
     private Integer port;
 
-    public CommandServerRun(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandServerRun(@NotNull CommandSender sender, @Nullable String[] args) {
         super("server-run", sender, args, null, 2, "/dglab server-run [port] -- 启动WebSocket服务器 不填端口默认config", "dglab.server.run");
     }
 

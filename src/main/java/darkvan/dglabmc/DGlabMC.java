@@ -5,6 +5,7 @@ import darkvan.dglabmc.command.CmdTabCompleter;
 import darkvan.dglabmc.command.cmds.*;
 import darkvan.dglabmc.listeners.ListenerGame1;
 import darkvan.dglabmc.listeners.ListenerUnbindOfflinePlayer;
+import darkvan.dglabmc.utils.DGlabUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +15,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static darkvan.dglabmc.command.CmdFactory.registerCommand;
-import static darkvan.dglabmc.utils.DGlabUtils.runWebSocketServer;
+
 
 public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
@@ -60,7 +61,7 @@ public final class DGlabMC extends JavaPlugin {
         qrCode = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + ip + ":" + port + "/" + mcUUID;
         getLogger().info("本机UUID为:" + mcUUID);
         getLogger().info("本机生成二维码为: " + qrCode);
-        if (autoRunServer) runWebSocketServer(port);
+        if (autoRunServer) DGlabUtils.runWebSocketServer(port);
         else getLogger().info("请使用/dglab server-run启动WebSocket服务器");
     }
 

@@ -5,6 +5,7 @@ import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class CommandShock extends Command {
     private Integer second;
     private boolean replace;
 
-    public CommandShock(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandShock(@NotNull CommandSender sender, @Nullable String[] args) {
         super("shock", sender, args, 2, 3, "/dglab shock [clientId|player] <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
     }
 

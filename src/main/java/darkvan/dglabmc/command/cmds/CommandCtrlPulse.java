@@ -5,6 +5,7 @@ import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,7 +23,7 @@ import static org.bukkit.Bukkit.getPlayer;
 public class CommandCtrlPulse extends Command {
     private String channel, hex;
     private Client client;
-    public CommandCtrlPulse(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandCtrlPulse(@NotNull CommandSender sender, @Nullable String[] args) {
         super("ctrl-pulse", sender, args, 3, 4,
                 "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]",
                 "dglab.ctrl.pulse");

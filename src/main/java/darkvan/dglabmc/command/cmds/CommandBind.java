@@ -5,6 +5,7 @@ import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import static org.bukkit.Bukkit.getPlayer;
 public class CommandBind extends Command {
     private Client client;
     private Player player;
-    public CommandBind(@NotNull CommandSender sender, @NotNull String[] args) {
+    public CommandBind(@NotNull CommandSender sender, @Nullable String[] args) {
         super("bind", sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", "dglab.bind");
     }
 
