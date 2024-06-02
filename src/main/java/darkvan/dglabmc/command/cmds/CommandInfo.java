@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
-import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
+import static darkvan.dglabmc.utils.CommandUtils.getPlayerAndClientList;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandInfo extends Command {
@@ -36,7 +36,7 @@ public class CommandInfo extends Command {
             if (!isClientExist(args[1]) && isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
         }
-        if (!sender.hasPermission("dglab.info.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.info.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限查询其他玩家");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class CommandInfo extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return playerAndClients();
+        if (length == 2) return getPlayerAndClientList(sender);
         return null;
     }
 }

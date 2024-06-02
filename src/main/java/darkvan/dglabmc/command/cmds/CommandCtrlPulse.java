@@ -10,13 +10,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static darkvan.dglabmc.DGlabMC.mcUUID;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
-import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
+import static darkvan.dglabmc.utils.CommandUtils.concatList;
+import static darkvan.dglabmc.utils.CommandUtils.getPlayerAndClientList;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.getPlayer;
 
@@ -64,7 +63,7 @@ public class CommandCtrlPulse extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return Stream.concat(Stream.of("A", "B", "both"), playerAndClients().stream()).collect(Collectors.toList());
+        if (length == 2) return concatList(getPlayerAndClientList(sender), "A", "B", "both");
         if (getPlayer(args[1]) != null || isClientExist(args[1])) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return Collections.singletonList("clear");

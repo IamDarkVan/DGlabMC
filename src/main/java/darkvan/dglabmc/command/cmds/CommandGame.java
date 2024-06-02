@@ -3,6 +3,7 @@ package darkvan.dglabmc.command.cmds;
 import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.CmdException;
 import darkvan.dglabmc.games.Game;
+import darkvan.dglabmc.utils.CommandUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -11,14 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static darkvan.dglabmc.games.Game.games;
 import static darkvan.dglabmc.games.Game.getGame;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
-import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
+import static darkvan.dglabmc.utils.CommandUtils.concatList;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandGame extends Command {
@@ -62,7 +61,7 @@ public class CommandGame extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return Stream.concat(games.keySet().stream(), playerAndClients().stream()).collect(Collectors.toList());
+        if (length == 2) return concatList(CommandUtils.getPlayerAndClientList(sender), games.keySet().toArray(new String[0]));
         if (getPlayer(args[1]) != null || isClientExist(args[1])) {
             if (length == 3) return new ArrayList<>(games.keySet());
             if (length == 4) return Arrays.asList("enable", "disable", "toggle");

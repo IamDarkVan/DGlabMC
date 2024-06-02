@@ -8,12 +8,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
-import static org.bukkit.Bukkit.getOnlinePlayers;
+import static darkvan.dglabmc.utils.CommandUtils.getClientList;
+import static darkvan.dglabmc.utils.CommandUtils.getPlayerList;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandBind extends Command {
@@ -47,8 +46,8 @@ public class CommandBind extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return clients.stream().map(Client::getClientId).collect(Collectors.toList());
-        if (length == 3) return getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+        if (length == 2) return getClientList(sender);
+        if (length == 3) return getPlayerList(sender);
         return null;
     }
 }

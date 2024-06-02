@@ -5,9 +5,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-import darkvan.dglabmc.Client;
 import darkvan.dglabmc.MCWebSocketServer;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -16,16 +14,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.DGlabMC.plugin;
 import static org.bukkit.Bukkit.getLogger;
-import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class DGlabUtils {
     private DGlabUtils() throws Exception {
@@ -60,10 +53,6 @@ public class DGlabUtils {
 
     public static String toDGJson(String[] str) {
         return "{\"type\":\"" + str[0] + "\",\"clientId\":\"" + str[1] + "\",\"targetId\":\"" + str[2] + "\",\"message\":\"" + str[3] + "\"}";
-    }
-
-    public static List<String> playerAndClients() {
-        return Stream.concat(getOnlinePlayers().stream().map(Player::getName), clients.stream().map(Client::getClientId)).collect(Collectors.toList());
     }
 
     @SuppressWarnings("unchecked")

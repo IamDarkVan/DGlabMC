@@ -1,17 +1,15 @@
 package darkvan.dglabmc.command.cmds;
 
-import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
+import static darkvan.dglabmc.utils.CommandUtils.getClientList;
 
 public class CommandSendMsg extends Command {
     public CommandSendMsg(@NotNull CommandSender sender, @NotNull String[] args) {
@@ -31,7 +29,7 @@ public class CommandSendMsg extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return clients.stream().map(Client::getClientId).collect(Collectors.toList());
+        if (length == 2) return getClientList(sender);
         return null;
     }
 }

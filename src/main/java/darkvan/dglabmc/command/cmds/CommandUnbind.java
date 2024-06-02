@@ -11,7 +11,7 @@ import java.util.Objects;
 
 import static darkvan.dglabmc.utils.ClientUtils.getClient;
 import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
-import static darkvan.dglabmc.utils.DGlabUtils.playerAndClients;
+import static darkvan.dglabmc.utils.CommandUtils.getPlayerAndClientList;
 import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandUnbind extends Command {
@@ -46,7 +46,7 @@ public class CommandUnbind extends Command {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return playerAndClients();
+        if (length == 2) return getPlayerAndClientList(sender);
         return null;
     }
 }

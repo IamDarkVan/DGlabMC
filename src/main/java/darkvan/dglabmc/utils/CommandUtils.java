@@ -1,12 +1,18 @@
 package darkvan.dglabmc.utils;
 
+import darkvan.dglabmc.Client;
 import darkvan.dglabmc.command.cmds.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static darkvan.dglabmc.DGlabMC.clients;
+import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class CommandUtils {
     private CommandUtils() throws Exception {
@@ -46,7 +52,7 @@ public class CommandUtils {
         return usages(sender, false);
     }
 
-    public static List<String> cmds(CommandSender sender, boolean ignorePerm) {
+    public static List<String> commandList(CommandSender sender, boolean ignorePerm) {
         return Stream.of(
                 new CommandBind(sender, null).getCommand(ignorePerm),
                 new CommandInfo(sender, null).getCommand(ignorePerm),
@@ -68,7 +74,27 @@ public class CommandUtils {
         ).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    public static List<String> cmds(CommandSender sender) {
-        return cmds(sender, false);
+    public static List<String> commandList(CommandSender sender) {
+        return commandList(sender, false);
+    }
+
+    public static List<String> getPlayerAndClientList(CommandSender sender) {
+        if (sender.hasPermission("dglab.list") && sender.hasPermission("dglab.others"))
+            return Stream.concat(getOnlinePlayers().stream().map(Player::getName), clients.stream().map(Client::getClientId)).collect(Collectors.toList());
+        if (sender.hasPermission("dglab.others")) return getPlayerList(sender);
+        if (sender.hasPermission("dglab.list")) return getClientList(sender);
+        return null;
+    }
+    public static List<String> concatList(List<String> list, String... args) {
+        if (list == null) return Arrays.asList(args);
+        return Stream.concat(list.stream(), Arrays.stream(args)).collect(Collectors.toList());
+    }
+    public static List<String> getPlayerList(CommandSender sender) {
+        if (sender.hasPermission("dglab.others")) return getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+        return null;
+    }
+    public static List<String> getClientList(CommandSender sender) {
+        if (sender.hasPermission("dglab.list")) return clients.stream().map(Client::getClientId).collect(Collectors.toList());
+        return null;
     }
 }

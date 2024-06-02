@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.bukkit.Bukkit.getLogger;
@@ -12,6 +13,7 @@ import static org.bukkit.Bukkit.getLogger;
 public abstract class Command {
     protected final CommandSender sender;
     protected final String[] args;
+    protected final String[] rawArgs;
     protected final Integer length;
     private final Integer min;
     private final Integer max;
@@ -19,10 +21,11 @@ public abstract class Command {
     private final String command;
     private final String usage;
 
-    public Command(@NotNull String command, @NotNull CommandSender sender, @Nullable String[] args, @Nullable Integer min, @Nullable Integer max, @Nullable String usage, @Nullable String perm) {
+    public Command(@NotNull String command, @NotNull CommandSender sender, @NotNull String[] args, @Nullable Integer min, @Nullable Integer max, @Nullable String usage, @Nullable String perm) {
         this.command = command;
         this.sender = sender;
-        this.args = args;
+        this.args = Arrays.stream(args).map(String::toLowerCase).toArray(String[]::new);
+        this.rawArgs = args;
         this.min = min;
         this.max = max;
         this.usage = usage;
