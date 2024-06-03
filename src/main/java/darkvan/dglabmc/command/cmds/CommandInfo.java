@@ -37,7 +37,7 @@ public class CommandInfo extends Command {
             if (!isClientExist(args[1]) && isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
             this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
         }
-        if (!sender.hasPermission("dglab.info.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限查询其他玩家");
+        if (!sender.hasPermission("dglab.info.others") && !Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限查询其他玩家");
     }
 
     @Override

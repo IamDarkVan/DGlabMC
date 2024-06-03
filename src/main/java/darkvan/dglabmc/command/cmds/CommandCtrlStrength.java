@@ -49,7 +49,7 @@ public class CommandCtrlStrength extends Command {
         if (!Arrays.asList("a", "b", "both").contains(channel)) throw new CmdException("频道请输入 A B both 其中一个");
         if (!Arrays.asList("add", "dec", "set").contains(mode)) throw new CmdException("模式请输入 add dec set 其中一个");
         if (!value.matches("\\d++")) throw new CmdException("数值请输入不含小数的纯数字");
-        if (!sender.hasPermission("dglab.ctrl.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override

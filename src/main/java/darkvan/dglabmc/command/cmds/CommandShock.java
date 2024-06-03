@@ -43,7 +43,7 @@ public class CommandShock extends Command {
             this.replace = !args[2].matches("^[+-].*");
         }
         if (client.getAPulse() == null && client.getBPulse() == null) throw new CmdException("频道A,B中必须有至少一个设置了波形");
-        if (!sender.hasPermission("dglab.shock.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.shock.others") && !Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override

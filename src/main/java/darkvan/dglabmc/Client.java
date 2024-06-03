@@ -138,6 +138,7 @@ public class Client {
         ticks = 0;
         if (shockTask != null) shockTask.cancel();
         shockTask = null;
+        resetBossbarTitle();
     }
 
     public void resetBossbarTitle() {

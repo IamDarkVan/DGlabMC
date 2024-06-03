@@ -47,7 +47,7 @@ public class CommandCtrlPulse extends Command {
         }
         if (!Arrays.asList("a", "b", "both").contains(channel)) throw new CmdException("频道请输入 A B both 其中一个");
         if ("CLEAR".equals(hex) && hex.matches("^\\[[0-9A-F,]*]$")) throw new CmdException("hex数组不符合规范");
-        if (!sender.hasPermission("dglab.ctrl.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override

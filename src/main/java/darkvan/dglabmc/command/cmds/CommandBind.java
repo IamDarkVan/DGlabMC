@@ -36,7 +36,7 @@ public class CommandBind extends Command {
         if (!isClientExist(args[1])) throw new CmdException("客户端不存在");
         this.client = getClient(args[1]);
         if (client.getPlayer() != null) throw new CmdException("你要绑定的客户端已被绑定");
-        if (!sender.hasPermission("dglab.bind.others") && Objects.equals(player, sender)) throw new CmdException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.bind.others") && !Objects.equals(player, sender)) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override

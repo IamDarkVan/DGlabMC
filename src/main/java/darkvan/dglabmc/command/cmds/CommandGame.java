@@ -49,7 +49,7 @@ public class CommandGame extends Command {
             this.type = args[3];
         }
         if (!Arrays.asList("enable", "disable", "toggle").contains(type)) throw new CmdException("请输入 enable|disable|toggle");
-        if (!sender.hasPermission("dglab.game.others") && Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.game.others") && !Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限控制其他玩家");
     }
 
     @Override
