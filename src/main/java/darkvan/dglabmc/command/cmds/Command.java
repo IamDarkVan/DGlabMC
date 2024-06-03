@@ -25,13 +25,13 @@ public abstract class Command {
     public Command(@NotNull String command, @NotNull CommandSender sender, @Nullable String[] args, @Nullable Integer min, @Nullable Integer max, @Nullable String usage, @Nullable String perm) {
         this.command = command;
         this.sender = sender;
-        this.args = args != null ? Arrays.stream(args).filter(Objects::nonNull).map(String::toLowerCase).toArray(String[]::new) : null;
+        this.args = args != null ? Arrays.stream(args).filter(Objects::nonNull).map(String::toLowerCase).toArray(String[]::new) : new String[0];
         this.rawArgs = args;
         this.min = min;
         this.max = max;
         this.usage = usage;
         this.perm = perm;
-        this.length = args.length;
+        this.length = this.args.length;
     }
 
     public boolean execute() {

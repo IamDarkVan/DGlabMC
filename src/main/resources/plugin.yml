@@ -5,7 +5,6 @@ api-version: '1.19'
 commands:
   dglab:
     description: 在mc中控制郊狼喵
-    permission: dglab
     usage: /dglab ...
 permissions:
 ################################################################

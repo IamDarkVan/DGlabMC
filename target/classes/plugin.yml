@@ -5,12 +5,9 @@ api-version: '1.19'
 commands:
   dglab:
     description: 在mc中控制郊狼喵
-    permission: dglab
     usage: /dglab ...
 permissions:
 ################################################################
-  dglab.help:
-    default: true
   dglab.reload:
     default: op
   dglab.getqrcode:
@@ -92,7 +89,6 @@ permissions:
   dglab.list:
     default: op
     children:
-      dglab.bind.list: true
       dglab.game.list: true
 ################################################################
   dglab.others:

@@ -1,5 +1,6 @@
 darkvan\dglabmc\DGlabMC.class
 darkvan\dglabmc\Client.class
+darkvan\dglabmc\command\CmdFactory.class
 darkvan\dglabmc\command\cmds\CommandSendDGJson.class
 darkvan\dglabmc\command\CmdTabCompleter.class
 darkvan\dglabmc\command\cmds\CommandUnbind.class
