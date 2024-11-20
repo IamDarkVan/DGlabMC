@@ -13,21 +13,17 @@ import java.util.Map;
 import static darkvan.dglabmc.DGlabMC.clients;
 import static darkvan.dglabmc.DGlabMC.plugin;
 
+@Getter
 public abstract class Game {
     public static final Map<String, Game> games = new HashMap<>();
     //["game1": {"default": false, "time": 5, "replace": true},"game2": {...}, ...]
     public static final List<Map<?, ?>> gameConfigs = plugin.config.getMapList("games");
-    @Getter
     private final String name;
-    @Getter
     @Nullable
     private final String description;
-    @Getter
     @Nullable
     private final String permission;
-    @Getter
     private final Map<?, ?> settings;
-    @Getter
     private final HashSet<Client> enabledClients = new HashSet<>();
 
     protected Game(String name, @Nullable String description, @Nullable String permission) {
