@@ -1,6 +1,6 @@
 name: DGlabMC
 version: '${version}'
-main: darkvan.dglabmc.DGlabMC
+main: shirohaNya.dglabmc.DGlabMC
 api-version: '1.19'
 commands:
   dglab:
