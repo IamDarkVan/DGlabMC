@@ -12,7 +12,7 @@ import java.util.Map;
 import static darkvan.dglabmc.DGlabMC.*;
 
 @Getter
-public abstract class ScriptAbstract {
+public abstract class ScriptAbstract implements Script{
 
     //["script1": {"default": false, "time": 5, "replace": true},"script2": {...}, ...]
     public static final List<Map<?, ?>> scriptConfigs = plugin.config.getMapList("scripts");
@@ -37,21 +37,25 @@ public abstract class ScriptAbstract {
             enabledClients.addAll(clients);
     }
 
+    @Override
     public boolean isClientEnabled(Client client) {
         return enabledClients.contains(client);
     }
 
+    @Override
     public void enableClient(Client client) {
         enabledClients.add(client);
         onEnable(client);
     }
 
+    @Override
     public void disableClient(Client client) {
         if (!enabledClients.contains(client)) return;
         enabledClients.remove(client);
         onDisable(client);
     }
 
+    @Override
     public void toggleClient(Client client) {
         if (isClientEnabled(client)) disableClient(client);
         else enableClient(client);

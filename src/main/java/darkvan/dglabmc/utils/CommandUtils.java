@@ -1,6 +1,7 @@
 package darkvan.dglabmc.utils;
 
 import darkvan.dglabmc.Client;
+import darkvan.dglabmc.commands.CommandManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -11,7 +12,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static darkvan.dglabmc.DGlabMC.clients;
-import static darkvan.dglabmc.commands.CommandManager.getCmdManager;
 import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class CommandUtils {
@@ -26,14 +26,14 @@ public class CommandUtils {
         return true;
     }
     public static List<String> getUsageList(CommandSender sender, boolean ignorePerm){
-        return getCmdManager().getCommandMap().values().stream().map(cmd -> cmd.apply(sender, null).getUsage(ignorePerm)).filter(Objects::nonNull).collect(Collectors.toList());
+        return CommandManager.getCommandMap().values().stream().map(cmd -> cmd.apply(sender, null).getUsage(ignorePerm)).filter(Objects::nonNull).collect(Collectors.toList());
     }
     public static List<String> getUsageList(CommandSender sender){
         return getUsageList(sender, false);
     }
 
     public static List<String> getCommandList(CommandSender sender, boolean ignorePerm){
-        return getCmdManager().getCommandMap().values().stream().map(cmd -> cmd.apply(sender, null).getCommand(ignorePerm)).filter(Objects::nonNull).collect(Collectors.toList());
+        return CommandManager.getCommandMap().values().stream().map(cmd -> cmd.apply(sender, null).getCommand(ignorePerm)).filter(Objects::nonNull).collect(Collectors.toList());
     }
     public static List<String> getCommandList(CommandSender sender){
         return getCommandList(sender, false);

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
 
-public abstract class CommandAbstract {
+public abstract class CommandAbstract implements Command{
     protected final CommandSender sender;
     protected final String[] args;
     protected final String[] rawArgs;
@@ -33,6 +33,7 @@ public abstract class CommandAbstract {
         this.length = this.args.length;
     }
 
+    @Override
     public boolean execute() {
         try {
             checkPermission();
@@ -61,10 +62,12 @@ public abstract class CommandAbstract {
         if (permission != null && !sender.hasPermission(permission)) throw new CommandException("你没有权限");
     }
 
+    @Override
     public String getCommand(boolean ignorePerm) {
         return (ignorePerm || permission == null || sender.hasPermission(permission)) ? name : null;
     }
 
+    @Override
     public String getUsage(boolean ignorePerm) {
         return (ignorePerm || permission == null || sender.hasPermission(permission)) ? usage : null;
     }

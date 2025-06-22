@@ -2,13 +2,13 @@ package darkvan.dglabmc.commands.impls;
 
 import darkvan.dglabmc.commands.CommandAbstract;
 import darkvan.dglabmc.commands.CommandException;
+import darkvan.dglabmc.scripts.ScriptManager;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static darkvan.dglabmc.scripts.ScriptManager.getScriptManager;
 
 public class CommandScriptList extends CommandAbstract {
 
@@ -25,7 +25,7 @@ public class CommandScriptList extends CommandAbstract {
     protected void run() {
         sender.sendMessage("以下是脚本列表:");
         sender.sendMessage("====================");
-        getScriptManager().getScriptSet().forEach(script -> sender.sendMessage(script.getName() + " " + script.getDescription()));
+        ScriptManager.getScriptMap().values().forEach(script -> sender.sendMessage(script.getName() + " " + script.getDescription()));
         sender.sendMessage("====================");
     }
 

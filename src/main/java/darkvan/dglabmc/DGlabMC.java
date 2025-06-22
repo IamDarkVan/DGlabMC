@@ -11,10 +11,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.UUID;
 
-import static darkvan.dglabmc.commands.CommandManager.getCmdManager;
-import static darkvan.dglabmc.scripts.ScriptManager.getScriptManager;
+import static darkvan.dglabmc.commands.CommandManager.registerCommand;
+import static darkvan.dglabmc.scripts.ScriptManager.registerScript;
 
 
 public final class DGlabMC extends JavaPlugin {
@@ -38,25 +40,25 @@ public final class DGlabMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ListenerUnbindOfflinePlayer(), this);
         Bukkit.getPluginManager().registerEvents(new ListenerScript1(), this);
         // 注册子命令
-        getCmdManager().registerCommand("bind", CommandBind::new);
-        getCmdManager().registerCommand("info", CommandInfo::new);
-        getCmdManager().registerCommand("bind-list", CommandBindList::new);
-        getCmdManager().registerCommand("ctrl-pulse", CommandCtrlPulse::new);
-        getCmdManager().registerCommand("ctrl-strength", CommandCtrlStrength::new);
-        getCmdManager().registerCommand("script", CommandScript::new);
-        getCmdManager().registerCommand("script-list", CommandScriptList::new);
-        getCmdManager().registerCommand("getqrcode", CommandGetQRCode::new);
-        getCmdManager().registerCommand("help", CommandHelp::new);
-        getCmdManager().registerCommand("list", CommandList::new);
-        getCmdManager().registerCommand("reload", CommandReload::new);
-        getCmdManager().registerCommand("send-dgjson", CommandSendDGJson::new);
-        getCmdManager().registerCommand("send-msg", CommandSendMsg::new);
-        getCmdManager().registerCommand("server-run", CommandServerRun::new);
-        getCmdManager().registerCommand("server-stop", CommandServerStop::new);
-        getCmdManager().registerCommand("shock", CommandShock::new);
-        getCmdManager().registerCommand("unbind", CommandUnbind::new);
+        registerCommand("bind", CommandBind::new);
+        registerCommand("info", CommandInfo::new);
+        registerCommand("bind-list", CommandBindList::new);
+        registerCommand("ctrl-pulse", CommandCtrlPulse::new);
+        registerCommand("ctrl-strength", CommandCtrlStrength::new);
+        registerCommand("script", CommandScript::new);
+        registerCommand("script-list", CommandScriptList::new);
+        registerCommand("getqrcode", CommandGetQRCode::new);
+        registerCommand("help", CommandHelp::new);
+        registerCommand("list", CommandList::new);
+        registerCommand("reload", CommandReload::new);
+        registerCommand("send-dgjson", CommandSendDGJson::new);
+        registerCommand("send-msg", CommandSendMsg::new);
+        registerCommand("server-run", CommandServerRun::new);
+        registerCommand("server-stop", CommandServerStop::new);
+        registerCommand("shock", CommandShock::new);
+        registerCommand("unbind", CommandUnbind::new);
         //注册脚本
-        getScriptManager().registerScript("script1", new Script1());
+        registerScript("script1", new Script1());
         //生成二维码
         saveDefaultConfig();
         mcUUID = config.getString("mcUUID") == null ? UUID.randomUUID().toString() : config.getString("mcUUID");

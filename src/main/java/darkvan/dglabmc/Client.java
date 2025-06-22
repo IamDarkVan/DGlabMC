@@ -1,6 +1,6 @@
 package darkvan.dglabmc;
 
-import darkvan.dglabmc.scripts.ScriptAbstract;
+import darkvan.dglabmc.scripts.Script;
 import lombok.Data;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashSet;
 
 import static darkvan.dglabmc.DGlabMC.*;
-import static darkvan.dglabmc.utils.DGlabUtils.*;
+import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 import static org.bukkit.Bukkit.createBossBar;
 import static org.bukkit.Bukkit.getLogger;
 
@@ -23,7 +23,7 @@ public class Client {
     private final String clientId;
     private final WebSocket webSocket;
     private final BossBar bossbar = createBossBar(null, BarColor.RED, BarStyle.SOLID);
-    private final HashSet<ScriptAbstract> enabledScripts = new HashSet<>();
+    private final HashSet<Script> enabledScripts = new HashSet<>();
     @Nullable
     private Player player;
     private Integer aStrength = 0;

@@ -7,13 +7,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static darkvan.dglabmc.commands.CommandManager.getCmdManager;
-import static darkvan.dglabmc.utils.CommandUtils.*;
+import static darkvan.dglabmc.commands.CommandManager.getCommand;
+import static darkvan.dglabmc.utils.CommandUtils.getCommandList;
 
 public class CommandTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args){
         if (args.length == 1) return getCommandList(sender);
-        return getCmdManager().getCommand(args[0].toLowerCase(),sender, args).tabComplete();
+        return getCommand(args[0].toLowerCase(),sender, args).tabComplete();
     }
 }
