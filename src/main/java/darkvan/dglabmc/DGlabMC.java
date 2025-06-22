@@ -5,7 +5,6 @@ import darkvan.dglabmc.commands.CommandTabCompleter;
 import darkvan.dglabmc.commands.impls.*;
 import darkvan.dglabmc.listeners.ListenerScript1;
 import darkvan.dglabmc.listeners.ListenerUnbindOfflinePlayer;
-import darkvan.dglabmc.scripts.ScriptAbstract;
 import darkvan.dglabmc.scripts.impls.Script1;
 import darkvan.dglabmc.utils.DGlabUtils;
 import org.bukkit.Bukkit;
