@@ -115,7 +115,7 @@ public class MCWebSocketServer extends WebSocketServer {
         setConnectionLostTimeout(0);
         setConnectionLostTimeout(100);
         getLogger().info("WebSocket Server started on port: " + plugin.port);
-        generateQRCode(plugin.qrCode, "plugins/DGlabMC/qrcode.png");
+        generateQRCodeFile(plugin.qrCode, "plugins/DGlabMC/qrcode.png");
         getLogger().info("qrcode已生成在该插件配置文件夹");
     }
 }

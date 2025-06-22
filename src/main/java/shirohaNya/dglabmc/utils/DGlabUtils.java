@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import shirohaNya.dglabmc.MCWebSocketServer;
 import org.jetbrains.annotations.NotNull;
+import shirohaNya.dglabmc.MCWebSocketServer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,8 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static shirohaNya.dglabmc.DGlabMC.plugin;
 import static org.bukkit.Bukkit.getLogger;
+import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class DGlabUtils {
     private DGlabUtils() throws Exception {
@@ -60,10 +61,10 @@ public class DGlabUtils {
         return new Gson().fromJson(json, HashMap.class);
     }
 
-    public static void generateQRCode(String text, String filePath) throws WriterException, IOException {
+    public static void generateQRCodeFile(String text, String filePath) throws WriterException, IOException {
         String FILE_FORMAT = "PNG";
-        int WIDTH = 200;
-        int HEIGHT = 200;
+        int WIDTH = 128;
+        int HEIGHT = 128;
         BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         for (int x = 0; x < WIDTH; x++) {
@@ -73,5 +74,10 @@ public class DGlabUtils {
         }
         File outputFile = new File(filePath);
         ImageIO.write(image, FILE_FORMAT, outputFile);
+    }
+
+    public static BufferedImage generateQRCode(String text, int size) throws Exception {
+        BitMatrix matrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, size, size);
+        return MatrixToImageWriter.toBufferedImage(matrix);
     }
 }

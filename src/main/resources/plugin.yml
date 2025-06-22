@@ -12,11 +12,11 @@ permissions:
     default: op
     children:
       dglab.reload: true
-      dglab.getqrcode: true
+      dglab.getAddress: true
       dglab.info: true
       dglab.bind: true
       dglab.ctrl: true
-      dglab.game: true
+      dglab.script: true
       dglab.others: true
       dglab.send: true
       dglab.shock: true
@@ -24,7 +24,7 @@ permissions:
 ################################################################
   dglab.reload:
     default: op
-  dglab.getqrcode:
+  dglab.getAddress:
     default: true
 ################################################################
   dglab.info:
@@ -57,20 +57,20 @@ permissions:
   dglab.ctrl.others:
     default: op
 ################################################################
-  dglab.game:
+  dglab.script:
     default: true
     children:
-      dglab.game.enable: true
-      dglab.game.disable: true
-      dglab.game.list: false
-      dglab.game.others: false
-  dglab.game.enable:
+      dglab.script.enable: true
+      dglab.script.disable: true
+      dglab.script.list: false
+      dglab.script.others: false
+  dglab.script.enable:
     default: true
-  dglab.game.disable:
+  dglab.script.disable:
     default: true
-  dglab.game.list:
+  dglab.script.list:
     default: op
-  dglab.game.others:
+  dglab.script.others:
     default: op
 ################################################################
   dglab.send:
@@ -103,7 +103,7 @@ permissions:
   dglab.list:
     default: op
     children:
-      dglab.game.list: true
+      dglab.script.list: true
 ################################################################
   dglab.others:
     default: op
@@ -111,7 +111,7 @@ permissions:
       dglab.info.others: true
       dglab.bind.others: true
       dglab.ctrl.others: true
-      dglab.game.others: true
+      dglab.script.others: true
       dglab.shock.others: true
 ################################################################
 
