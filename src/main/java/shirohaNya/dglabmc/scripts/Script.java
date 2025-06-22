@@ -5,6 +5,7 @@ import shirohaNya.dglabmc.Client;
 import java.util.HashSet;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public interface Script {
     boolean isClientEnabled(Client client);
 

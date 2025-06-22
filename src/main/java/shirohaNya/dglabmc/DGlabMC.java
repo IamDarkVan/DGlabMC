@@ -2,7 +2,6 @@ package shirohaNya.dglabmc;
 
 import shirohaNya.dglabmc.commands.CommandExecutor;
 import shirohaNya.dglabmc.commands.CommandTabCompleter;
-import darkvan.dglabmc.commands.impls.*;
 import shirohaNya.dglabmc.commands.impls.*;
 import shirohaNya.dglabmc.listeners.ListenerScript1;
 import shirohaNya.dglabmc.listeners.ListenerUnbindOfflinePlayer;
