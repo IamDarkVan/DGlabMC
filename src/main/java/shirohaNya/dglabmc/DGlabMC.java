@@ -47,8 +47,8 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("ctrl-strength", CommandCtrlStrength::new);
         registerCommand("script", CommandScript::new);
         registerCommand("script-list", CommandScriptList::new);
-        registerCommand("getAddress", CommandGetAddress::new);
-        registerCommand("getQRcode", CommandGetQRCode::new);
+        registerCommand("getaddress", CommandGetAddress::new);
+        registerCommand("getqrcode", CommandGetQRCode::new);
         registerCommand("help", CommandHelp::new);
         registerCommand("list", CommandList::new);
         registerCommand("reload", CommandReload::new);

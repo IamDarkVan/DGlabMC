@@ -26,17 +26,14 @@ public class CommandGetQRCode extends CommandAbstract {
     Player player;
 
     public CommandGetQRCode(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("getQRCode", sender, args, null, null, "/dglab getqrcode -- 获取二维码地图", "dglab.getQRcode");
+        super("getqrcode", sender, args, null, null, "/dglab getqrcode -- 获取二维码地图", "dglab.getQRcode");
     }
 
     @Override
     protected void errorHandle() throws CommandException {
         if (!(sender instanceof Player)) throw new CommandException("服务器后台请查看插件配置文件夹");
         this.player = (Player) sender;
-        if (player.getInventory().getItemInMainHand().getType() != Material.AIR) {    // 主手非空
-            player.sendMessage("请空手执行该指令");
-        }
-
+        if (player.getInventory().getItemInMainHand().getType() != Material.AIR)  throw new CommandException("请空手执行该指令");
     }
 
     @Override

@@ -12,7 +12,7 @@ import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class CommandGetAddress extends CommandAbstract {
     public CommandGetAddress(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("getAddress", sender, args, null, null, "/dglab getAddress -- 获取二维码的地址", "dglab.getAddress");
+        super("getaddress", sender, args, null, null, "/dglab getAddress -- 获取二维码的地址", "dglab.getAddress");
     }
 
     @Override
