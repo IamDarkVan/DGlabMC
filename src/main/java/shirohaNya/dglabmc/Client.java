@@ -125,13 +125,17 @@ public class Client {
     //通道: 1 - A 通道；2 - B 通道
     //强度变化模式: 0 - 通道强度减少；1 - 通道强度增加；2 - 通道强度变化为指定数值
     //数值: 范围在(0 ~ 200)的整型
-    public void adjustStrength(Channel channel, AdjustMode type, int num){
+    public void adjustStrength(Channel channel, AdjustMode type, String num){
         if (channel == Channel.BOTH) {
             output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.toInt() + "+" + num));
             output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.toInt() + "+" + num));
             return;
         }
         output(toDGJson("msg", mcUUID, clientId, "strength-" + channel.toInt() + "+" + type.toInt() + "+" + num));
+    }
+
+    public void adjustStrength(Channel channel, AdjustMode type, int num){
+        adjustStrength(channel, type, String.valueOf(num));
     }
 
     public void clearPulse(Channel channel){
