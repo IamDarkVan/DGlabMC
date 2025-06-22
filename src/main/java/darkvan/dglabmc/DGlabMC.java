@@ -28,7 +28,6 @@ public final class DGlabMC extends JavaPlugin {
     public boolean autoRunServer = config.getBoolean("autoRunServer");
     public MCWebSocketServer mcWebSocketServer = null;
     public String qrCode;
-    public static final Map<String, ScriptAbstract> scripts = new HashMap<>();
 
     @Override
     public void onEnable() {

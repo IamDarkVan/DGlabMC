@@ -33,13 +33,8 @@ public abstract class ScriptAbstract {
             Bukkit.getPluginManager().disablePlugin(plugin);
             throw new RuntimeException("未在config.yml中注册游戏");
         }
-        scripts.put(name, this);
         if (settings.containsKey("default") && settings.get("default") instanceof Boolean && (Boolean) settings.get("default"))
             enabledClients.addAll(clients);
-    }
-
-    public static @Nullable ScriptAbstract getScript(String name) {
-        return scripts.get(name);
     }
 
     public boolean isClientEnabled(Client client) {

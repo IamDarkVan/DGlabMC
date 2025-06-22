@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static darkvan.dglabmc.DGlabMC.scripts;
+import static darkvan.dglabmc.scripts.ScriptManager.getScriptManager;
 
 public class CommandScriptList extends CommandAbstract {
 
@@ -25,7 +25,7 @@ public class CommandScriptList extends CommandAbstract {
     protected void run() {
         sender.sendMessage("以下是脚本列表:");
         sender.sendMessage("====================");
-        scripts.values().forEach(script -> sender.sendMessage(script.getName() + " " + script.getDescription()));
+        getScriptManager().getScriptSet().forEach(script -> sender.sendMessage(script.getName() + " " + script.getDescription()));
         sender.sendMessage("====================");
     }
 
