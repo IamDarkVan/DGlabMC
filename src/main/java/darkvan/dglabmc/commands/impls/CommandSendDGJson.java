@@ -1,6 +1,7 @@
-package darkvan.dglabmc.command.cmds;
+package darkvan.dglabmc.commands.impls;
 
-import darkvan.dglabmc.command.CmdException;
+import darkvan.dglabmc.commands.CommandException;
+import darkvan.dglabmc.commands.CommandAbstract;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,15 +14,15 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.CommandUtils.getClientList;
 import static darkvan.dglabmc.utils.DGlabUtils.toDGJson;
 
-public class CommandSendDGJson extends Command {
+public class CommandSendDGJson extends CommandAbstract {
 
     public CommandSendDGJson(@NotNull CommandSender sender, @Nullable String[] args) {
         super("send-dgjson", sender, args, 6, 6, "/dglab send-dgjson <clientId> <typ> <cid> <tid> <msg>-- 直接向app发送DGJson(不推荐使用)", "dglab.send.dgjson");
     }
 
     @Override
-    protected void errorHandle() throws CmdException {
-        if (!isClientExist(args[1])) throw new CmdException("未找到客户端");
+    protected void errorHandle() throws CommandException {
+        if (!isClientExist(args[1])) throw new CommandException("未找到客户端");
     }
 
     @Override

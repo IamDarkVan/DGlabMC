@@ -1,8 +1,9 @@
-package darkvan.dglabmc.command.cmds;
+package darkvan.dglabmc.commands.impls;
 
 
 import darkvan.dglabmc.Client;
-import darkvan.dglabmc.command.CmdException;
+import darkvan.dglabmc.commands.CommandException;
+import darkvan.dglabmc.commands.CommandAbstract;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +17,7 @@ import static darkvan.dglabmc.utils.ClientUtils.isClientExist;
 import static darkvan.dglabmc.utils.CommandUtils.getPlayerAndClientList;
 import static org.bukkit.Bukkit.getPlayer;
 
-public class CommandInfo extends Command {
+public class CommandInfo extends CommandAbstract {
 
 
     private Client client;
@@ -26,18 +27,18 @@ public class CommandInfo extends Command {
     }
 
     @Override
-    protected void errorHandle() throws CmdException {
+    protected void errorHandle() throws CommandException {
         if (length == 1) {
-            if (!(sender instanceof Player)) throw new CmdException("服务器后台请使用 /dglab info <clientId|player>");
+            if (!(sender instanceof Player)) throw new CommandException("服务器后台请使用 /dglab info <clientId|player>");
             Player player = (Player) sender;
-            if (!isClientExist(player)) throw new CmdException("你还没有绑定的app");
+            if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             this.client = getClient(player);
         }
         if (length == 2) {
-            if (!isClientExist(args[1]) && isClientExist(getPlayer(args[1]))) throw new CmdException("客户端不存在或玩家未绑定");
+            if (!isClientExist(args[1]) && isClientExist(getPlayer(args[1]))) throw new CommandException("客户端不存在或玩家未绑定");
             this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
         }
-        if (!sender.hasPermission("dglab.info.others") && !Objects.equals(sender, client.getPlayer())) throw new CmdException("你没有权限查询其他玩家");
+        if (!sender.hasPermission("dglab.info.others") && !Objects.equals(sender, client.getPlayer())) throw new CommandException("你没有权限查询其他玩家");
     }
 
     @Override

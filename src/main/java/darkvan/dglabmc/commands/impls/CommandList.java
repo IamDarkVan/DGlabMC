@@ -1,6 +1,7 @@
-package darkvan.dglabmc.command.cmds;
+package darkvan.dglabmc.commands.impls;
 
-import darkvan.dglabmc.command.CmdException;
+import darkvan.dglabmc.commands.CommandException;
+import darkvan.dglabmc.commands.CommandAbstract;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,14 +10,14 @@ import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.clients;
 
-public class CommandList extends Command {
+public class CommandList extends CommandAbstract {
 
     public CommandList(@NotNull CommandSender sender, @Nullable String[] args) {
         super("list", sender, args, null, null, "/dglab list -- 显示app列表", "dglab.list");
     }
 
     @Override
-    protected void errorHandle() throws CmdException {
+    protected void errorHandle() throws CommandException {
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static darkvan.dglabmc.DGlabMC.clients;
-import static darkvan.dglabmc.command.CmdManager.getCmdManager;
+import static darkvan.dglabmc.commands.CommandManager.getCmdManager;
 import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class CommandUtils {

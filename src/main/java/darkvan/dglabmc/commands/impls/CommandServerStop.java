@@ -1,6 +1,7 @@
-package darkvan.dglabmc.command.cmds;
+package darkvan.dglabmc.commands.impls;
 
-import darkvan.dglabmc.command.CmdException;
+import darkvan.dglabmc.commands.CommandException;
+import darkvan.dglabmc.commands.CommandAbstract;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,14 +10,14 @@ import java.util.List;
 
 import static darkvan.dglabmc.DGlabMC.plugin;
 
-public class CommandServerStop extends Command {
+public class CommandServerStop extends CommandAbstract {
     public CommandServerStop(@NotNull CommandSender sender, @Nullable String[] args) {
         super("server-stop", sender, args, null, null, "/dglab server-stop -- 关闭目前WebSocket服务器", "dglab.server.stop");
     }
 
     @Override
-    protected void errorHandle() throws CmdException {
-        if (plugin.mcWebSocketServer == null) throw new CmdException("服务器未在运行");
+    protected void errorHandle() throws CommandException {
+        if (plugin.mcWebSocketServer == null) throw new CommandException("服务器未在运行");
     }
 
     @Override

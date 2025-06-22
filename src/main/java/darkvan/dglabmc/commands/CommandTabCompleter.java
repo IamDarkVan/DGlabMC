@@ -1,4 +1,4 @@
-package darkvan.dglabmc.command;
+package darkvan.dglabmc.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static darkvan.dglabmc.command.CmdManager.getCmdManager;
+import static darkvan.dglabmc.commands.CommandManager.getCmdManager;
 import static darkvan.dglabmc.utils.CommandUtils.*;
 
-public class CmdTabCompleter implements TabCompleter {
+public class CommandTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args){
         if (args.length == 1) return getCommandList(sender);

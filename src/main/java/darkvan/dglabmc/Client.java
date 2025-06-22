@@ -1,8 +1,7 @@
 package darkvan.dglabmc;
 
-import darkvan.dglabmc.games.Game;
-import lombok.Getter;
-import lombok.Setter;
+import darkvan.dglabmc.scripts.ScriptAbstract;
+import lombok.Data;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -19,40 +18,22 @@ import static darkvan.dglabmc.utils.DGlabUtils.*;
 import static org.bukkit.Bukkit.createBossBar;
 import static org.bukkit.Bukkit.getLogger;
 
+@Data
 public class Client {
-    @Getter
     private final String clientId;
-    @Getter
     private final WebSocket webSocket;
-    @Getter
     private final BossBar bossbar = createBossBar(null, BarColor.RED, BarStyle.SOLID);
-    private final HashSet<Game> enabledGames = new HashSet<>();
-    @Getter
+    private final HashSet<ScriptAbstract> enabledGames = new HashSet<>();
     @Nullable
     private Player player;
-    @Getter
-    @Setter
     private Integer aStrength = 0;
-    @Getter
-    @Setter
     private Integer bStrength = 0;
-    @Getter
-    @Setter
     private Integer aMaxStrength = 0;
-    @Getter
-    @Setter
     private Integer bMaxStrength = 0;
-    @Getter
-    @Setter
     private String aPulse = "[0A0A0A0A00000000,0A0A0A0A0A0A0A0A,0A0A0A0A14141414,0A0A0A0A1E1E1E1E,0A0A0A0A28282828,0A0A0A0A32323232,0A0A0A0A3C3C3C3C,0A0A0A0A46464646,0A0A0A0A50505050,0A0A0A0A5A5A5A5A,0A0A0A0A64646464]";
-    @Getter
-    @Setter
     private String bPulse = "[0A0A0A0A00000000,0A0A0A0A0A0A0A0A,0A0A0A0A14141414,0A0A0A0A1E1E1E1E,0A0A0A0A28282828,0A0A0A0A32323232,0A0A0A0A3C3C3C3C,0A0A0A0A46464646,0A0A0A0A50505050,0A0A0A0A5A5A5A5A,0A0A0A0A64646464]";
-    @Getter
     private double totalTime = 0;
-    @Getter
     private int ticks = 0;
-    @Getter
     @Nullable
     private BukkitTask shockTask;
 

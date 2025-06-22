@@ -1,6 +1,5 @@
-package darkvan.dglabmc.command.cmds;
+package darkvan.dglabmc.commands;
 
-import darkvan.dglabmc.command.CmdException;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,26 +10,26 @@ import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
 
-public abstract class Command {
+public abstract class CommandAbstract {
     protected final CommandSender sender;
     protected final String[] args;
     protected final String[] rawArgs;
     protected final Integer length;
-    private final Integer min;
-    private final Integer max;
-    private final String perm;
-    private final String command;
+    private final Integer minLength;
+    private final Integer maxLength;
+    private final String permission;
+    private final String name;
     private final String usage;
 
-    public Command(@NotNull String command, @NotNull CommandSender sender, @Nullable String[] args, @Nullable Integer min, @Nullable Integer max, @Nullable String usage, @Nullable String perm) {
-        this.command = command;
+    public CommandAbstract(@NotNull String name, @NotNull CommandSender sender, @Nullable String[] args, @Nullable Integer minLength, @Nullable Integer maxLength, @Nullable String usage, @Nullable String permission) {
+        this.name = name;
         this.sender = sender;
         this.args = args != null ? Arrays.stream(args).filter(Objects::nonNull).map(String::toLowerCase).toArray(String[]::new) : new String[0];
         this.rawArgs = args;
-        this.min = min;
-        this.max = max;
+        this.minLength = minLength;
+        this.maxLength = maxLength;
         this.usage = usage;
-        this.perm = perm;
+        this.permission = permission;
         this.length = this.args.length;
     }
 
@@ -40,7 +39,7 @@ public abstract class Command {
             checkArgsCount();
             errorHandle();
             run();
-        } catch (CmdException e) {
+        } catch (CommandException e) {
             sender.sendMessage(e.getMessage());
             return true;
         } catch (IllegalArgumentException e) {
@@ -54,23 +53,23 @@ public abstract class Command {
         return true;
     }
 
-    private void checkArgsCount() throws CmdException {
-        if (!((min == null || length >= min) && (max == null || length <= max))) throw new CmdException(usage);
+    private void checkArgsCount() throws CommandException {
+        if (!((minLength == null || length >= minLength) && (maxLength == null || length <= maxLength))) throw new CommandException(usage);
     }
 
-    private void checkPermission() throws CmdException {
-        if (perm != null && !sender.hasPermission(perm)) throw new CmdException("你没有权限");
+    private void checkPermission() throws CommandException {
+        if (permission != null && !sender.hasPermission(permission)) throw new CommandException("你没有权限");
     }
 
     public String getCommand(boolean ignorePerm) {
-        return (ignorePerm || perm == null || sender.hasPermission(perm)) ? command : null;
+        return (ignorePerm || permission == null || sender.hasPermission(permission)) ? name : null;
     }
 
     public String getUsage(boolean ignorePerm) {
-        return (ignorePerm || perm == null || sender.hasPermission(perm)) ? usage : null;
+        return (ignorePerm || permission == null || sender.hasPermission(permission)) ? usage : null;
     }
 
-    protected abstract void errorHandle() throws CmdException;
+    protected abstract void errorHandle() throws CommandException;
 
     protected abstract void run();
 
