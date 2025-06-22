@@ -1,5 +1,7 @@
 package shirohaNya.dglabmc;
 
+import shirohaNya.dglabmc.enums.AdjustMode;
+import shirohaNya.dglabmc.enums.Channel;
 import shirohaNya.dglabmc.scripts.Script;
 import lombok.Data;
 import org.bukkit.boss.BarColor;
@@ -49,7 +51,7 @@ public class Client {
         output(text, true);
     }
 
-    public void output(String text, boolean log) {
+    protected void output(String text, boolean log) {
         webSocket.send(text);
         if (log) getLogger().info("服务器发出: " + text);
     }
@@ -120,5 +122,33 @@ public class Client {
                 " B:" + bStrength + "/" + bMaxStrength +
                 " 电击剩余时间:" + (totalTime - ticks / 20) + "秒");
     }
+    //通道: 1 - A 通道；2 - B 通道
+    //强度变化模式: 0 - 通道强度减少；1 - 通道强度增加；2 - 通道强度变化为指定数值
+    //数值: 范围在(0 ~ 200)的整型
+    public void adjustStrength(Channel channel, AdjustMode type, int num){
+        if (channel == Channel.BOTH) {
+            output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.toInt() + "+" + num));
+            output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.toInt() + "+" + num));
+            return;
+        }
+        output(toDGJson("msg", mcUUID, clientId, "strength-" + channel.toInt() + "+" + type.toInt() + "+" + num));
+    }
 
+    public void clearPulse(Channel channel){
+        if (channel == Channel.BOTH) {
+            output(toDGJson("msg", mcUUID, clientId, "clear-1"));
+            output(toDGJson("msg", mcUUID, clientId, "clear-2"));
+            return;
+        }
+        output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.toInt()));
+    }
+
+    public void adjustPulse(Channel channel, String hex){
+        if (channel == Channel.BOTH) {
+            output(toDGJson("msg", mcUUID, clientId, hex));
+            output(toDGJson("msg", mcUUID, clientId, hex));
+            return;
+        }
+        output(toDGJson("msg", mcUUID, clientId, hex));
+    }
 }

@@ -1,27 +1,29 @@
 package shirohaNya.dglabmc.commands.impls;
 
-import shirohaNya.dglabmc.Client;
-import shirohaNya.dglabmc.commands.CommandException;
-import shirohaNya.dglabmc.commands.CommandAbstract;
-import shirohaNya.dglabmc.utils.CommandUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.commands.CommandAbstract;
+import shirohaNya.dglabmc.commands.CommandException;
+import shirohaNya.dglabmc.enums.AdjustMode;
+import shirohaNya.dglabmc.enums.Channel;
+import shirohaNya.dglabmc.utils.CommandUtils;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static shirohaNya.dglabmc.DGlabMC.mcUUID;
+import static org.bukkit.Bukkit.getPlayer;
 import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
 import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
 import static shirohaNya.dglabmc.utils.CommandUtils.concatList;
-import static shirohaNya.dglabmc.utils.DGlabUtils.toDGJson;
-import static org.bukkit.Bukkit.getPlayer;
 
 public class CommandCtrlStrength extends CommandAbstract {
     private String channel, mode, value;
+    private Channel _channel;
+    private AdjustMode _mode;
     private Client client;
     public CommandCtrlStrength(@NotNull CommandSender sender, @Nullable String[] args) {
         super("ctrl-strength", sender, args, 4, 5,
@@ -47,19 +49,19 @@ public class CommandCtrlStrength extends CommandAbstract {
             this.mode = args[3];
             this.value = args[4];
         }
-        if (!Arrays.asList("a", "b", "both").contains(channel)) throw new CommandException("频道请输入 A B both 其中一个");
-        if (!Arrays.asList("add", "dec", "set").contains(mode)) throw new CommandException("模式请输入 add dec set 其中一个");
+        try {
+            this._channel = Channel.toChannel(channel);
+            this._mode = AdjustMode.toMode(mode);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e);
+        }
         if (!value.matches("\\d++")) throw new CommandException("数值请输入不含小数的纯数字");
         if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer())) throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override
     protected void run() {
-        this.mode = "add".equals(mode) ? "1" : "dec".equals(mode) ? "0" : "2";
-        if ("a".equals(channel) || "both".equals(channel))
-            client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-1+" + mode + "+" + value));
-        if ("b".equals(channel) || "both".equals(channel))
-            client.output(toDGJson("msg", mcUUID, client.getClientId(), "strength-2+" + mode + "+" + value));
+        client.adjustStrength(_channel, _mode, Integer.parseInt(value));
         sender.sendMessage("通道" + channel + "成功" + ("1".equals(mode) ? "增加" : "0".equals(mode) ? "减少" : "设置为") + value);
     }
 
