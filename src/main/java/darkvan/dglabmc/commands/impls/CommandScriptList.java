@@ -13,7 +13,7 @@ import static darkvan.dglabmc.DGlabMC.scripts;
 public class CommandScriptList extends CommandAbstract {
 
     public CommandScriptList(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("script-list", sender, args, null, null, "/dglab script-list", "dglab.script.list");
+        super("script-list", sender, args, null, null, "/dglab script-list 查看脚本列表", "dglab.script.list");
     }
 
     @Override
@@ -23,7 +23,10 @@ public class CommandScriptList extends CommandAbstract {
 
     @Override
     protected void run() {
+        sender.sendMessage("以下是脚本列表:");
+        sender.sendMessage("====================");
         scripts.values().forEach(script -> sender.sendMessage(script.getName() + " " + script.getDescription()));
+        sender.sendMessage("====================");
     }
 
     @Override

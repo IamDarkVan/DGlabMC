@@ -28,7 +28,7 @@ public class CommandScript extends CommandAbstract {
     private ScriptAbstract script;
     private String type;
     public CommandScript(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("script", sender, args, 3, 4, "/dglab script [clientId|player] <script> (enable|disable|toggle) -- 为客户端启用/禁用游戏", "dglab.script");
+        super("script", sender, args, 3, 4, "/dglab script [clientId|player] <script> (enable|disable|toggle) -- 为客户端启用/禁用脚本", "dglab.script");
     }
 
     @Override

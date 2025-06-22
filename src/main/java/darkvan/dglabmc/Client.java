@@ -23,7 +23,7 @@ public class Client {
     private final String clientId;
     private final WebSocket webSocket;
     private final BossBar bossbar = createBossBar(null, BarColor.RED, BarStyle.SOLID);
-    private final HashSet<ScriptAbstract> enabledGames = new HashSet<>();
+    private final HashSet<ScriptAbstract> enabledScripts = new HashSet<>();
     @Nullable
     private Player player;
     private Integer aStrength = 0;
@@ -59,13 +59,6 @@ public class Client {
         getLogger().info("已断开" + clientId + "的连接");
         if (player != null) player.sendMessage("你绑定的 " + clientId + " 已断开连接");
         bossbar.removeAll();
-    }
-
-    public String info() {
-        return clientId + " " + (player == null ? "未绑定" : player.getName()) +
-                " A:" + aStrength + "/" + aMaxStrength +
-                " B:" + bStrength + "/" + bMaxStrength +
-                " 电击剩余时间:" + (totalTime - ticks / 20) + "秒";
     }
 
     public void sendMessage(String msg) {
