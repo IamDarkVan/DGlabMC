@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.java_websocket.WebSocket;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.scripts.ScriptManager;
 
 import java.util.HashSet;
 
@@ -45,6 +46,7 @@ public class Client {
         this.player = player;
         clients.add(this);
         bossbar.setProgress(0);
+        enabledScripts.addAll(ScriptManager.getDefaultScripts());
     }
 
     public void output(String text) {
@@ -147,12 +149,8 @@ public class Client {
         output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.getValue()));
     }
 
-    public void adjustPulse(Channel channel, String hex){
-        if (channel == Channel.BOTH) {
-            output(toDGJson("msg", mcUUID, clientId, hex));
-            output(toDGJson("msg", mcUUID, clientId, hex));
-            return;
-        }
-        output(toDGJson("msg", mcUUID, clientId, hex));
+    public void adjustPulse(Channel channel,@Nullable String hex){
+        if (channel == Channel.BOTH || channel == Channel.A) this.aPulse = hex;
+        if (channel == Channel.BOTH || channel == Channel.B) this.bPulse = hex;
     }
 }

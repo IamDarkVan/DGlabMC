@@ -63,9 +63,9 @@ public class CommandScript extends CommandAbstract {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return concatList(CommandUtils.getPlayerAndClientList(sender), ScriptManager.getScriptMap().keySet().toArray(new String[0]));
+        if (length == 2) return concatList(CommandUtils.getPlayerAndClientList(sender), ScriptManager.getScriptNameSet().toArray(new String[0]));
         if (getPlayer(args[1]) != null || isClientExist(args[1])) {
-            if (length == 3) return new ArrayList<>(ScriptManager.getScriptMap().keySet());
+            if (length == 3) return new ArrayList<>(ScriptManager.getScriptNameSet());
             if (length == 4) return Arrays.asList("enable", "disable", "toggle");
         } else {
             if (length == 3) return Arrays.asList("enable", "disable", "toggle");

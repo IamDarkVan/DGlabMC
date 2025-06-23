@@ -7,10 +7,12 @@ scripts:
       default: false
       time: 5
       replace: true
+  - script2:
+      default: false
 
 ################################
 #           Example            #
-# - game2:                     #
+# - script2:                   #
 #     default: false           #
 #     setting1: value1         #
 #     setting2: value2         #

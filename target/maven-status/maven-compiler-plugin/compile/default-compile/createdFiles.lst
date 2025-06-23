@@ -4,6 +4,7 @@ shirohaNya\dglabmc\commands\CommandTabCompleter.class
 shirohaNya\dglabmc\scripts\Script.class
 shirohaNya\dglabmc\commands\impls\CommandSendDGJson.class
 shirohaNya\dglabmc\commands\impls\CommandServerRun.class
+shirohaNya\dglabmc\enums\Channel.class
 shirohaNya\dglabmc\commands\CommandException.class
 shirohaNya\dglabmc\scripts\ScriptAbstract.class
 shirohaNya\dglabmc\scripts\impls\Script1.class
@@ -25,6 +26,8 @@ shirohaNya\dglabmc\commands\impls\CommandGetAddress.class
 shirohaNya\dglabmc\commands\impls\CommandInfo.class
 shirohaNya\dglabmc\scripts\ScriptManager.class
 shirohaNya\dglabmc\utils\DGlabUtils.class
+shirohaNya\dglabmc\scripts\impls\Script2.class
+shirohaNya\dglabmc\enums\AdjustMode.class
 shirohaNya\dglabmc\commands\impls\CommandBindList.class
 shirohaNya\dglabmc\MCWebSocketServer.class
 shirohaNya\dglabmc\listeners\ListenerScript1.class

@@ -57,10 +57,7 @@ public class CommandCtrlPulse extends CommandAbstract {
 
     @Override
     protected void run() {
-        if ("CLEAR".equals(hex)) {
-            client.clearPulse(_channel);
-            return;
-        }
+        if ("CLEAR".equals(hex)) this.hex = null;
         client.adjustPulse(_channel, hex);
         sender.sendMessage("通道 " + channel + " 成功设置波形为 " + hex);
     }

@@ -40,6 +40,7 @@ public class ListenerScript1 implements Listener {
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) player = (Player) e.getEntity(); else return;
+        if (getClient(player))
         if (!isClientExist(player) || !script.isClientEnabled(getClient(player))) return;
         playerDamageHandler(e.getDamage(), player);
     }

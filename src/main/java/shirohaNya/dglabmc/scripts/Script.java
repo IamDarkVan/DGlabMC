@@ -2,7 +2,6 @@ package shirohaNya.dglabmc.scripts;
 
 import shirohaNya.dglabmc.Client;
 
-import java.util.HashSet;
 import java.util.Map;
 
 @SuppressWarnings("unused")
@@ -26,6 +25,4 @@ public interface Script {
     String getPermission();
 
     Map<?,?> getSettings();
-
-    HashSet<Client> getEnabledClients();
 }
