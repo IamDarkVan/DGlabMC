@@ -12,6 +12,7 @@ import shirohaNya.dglabmc.utils.CommandUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static org.bukkit.Bukkit.getPlayer;
 import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
@@ -22,8 +23,8 @@ public class CommandBossbar extends CommandAbstract {
     private Client client;
     private String type;
     private BossbarType _type;
-    public CommandBossbar(@NotNull String name, @NotNull CommandSender sender, @Nullable String[] args, @Nullable Integer minLength, @Nullable Integer maxLength, @Nullable String usage, @Nullable String permission) {
-        super("bossbar", sender, args, 2, 3, "/dglab bossbar [clientId|player] <none|A|B|both> -- 更改电击提示", permission);
+    public CommandBossbar(@NotNull CommandSender sender, @Nullable String[] args) {
+        super("bossbar", sender, args, 2, 3, "/dglab bossbar [clientId|player] <none|A|B|both> -- 更改电击提示", "dglab.bossbar");
     }
 
     @Override
@@ -45,6 +46,7 @@ public class CommandBossbar extends CommandAbstract {
         } catch (IllegalArgumentException e) {
             throw new CommandException(e);
         }
+        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer())) throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override

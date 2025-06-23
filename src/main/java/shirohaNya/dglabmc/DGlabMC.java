@@ -58,6 +58,7 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("server-stop", CommandServerStop::new);
         registerCommand("shock", CommandShock::new);
         registerCommand("unbind", CommandUnbind::new);
+        registerCommand("bossbar", CommandBossbar::new);
         //注册脚本
         registerScript("script1", new Script1());
         //生成二维码
