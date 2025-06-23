@@ -1,21 +1,23 @@
 package shirohaNya.dglabmc.commands.impls;
 
-import shirohaNya.dglabmc.Client;
-import shirohaNya.dglabmc.commands.CommandException;
-import shirohaNya.dglabmc.commands.CommandAbstract;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.commands.CommandAbstract;
+import shirohaNya.dglabmc.commands.CommandException;
 import shirohaNya.dglabmc.enums.Channel;
+import shirohaNya.dglabmc.utils.CommandUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static org.bukkit.Bukkit.getPlayer;
 import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
 import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
-import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerAndClientList;
-import static org.bukkit.Bukkit.getPlayer;
+import static shirohaNya.dglabmc.utils.CommandUtils.concatList;
 
 public class CommandShock extends CommandAbstract {
     private Client client;
@@ -71,7 +73,10 @@ public class CommandShock extends CommandAbstract {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return getPlayerAndClientList(sender);
+        if (length == 2) return concatList(CommandUtils.getPlayerAndClientList(sender), "A", "B", "both");
+        if (getPlayer(args[1]) != null || isClientExist(args[1])) {
+            if (length == 3) return Arrays.asList("A", "B", "both");
+        }
         return null;
     }
 }

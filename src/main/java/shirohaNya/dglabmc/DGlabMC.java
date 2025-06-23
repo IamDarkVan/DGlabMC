@@ -1,16 +1,15 @@
 package shirohaNya.dglabmc;
 
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import shirohaNya.dglabmc.commands.CommandExecutor;
 import shirohaNya.dglabmc.commands.CommandTabCompleter;
 import shirohaNya.dglabmc.commands.impls.*;
 import shirohaNya.dglabmc.listeners.ListenerScript1;
 import shirohaNya.dglabmc.listeners.ListenerUnbindOfflinePlayer;
 import shirohaNya.dglabmc.scripts.impls.Script1;
-import shirohaNya.dglabmc.scripts.impls.Script2;
 import shirohaNya.dglabmc.utils.DGlabUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -61,7 +60,6 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("unbind", CommandUnbind::new);
         //注册脚本
         registerScript("script1", new Script1());
-        registerScript("script2", new Script2());
         //生成二维码
         saveDefaultConfig();
         mcUUID = config.getString("mcUUID") == null ? UUID.randomUUID().toString() : config.getString("mcUUID");
