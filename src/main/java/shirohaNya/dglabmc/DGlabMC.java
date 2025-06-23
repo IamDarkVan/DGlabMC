@@ -37,6 +37,9 @@ public final class DGlabMC extends JavaPlugin {
         getLogger().info("Dglab in Minecraft 已加载,服务器使用WebSocket协议,请使用郊狼3.0以上版本主机连接");
         Objects.requireNonNull(getCommand("dglab")).setExecutor(new CommandExecutor());
         Objects.requireNonNull(getCommand("dglab")).setTabCompleter(new CommandTabCompleter());
+        //注册脚本
+        registerScript("script1", new Script1());
+        //注册监听器
         Bukkit.getPluginManager().registerEvents(new ListenerUnbindOfflinePlayer(), this);
         Bukkit.getPluginManager().registerEvents(new ListenerScript1(), this);
         // 注册子命令
@@ -59,8 +62,6 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("shock", CommandShock::new);
         registerCommand("unbind", CommandUnbind::new);
         registerCommand("bossbar", CommandBossbar::new);
-        //注册脚本
-        registerScript("script1", new Script1());
         //生成二维码
         saveDefaultConfig();
         mcUUID = config.getString("mcUUID") == null ? UUID.randomUUID().toString() : config.getString("mcUUID");

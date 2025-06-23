@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
+import static org.bukkit.Bukkit.getLogger;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class ScriptManager {
@@ -37,11 +38,10 @@ public class ScriptManager {
     }
 
     public static @Nullable Script getScript(@NotNull String name){
-        if (!scriptMap.containsKey(name)) return null;
         return scriptMap.get(name);
     }
 
     public static void registerScript(@NotNull String name, @NotNull Script script){
-        scriptMap.put(name,script);
+        scriptMap.forEach((k,v) -> getLogger().info(k));
     }
 }
