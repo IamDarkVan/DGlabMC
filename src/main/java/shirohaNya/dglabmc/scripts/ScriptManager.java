@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-import static org.bukkit.Bukkit.getLogger;
+
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class ScriptManager {
