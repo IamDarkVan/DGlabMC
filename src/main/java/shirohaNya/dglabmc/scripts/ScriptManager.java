@@ -42,6 +42,6 @@ public class ScriptManager {
     }
 
     public static void registerScript(@NotNull String name, @NotNull Script script){
-        scriptMap.forEach((k,v) -> getLogger().info(k));
+        scriptMap.put(name,script);
     }
 }

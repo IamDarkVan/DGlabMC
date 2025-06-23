@@ -10,7 +10,6 @@ shirohaNya\dglabmc\BossbarManager$1.class
 shirohaNya\dglabmc\commands\CommandException.class
 shirohaNya\dglabmc\scripts\ScriptAbstract.class
 shirohaNya\dglabmc\scripts\impls\Script1.class
-shirohaNya\dglabmc\scripts\impls\script2Tool\SharedClient.class
 shirohaNya\dglabmc\commands\impls\CommandBind.class
 shirohaNya\dglabmc\commands\impls\CommandCtrlPulse.class
 shirohaNya\dglabmc\commands\CommandAbstract.class
@@ -30,7 +29,6 @@ shirohaNya\dglabmc\commands\impls\CommandGetAddress.class
 shirohaNya\dglabmc\commands\impls\CommandInfo.class
 shirohaNya\dglabmc\scripts\ScriptManager.class
 shirohaNya\dglabmc\utils\DGlabUtils.class
-shirohaNya\dglabmc\scripts\impls\Script2.class
 shirohaNya\dglabmc\enums\AdjustMode.class
 shirohaNya\dglabmc\commands\impls\CommandBindList.class
 shirohaNya\dglabmc\MCWebSocketServer.class
@@ -39,6 +37,7 @@ shirohaNya\dglabmc\Client$2.class
 shirohaNya\dglabmc\commands\impls\CommandGetQRCode$1.class
 shirohaNya\dglabmc\commands\impls\CommandHelp.class
 shirohaNya\dglabmc\commands\impls\CommandSendMsg.class
+shirohaNya\dglabmc\commands\impls\CommandBossbar.class
 shirohaNya\dglabmc\commands\impls\CommandScriptList.class
 shirohaNya\dglabmc\commands\Command.class
 shirohaNya\dglabmc\commands\impls\CommandUnbind.class
