@@ -14,6 +14,8 @@ public class Script2 extends ScriptAbstract {
 
     @Override
     public void onEnable(Client client) {
+        //TODO 如何绑定共享玩家
+
 
     }
 

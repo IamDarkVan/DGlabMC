@@ -3,11 +3,14 @@ shirohaNya\dglabmc\utils\CommandUtils.class
 shirohaNya\dglabmc\commands\CommandTabCompleter.class
 shirohaNya\dglabmc\scripts\Script.class
 shirohaNya\dglabmc\commands\impls\CommandSendDGJson.class
+shirohaNya\dglabmc\BossbarManager.class
 shirohaNya\dglabmc\commands\impls\CommandServerRun.class
 shirohaNya\dglabmc\enums\Channel.class
+shirohaNya\dglabmc\BossbarManager$1.class
 shirohaNya\dglabmc\commands\CommandException.class
 shirohaNya\dglabmc\scripts\ScriptAbstract.class
 shirohaNya\dglabmc\scripts\impls\Script1.class
+shirohaNya\dglabmc\scripts\impls\script2Tool\SharedClient.class
 shirohaNya\dglabmc\commands\impls\CommandBind.class
 shirohaNya\dglabmc\commands\impls\CommandCtrlPulse.class
 shirohaNya\dglabmc\commands\CommandAbstract.class
@@ -18,6 +21,7 @@ shirohaNya\dglabmc\commands\impls\CommandServerStop.class
 shirohaNya\dglabmc\commands\impls\CommandShock.class
 shirohaNya\dglabmc\commands\CommandManager.class
 shirohaNya\dglabmc\commands\impls\CommandCtrlStrength.class
+shirohaNya\dglabmc\enums\BossbarType.class
 shirohaNya\dglabmc\Client$1.class
 shirohaNya\dglabmc\commands\impls\CommandReload.class
 shirohaNya\dglabmc\utils\ClientUtils.class
@@ -31,6 +35,7 @@ shirohaNya\dglabmc\enums\AdjustMode.class
 shirohaNya\dglabmc\commands\impls\CommandBindList.class
 shirohaNya\dglabmc\MCWebSocketServer.class
 shirohaNya\dglabmc\listeners\ListenerScript1.class
+shirohaNya\dglabmc\Client$2.class
 shirohaNya\dglabmc\commands\impls\CommandGetQRCode$1.class
 shirohaNya\dglabmc\commands\impls\CommandHelp.class
 shirohaNya\dglabmc\commands\impls\CommandSendMsg.class

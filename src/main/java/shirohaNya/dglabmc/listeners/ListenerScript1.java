@@ -26,7 +26,7 @@ public class ListenerScript1 implements Listener {
         int valueB = (int) ((1 - (player.getHealth() - damage) / player.getMaxHealth()) * client.getBMaxStrength());
         client.adjustStrength(Channel.A, AdjustMode.SET, valueA);
         client.adjustStrength(Channel.B, AdjustMode.SET, valueB);
-        client.giveShock(5, true);
+        client.giveShock(5,Channel.BOTH, true);
     }
 
     @SuppressWarnings("deprecation")
@@ -36,7 +36,7 @@ public class ListenerScript1 implements Listener {
         int valueB = (int) ((1 - (player.getHealth() + amount) / player.getMaxHealth()) * client.getBMaxStrength());
         client.adjustStrength(Channel.A, AdjustMode.SET, valueA);
         client.adjustStrength(Channel.B, AdjustMode.SET, valueB);
-        if (valueA == 0 && valueB == 0) client.giveShock(0);
+        if (valueA == 0 && valueB == 0) client.giveShock(0, Channel.BOTH, true);
     }
 
     @EventHandler

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Channel {
-    A(1, "A"),B(2, "B"),BOTH(3, "BOTH");
+    A(1, "A"),B(2, "B"),BOTH(0, "BOTH");
 
     private final int value;
     private final String text;
