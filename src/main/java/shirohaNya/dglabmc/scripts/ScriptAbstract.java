@@ -30,7 +30,7 @@ public abstract class ScriptAbstract implements Script{
             throw new RuntimeException("未在config.yml中注册游戏");
         }
         if (settings.containsKey("default") && settings.get("default") instanceof Boolean && (Boolean) settings.get("default")) {
-
+            ScriptManager.putDefaultScript(this);
         }
     }
 
