@@ -22,12 +22,15 @@ permissions:
       dglab.send: true
       dglab.shock: true
       dglab.server: true
+      dglab.bossbar: true
 ################################################################
   dglab.reload:
     default: op
   dglab.getQRcode:
     default: true
   dglab.getAddress:
+    default: true
+  dglab.bossbar:
     default: true
 ################################################################
   dglab.info:
