@@ -10,13 +10,15 @@ import shirohaNya.dglabmc.enums.AdjustMode;
 import shirohaNya.dglabmc.enums.Channel;
 import shirohaNya.dglabmc.scripts.Script;
 
+import java.util.Objects;
+
 import static shirohaNya.dglabmc.scripts.ScriptManager.getScript;
 import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
 import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
 
 public class ListenerScript1 implements Listener {
     private Player player;
-    private final Script script = getScript("script1");
+    private final Script script = Objects.requireNonNull(getScript("script1"));
     @SuppressWarnings("deprecation")
     public static void playerDamageHandler(double damage, Player player) {
         Client client = getClient(player);
@@ -40,7 +42,6 @@ public class ListenerScript1 implements Listener {
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) player = (Player) e.getEntity(); else return;
-        if (getClient(player))
         if (!isClientExist(player) || !script.isClientEnabled(getClient(player))) return;
         playerDamageHandler(e.getDamage(), player);
     }

@@ -81,6 +81,15 @@ public class Client {
         if (p != null) bossbar.addPlayer(p);
     }
 
+    public void clearPulse(Channel channel){
+        if (channel == Channel.BOTH) {
+            output(toDGJson("msg", mcUUID, clientId, "clear-1"));
+            output(toDGJson("msg", mcUUID, clientId, "clear-2"));
+            return;
+        }
+        output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.getValue()));
+    }
+
     public void giveShock(int sec) {
         giveShock(sec, true);
     }
@@ -109,8 +118,7 @@ public class Client {
     }
 
     private void cancelShock() {
-        output(toDGJson("msg", mcUUID, clientId, "clear-1"));
-        output(toDGJson("msg", mcUUID, clientId, "clear-2"));
+        clearPulse(Channel.BOTH);
         bossbar.setProgress(0.0);
         totalTime = 0;
         ticks = 0;
@@ -138,15 +146,6 @@ public class Client {
 
     public void adjustStrength(Channel channel, AdjustMode type, int num){
         adjustStrength(channel, type, String.valueOf(num));
-    }
-
-    public void clearPulse(Channel channel){
-        if (channel == Channel.BOTH) {
-            output(toDGJson("msg", mcUUID, clientId, "clear-1"));
-            output(toDGJson("msg", mcUUID, clientId, "clear-2"));
-            return;
-        }
-        output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.getValue()));
     }
 
     public void adjustPulse(Channel channel,@Nullable String hex){
