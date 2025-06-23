@@ -127,11 +127,11 @@ public class Client {
     //数值: 范围在(0 ~ 200)的整型
     public void adjustStrength(Channel channel, AdjustMode type, String num){
         if (channel == Channel.BOTH) {
-            output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.toInt() + "+" + num));
-            output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.toInt() + "+" + num));
+            output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.getValue() + "+" + num));
+            output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.getValue() + "+" + num));
             return;
         }
-        output(toDGJson("msg", mcUUID, clientId, "strength-" + channel.toInt() + "+" + type.toInt() + "+" + num));
+        output(toDGJson("msg", mcUUID, clientId, "strength-" + channel.getValue() + "+" + type.getValue() + "+" + num));
     }
 
     public void adjustStrength(Channel channel, AdjustMode type, int num){
@@ -144,7 +144,7 @@ public class Client {
             output(toDGJson("msg", mcUUID, clientId, "clear-2"));
             return;
         }
-        output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.toInt()));
+        output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.getValue()));
     }
 
     public void adjustPulse(Channel channel, String hex){

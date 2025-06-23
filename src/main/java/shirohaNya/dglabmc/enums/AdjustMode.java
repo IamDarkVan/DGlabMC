@@ -1,18 +1,20 @@
 package shirohaNya.dglabmc.enums;
 
-public enum AdjustMode {
-    ADD,DEC,SET;
+import lombok.Getter;
 
-    public int toInt(){
-        if (this == ADD) return 1;
-        if (this == DEC) return 0;
-        return 2;
+@Getter
+public enum AdjustMode {
+    ADD(1,"ADD"),DEC(0,"DEC"),SET(2,"SET");
+
+    private final int value;
+    private final String text;
+    AdjustMode(int value, String text) {
+        this.value = value;
+        this.text = text;
     }
 
-    public static AdjustMode toMode(String t) throws IllegalArgumentException{
-        if (t.equalsIgnoreCase("ADD")) return ADD;
-        if (t.equalsIgnoreCase("DEC")) return DEC;
-        if (t.equalsIgnoreCase("SET")) return SET;
+    public static AdjustMode toMode(String text) throws IllegalArgumentException{
+        for (AdjustMode mode : values()) if (text.equalsIgnoreCase(mode.text)) return mode;
         throw new IllegalArgumentException("模式请输入 add dec set 其中一个");
     }
 }

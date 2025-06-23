@@ -1,18 +1,21 @@
 package shirohaNya.dglabmc.enums;
 
-public enum Channel {
-    A,B,BOTH;
+import lombok.Getter;
 
-    public int toInt(){
-        if (this == A) return 1;
-        if (this == B) return 2;
-        return 0;
+@Getter
+public enum Channel {
+    A(1, "A"),B(2, "B"),BOTH(3, "BOTH");
+
+    private final int value;
+    private final String text;
+
+    Channel(int value, String text) {
+        this.value = value;
+        this.text = text;
     }
 
-    public static Channel toChannel(String c) throws IllegalArgumentException{
-        if (c.equalsIgnoreCase("A")) return A;
-        if (c.equalsIgnoreCase("B")) return B;
-        if (c.equalsIgnoreCase("BOTH")) return BOTH;
+    public static Channel toChannel(String text) throws IllegalArgumentException{
+        for (Channel c : values()) if (text.equalsIgnoreCase(c.text)) return c;
         throw new IllegalArgumentException("频道请输入 A B both 其中一个");
     }
 }
