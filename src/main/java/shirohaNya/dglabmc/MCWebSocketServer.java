@@ -46,18 +46,18 @@ public class MCWebSocketServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket webSocket, String text) {
         Client client = ClientUtils.getClient(webSocket);
-        getLogger().info("服务器收到: " + client.getClientId() + ": " + text);
+        if (plugin.logInputMessage) getLogger().info("服务器收到: " + client.getClientId() + ": " + text);
         HashMap<String, String> data;
         try {
             data = toHashMap(text);
         } catch (Exception e) {
             client.output(toDGJson("msg", "", "", "403"));
-            getLogger().info("该消息非JSON,已作废 403");
+            if (plugin.logInputMessage) getLogger().info("该消息非JSON,已作废 403");
             return;
         }
         if (!(data.keySet().containsAll(Arrays.asList("type", "clientId", "targetId", "message")))) {
             client.output(toDGJson("msg", "", "", "404"));
-            getLogger().info("该消息无必要键值,已作废 404(1)");
+            if (plugin.logInputMessage) getLogger().info("该消息无必要键值,已作废 404(1)");
             return;
         }
         String type = data.get("type"), clientId = data.get("clientId"),
@@ -66,20 +66,20 @@ public class MCWebSocketServer extends WebSocketServer {
                 !ClientUtils.isClientExist(targetId) ||
                 ClientUtils.getClient(targetId).getWebSocket() != webSocket) {
             client.output(toDGJson("msg", "", "", "404"));
-            getLogger().info("该消息来源未知,已作废 404(2)");
+            if (plugin.logInputMessage) getLogger().info("该消息来源未知,已作废 404(2)");
             return;
         }
         if (Objects.equals(type, "bind")) {
-            if (mcUUID.equals(clientId)) {
-                client.output(toDGJson("bind", clientId, targetId, "200"));
-                getLogger().info("成功连接 200");
-            } else {
+            if (!mcUUID.equals(clientId)) {
                 client.output(toDGJson("bind", clientId, targetId, "400"));
-                getLogger().info("该消息未知,已作废 400");
+                if (plugin.logInputMessage) getLogger().info("该消息未知,已作废 400");
                 return;
             }
+            client.output(toDGJson("bind", clientId, targetId, "200"));
+            if (plugin.logInputMessage) getLogger().info("成功连接 200");
+
         }
-        getLogger().info(message);
+        if (plugin.logInputMessage) getLogger().info(message);
         if (Objects.equals(type, "msg")) {
             if (message.contains("strength")) {
                 // strength-0+1+2+3, [0, 1, 2, 3]

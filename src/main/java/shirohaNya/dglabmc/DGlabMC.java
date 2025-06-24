@@ -27,6 +27,8 @@ public final class DGlabMC extends JavaPlugin {
     public final String ip = config.getString("ip");
     public int port = config.getInt("port");
     public final boolean autoRunServer = config.getBoolean("autoRunServer");
+    public final boolean logOutputMessage = config.getBoolean("logOutputMessage");
+    public final boolean logInputMessage = config.getBoolean("logInputMessage");
     public MCWebSocketServer mcWebSocketServer = null;
     public String qrCode;
 

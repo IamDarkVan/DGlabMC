@@ -1,7 +1,9 @@
 ip: "127.0.0.1"
 port: 9999
 autoRunServer: true
-mcUUID : null
+mcUUID: null
+logOutputMessage: false
+logInputMessage: false
 scripts:
   - script1:
       default: false

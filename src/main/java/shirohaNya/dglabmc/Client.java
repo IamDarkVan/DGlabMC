@@ -45,7 +45,7 @@ public class Client {
     }
 
     public void output(String text) {
-        getLogger().info("服务器发出: " + text);
+        if (plugin.logOutputMessage) getLogger().info("服务器发出: " + text);
         webSocket.send(text);
     }
 
