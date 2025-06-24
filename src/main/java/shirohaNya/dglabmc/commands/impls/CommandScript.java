@@ -63,7 +63,7 @@ public class CommandScript extends CommandAbstract {
         if ("enable".equals(type)) script.enableClient(client);
         if ("disable".equals(type)) script.disableClient(client);
         if ("toggle".equals(type)) script.toggleClient(client);
-        sender.sendMessage("成功为" + client.getClientId() + (script.isClientEnabled(client) ? "启用" : "取消") + "游戏");
+        sender.sendMessage("成功为" + client.getClientId() + (script.isClientEnabled(client) ? "启用" : "取消") + script.getName());
     }
 
     @Override
