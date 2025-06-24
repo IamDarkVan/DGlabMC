@@ -92,6 +92,7 @@ public class DGlabUtils {
         return MatrixToImageWriter.toBufferedImage(matrix);
     }
 
+    @SuppressWarnings("deprecation")
     public static void giveMap(Player player, BufferedImage image) {
         World world = player.getWorld();
         MapView view = Bukkit.createMap(world);
