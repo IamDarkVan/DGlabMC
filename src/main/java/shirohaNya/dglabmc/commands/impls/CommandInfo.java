@@ -47,10 +47,10 @@ public class CommandInfo extends CommandAbstract {
     @Override
     protected void run() {
         sender.sendMessage(client.getClientId() + " " + (client.getPlayer() == null ? "未绑定" : client.getPlayer().getName()));
-        sender.sendMessage("A:" + client.getAStrength() + "/" + client.getAMaxStrength());
-        sender.sendMessage("A通道电击剩余时间:" + (client.getATotalTime() - client.getATicks() / 20) + "秒");
-        sender.sendMessage("B:" + client.getBStrength() + "/" + client.getBMaxStrength());
-        sender.sendMessage("B通道电击剩余时间:" + (client.getBTotalTime() - client.getBTicks() / 20) + "秒");
+        sender.sendMessage("A通道强度:" + client.getAStrength() + "/" + client.getAMaxStrength() +
+                "电击剩余时间:" + (client.getATotalTime() - client.getATicks() / 20) + "秒");
+        sender.sendMessage("B通道强度:" + client.getBStrength() + "/" + client.getBMaxStrength() +
+                "电击剩余时间:" + (client.getBTotalTime() - client.getBTicks() / 20) + "秒");
         sender.sendMessage("已启用的脚本: ");
         client.getEnabledScripts().forEach(script -> sender.sendMessage(script.getName()));
     }
