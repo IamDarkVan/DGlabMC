@@ -39,7 +39,7 @@ public class CommandShock extends CommandAbstract {
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             if (!args[2].matches("^[+-]?\\d+$")) throw new CommandException("时间(秒)必须为不含小数的纯数字");
             this.client = getClient(player);
-            this.second = Integer.parseInt(args[1]);
+            this.second = Integer.parseInt(args[2]);
             this.replace = !args[2].matches("^[+-].*");
             this.channel = args[1];
         }
