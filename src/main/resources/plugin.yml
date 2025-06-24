@@ -107,7 +107,7 @@ permissions:
     default: op
 ################################################################
   dglab.list:
-    default: op
+    default: true
     children:
       dglab.script.list: true
 ################################################################

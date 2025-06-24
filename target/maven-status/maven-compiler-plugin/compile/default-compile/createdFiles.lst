@@ -30,11 +30,11 @@ shirohaNya\dglabmc\commands\impls\CommandInfo.class
 shirohaNya\dglabmc\scripts\ScriptManager.class
 shirohaNya\dglabmc\utils\DGlabUtils.class
 shirohaNya\dglabmc\enums\AdjustMode.class
+shirohaNya\dglabmc\utils\DGlabUtils$1.class
 shirohaNya\dglabmc\commands\impls\CommandBindList.class
 shirohaNya\dglabmc\MCWebSocketServer.class
 shirohaNya\dglabmc\listeners\ListenerScript1.class
 shirohaNya\dglabmc\Client$2.class
-shirohaNya\dglabmc\commands\impls\CommandGetQRCode$1.class
 shirohaNya\dglabmc\commands\impls\CommandHelp.class
 shirohaNya\dglabmc\commands\impls\CommandSendMsg.class
 shirohaNya\dglabmc\commands\impls\CommandBossbar.class

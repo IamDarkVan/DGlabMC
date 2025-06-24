@@ -14,7 +14,6 @@ public class BossbarManager {
     private final BossBar aBossbar, bBossbar;
     private Player player;
     private BossbarType type;
-    private double aProgress = 0, bProgress = 0;
     public BossbarManager() {
         this.aBossbar = Bukkit.createBossBar(null, BarColor.BLUE, BarStyle.SOLID);
         this.bBossbar = Bukkit.createBossBar(null, BarColor.GREEN, BarStyle.SOLID);
@@ -55,5 +54,13 @@ public class BossbarManager {
         this.type = type;
         if (this.player == null) return;
         addPlayer(player);
+    }
+
+    public void setAProgress(double p) {
+        aBossbar.setProgress(p);
+    }
+
+    public void setBProgress(double p) {
+        bBossbar.setProgress(p);
     }
 }

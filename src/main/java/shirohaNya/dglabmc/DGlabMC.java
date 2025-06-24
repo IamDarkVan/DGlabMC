@@ -64,7 +64,11 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("bossbar", CommandBossbar::new);
         //生成二维码
         saveDefaultConfig();
-        mcUUID = config.getString("mcUUID") == null ? UUID.randomUUID().toString() : config.getString("mcUUID");
+        mcUUID = config.getString("mcUUID");
+        if (mcUUID == null) {
+            mcUUID = UUID.randomUUID().toString();
+            config.set("mcUUID",mcUUID);
+        }
         qrCode = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + ip + ":" + port + "/" + mcUUID;
         getLogger().info("本机UUID为:" + mcUUID);
         getLogger().info("本机生成二维码为: " + qrCode);

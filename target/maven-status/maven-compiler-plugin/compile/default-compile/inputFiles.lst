@@ -8,6 +8,7 @@ C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\utils\Com
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\Client.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandBindList.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\scripts\ScriptAbstract.java
+C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\BossbarManager.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\MCWebSocketServer.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandCtrlPulse.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\DGlabMC.java
@@ -26,11 +27,15 @@ C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\CommandException.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandGetQRCode.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandUnbind.java
+C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\enums\BossbarType.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandSendMsg.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandBind.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandHelp.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandShock.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\utils\DGlabUtils.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandInfo.java
+C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\enums\AdjustMode.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\scripts\Script.java
+C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\commands\impls\CommandBossbar.java
 C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\scripts\ScriptManager.java
+C:\Users\Shiroha\IdeaProjects\DGlabMC\src\main\java\shirohaNya\dglabmc\enums\Channel.java
