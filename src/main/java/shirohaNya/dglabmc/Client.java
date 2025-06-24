@@ -163,8 +163,8 @@ public class Client {
     }
 
     public void resetBossbarTitle() {
-        int aTime = (int) (aTotalTime - aTicks / 20);
-        int bTime = (int) (bTotalTime - bTicks / 20);
+        double aTime = aTotalTime - aTicks / 20;
+        double bTime = bTotalTime - bTicks / 20;
         bossbar.getABossbar().setTitle("A:" + aStrength + "/" + aMaxStrength +
                 " 电击剩余时间:" + aTime + "秒");
         bossbar.getBBossbar().setTitle("B:" + bStrength + "/" + bMaxStrength +
@@ -174,17 +174,15 @@ public class Client {
     //通道: 1 - A 通道；2 - B 通道
     //强度变化模式: 0 - 通道强度减少；1 - 通道强度增加；2 - 通道强度变化为指定数值
     //数值: 范围在(0 ~ 200)的整型
-    public void adjustStrength(Channel channel, AdjustMode type, String num) {
-        if (channel == Channel.BOTH) {
-            output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.getValue() + "+" + num));
-            output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.getValue() + "+" + num));
-            return;
-        }
-        output(toDGJson("msg", mcUUID, clientId, "strength-" + channel.getValue() + "+" + type.getValue() + "+" + num));
-    }
-
     public void adjustStrength(Channel channel, AdjustMode type, int num) {
-        adjustStrength(channel, type, String.valueOf(num));
+        if (channel == Channel.BOTH || channel == Channel.A) {
+            output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.getValue() + "+" + num));
+            this.aStrength = num;
+        }
+        if (channel == Channel.BOTH || channel == Channel.B) {
+            output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.getValue() + "+" + num));
+            this.bStrength = num;
+        }
     }
 
     public void adjustPulse(Channel channel, @Nullable String hex) {

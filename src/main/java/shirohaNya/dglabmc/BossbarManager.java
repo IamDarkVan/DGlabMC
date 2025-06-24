@@ -19,6 +19,8 @@ public class BossbarManager {
         this.aBossbar = Bukkit.createBossBar(null, BarColor.BLUE, BarStyle.SOLID);
         this.bBossbar = Bukkit.createBossBar(null, BarColor.GREEN, BarStyle.SOLID);
         this.type = BossbarType.BOTH;
+        aBossbar.setProgress(0);
+        bBossbar.setProgress(0);
     }
 
     private void resetBossbar() {

@@ -27,7 +27,7 @@ public class CommandShock extends CommandAbstract {
     private Channel _channel;
 
     public CommandShock(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("shock", sender, args, 2, 3, "/dglab shock [clientId|player] <A|B|both> <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
+        super("shock", sender, args, 3, 4, "/dglab shock [clientId|player] <A|B|both> <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
     }
 
     @Override
