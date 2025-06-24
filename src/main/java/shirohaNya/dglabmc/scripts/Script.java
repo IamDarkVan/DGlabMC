@@ -24,5 +24,5 @@ public interface Script {
 
     String getPermission();
 
-    Map<?,?> getSettings();
+    Map<?, ?> getSettings();
 }

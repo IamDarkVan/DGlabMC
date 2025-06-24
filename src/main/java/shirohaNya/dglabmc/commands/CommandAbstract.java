@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
 
-public abstract class CommandAbstract implements Command{
+public abstract class CommandAbstract implements Command {
     protected final CommandSender sender;
     protected final String[] args;
     protected final String[] rawArgs;
@@ -55,7 +55,8 @@ public abstract class CommandAbstract implements Command{
     }
 
     private void checkArgsCount() throws CommandException {
-        if (!((minLength == null || length >= minLength) && (maxLength == null || length <= maxLength))) throw new CommandException(usage);
+        if (!((minLength == null || length >= minLength) && (maxLength == null || length <= maxLength)))
+            throw new CommandException(usage);
     }
 
     private void checkPermission() throws CommandException {

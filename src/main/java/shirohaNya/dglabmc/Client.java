@@ -73,12 +73,14 @@ public class Client {
     }
 
     public void sendWave(Channel channel) {
-        if ((channel == Channel.BOTH || channel == Channel.A) && aPulse != null) output(toDGJson("msg", mcUUID, clientId, "pulse-A:" + aPulse));
-        if ((channel == Channel.BOTH || channel == Channel.B) && bPulse != null) output(toDGJson("msg", mcUUID, clientId, "pulse-B:" + bPulse));
+        if ((channel == Channel.BOTH || channel == Channel.A) && aPulse != null)
+            output(toDGJson("msg", mcUUID, clientId, "pulse-A:" + aPulse));
+        if ((channel == Channel.BOTH || channel == Channel.B) && bPulse != null)
+            output(toDGJson("msg", mcUUID, clientId, "pulse-B:" + bPulse));
     }
 
     @Deprecated
-    public void sendWave(Channel channel,@Nullable String hex) {
+    public void sendWave(Channel channel, @Nullable String hex) {
         if (hex == null) {
             clearWave(channel);
             return;
@@ -91,7 +93,7 @@ public class Client {
         output(toDGJson("msg", mcUUID, clientId, "pulse-" + channel.getText() + ":" + hex));
     }
 
-    public void clearWave(Channel channel){
+    public void clearWave(Channel channel) {
         if (channel == Channel.BOTH) {
             output(toDGJson("msg", mcUUID, clientId, "clear-1"));
             output(toDGJson("msg", mcUUID, clientId, "clear-2"));
@@ -100,12 +102,12 @@ public class Client {
         output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.getValue()));
     }
 
-    public void giveShock(int sec,Channel channel, boolean replace) {
+    public void giveShock(int sec, Channel channel, boolean replace) {
         if (sec == 0) {
             cancelShock(channel);
             return;
         }
-        if (channel == Channel.A || channel == Channel.BOTH){
+        if (channel == Channel.A || channel == Channel.BOTH) {
             if (replace) aTicks = 0;
             this.aTotalTime = replace ? sec : Math.max(aTotalTime + sec, 0);
             if (aShockTask == null) this.aShockTask = new BukkitRunnable() {
@@ -122,7 +124,7 @@ public class Client {
                 }
             }.runTaskTimerAsynchronously(plugin, 0, 1);
         }
-        if (channel == Channel.B || channel == Channel.BOTH){
+        if (channel == Channel.B || channel == Channel.BOTH) {
             if (replace) bTicks = 0;
             this.bTotalTime = replace ? sec : Math.max(bTotalTime + sec, 0);
             if (bShockTask == null) this.bShockTask = new BukkitRunnable() {
@@ -168,10 +170,11 @@ public class Client {
         bossbar.getBBossbar().setTitle("B:" + bStrength + "/" + bMaxStrength +
                 " 电击剩余时间:" + bTime + "秒");
     }
+
     //通道: 1 - A 通道；2 - B 通道
     //强度变化模式: 0 - 通道强度减少；1 - 通道强度增加；2 - 通道强度变化为指定数值
     //数值: 范围在(0 ~ 200)的整型
-    public void adjustStrength(Channel channel, AdjustMode type, String num){
+    public void adjustStrength(Channel channel, AdjustMode type, String num) {
         if (channel == Channel.BOTH) {
             output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.getValue() + "+" + num));
             output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.getValue() + "+" + num));
@@ -180,11 +183,11 @@ public class Client {
         output(toDGJson("msg", mcUUID, clientId, "strength-" + channel.getValue() + "+" + type.getValue() + "+" + num));
     }
 
-    public void adjustStrength(Channel channel, AdjustMode type, int num){
+    public void adjustStrength(Channel channel, AdjustMode type, int num) {
         adjustStrength(channel, type, String.valueOf(num));
     }
 
-    public void adjustPulse(Channel channel,@Nullable String hex){
+    public void adjustPulse(Channel channel, @Nullable String hex) {
         if (channel == Channel.BOTH || channel == Channel.A) this.aPulse = hex;
         if (channel == Channel.BOTH || channel == Channel.B) this.bPulse = hex;
     }

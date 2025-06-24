@@ -24,6 +24,7 @@ public class CommandCtrlPulse extends CommandAbstract {
     private String channel, hex;
     private Channel _channel;
     private Client client;
+
     public CommandCtrlPulse(@NotNull CommandSender sender, @Nullable String[] args) {
         super("ctrl-pulse", sender, args, 3, 4,
                 "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]",
@@ -33,7 +34,8 @@ public class CommandCtrlPulse extends CommandAbstract {
     @Override
     protected void errorHandle() throws CommandException {
         if (length == 3) {
-            if (!(sender instanceof Player)) throw new CommandException("服务器后台请使用 /dglab ctrl-pulse <clientId|player> (A|B|both) (<HEX[]>|clear)");
+            if (!(sender instanceof Player))
+                throw new CommandException("服务器后台请使用 /dglab ctrl-pulse <clientId|player> (A|B|both) (<HEX[]>|clear)");
             Player player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             this.client = getClient(player);
@@ -41,7 +43,8 @@ public class CommandCtrlPulse extends CommandAbstract {
             this.hex = args[2].toUpperCase();
         }
         if (length == 4) {
-            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CommandException("客户端不存在或玩家未绑定");
+            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1])))
+                throw new CommandException("客户端不存在或玩家未绑定");
             this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
             this.channel = args[2];
             this.hex = args[3].toUpperCase();
@@ -52,7 +55,8 @@ public class CommandCtrlPulse extends CommandAbstract {
             throw new CommandException(e);
         }
         if ("CLEAR".equals(hex) && hex.matches("^\\[[0-9A-F,]*]$")) throw new CommandException("hex数组不符合规范");
-        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer())) throw new CommandException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer()))
+            throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override

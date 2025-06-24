@@ -10,7 +10,7 @@ import java.util.Map;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 @Getter
-public abstract class ScriptAbstract implements Script{
+public abstract class ScriptAbstract implements Script {
 
 
     private final String name;

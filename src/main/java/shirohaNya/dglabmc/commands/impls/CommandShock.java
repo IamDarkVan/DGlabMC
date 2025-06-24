@@ -33,7 +33,8 @@ public class CommandShock extends CommandAbstract {
     @Override
     protected void errorHandle() throws CommandException {
         if (length == 3) {
-            if (!(sender instanceof Player)) throw new CommandException("服务器后台请使用 /dglab shock <clientId|player> <A|B|both> <time(sec)>");
+            if (!(sender instanceof Player))
+                throw new CommandException("服务器后台请使用 /dglab shock <clientId|player> <A|B|both> <time(sec)>");
             Player player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             if (!args[2].matches("^[+-]?\\d+$")) throw new CommandException("时间(秒)必须为不含小数的纯数字");
@@ -43,7 +44,8 @@ public class CommandShock extends CommandAbstract {
             this.channel = args[1];
         }
         if (length == 4) {
-            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CommandException("客户端不存在或玩家未绑定");
+            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1])))
+                throw new CommandException("客户端不存在或玩家未绑定");
             if (!args[3].matches("^[+-]?\\d+$")) throw new CommandException("时间(秒)必须为不含小数的纯数字");
             this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
             this.second = Integer.parseInt(args[3]);
@@ -55,8 +57,10 @@ public class CommandShock extends CommandAbstract {
         } catch (IllegalArgumentException e) {
             throw new CommandException(e);
         }
-        if (client.getAPulse() == null && client.getBPulse() == null) throw new CommandException("频道A,B中必须有至少一个设置了波形");
-        if (!sender.hasPermission("dglab.shock.others") && !Objects.equals(sender, client.getPlayer())) throw new CommandException("你没有权限控制其他玩家");
+        if (client.getAPulse() == null && client.getBPulse() == null)
+            throw new CommandException("频道A,B中必须有至少一个设置了波形");
+        if (!sender.hasPermission("dglab.shock.others") && !Objects.equals(sender, client.getPlayer()))
+            throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override

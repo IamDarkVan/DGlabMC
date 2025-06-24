@@ -23,6 +23,7 @@ public class CommandBossbar extends CommandAbstract {
     private Client client;
     private String type;
     private BossbarType _type;
+
     public CommandBossbar(@NotNull CommandSender sender, @Nullable String[] args) {
         super("bossbar", sender, args, 2, 3, "/dglab bossbar [clientId|player] <none|A|B|both> -- 更改电击提示", "dglab.bossbar");
     }
@@ -30,14 +31,16 @@ public class CommandBossbar extends CommandAbstract {
     @Override
     protected void errorHandle() throws CommandException {
         if (length == 2) {
-            if (!(sender instanceof Player)) throw new CommandException("服务器后台请用/dglab bossbar <clientId|player> <none|A|B|both>");
+            if (!(sender instanceof Player))
+                throw new CommandException("服务器后台请用/dglab bossbar <clientId|player> <none|A|B|both>");
             Player player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             this.client = getClient(player);
             this.type = args[1];
         }
         if (length == 3) {
-            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1]))) throw new CommandException("客户端不存在或玩家未绑定");
+            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1])))
+                throw new CommandException("客户端不存在或玩家未绑定");
             this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
             this.type = args[2];
         }
@@ -46,7 +49,8 @@ public class CommandBossbar extends CommandAbstract {
         } catch (IllegalArgumentException e) {
             throw new CommandException(e);
         }
-        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer())) throw new CommandException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.ctrl.others") && !Objects.equals(sender, client.getPlayer()))
+            throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override

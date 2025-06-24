@@ -14,26 +14,27 @@ public class BossbarManager {
     private final BossBar aBossbar, bBossbar;
     private Player player;
     private BossbarType type;
+
     public BossbarManager() {
         this.aBossbar = Bukkit.createBossBar(null, BarColor.BLUE, BarStyle.SOLID);
         this.bBossbar = Bukkit.createBossBar(null, BarColor.GREEN, BarStyle.SOLID);
         this.type = BossbarType.BOTH;
     }
 
-    private void resetBossbar(){
+    private void resetBossbar() {
         aBossbar.removeAll();
         bBossbar.removeAll();
     }
 
-    public void removePlayer(){
+    public void removePlayer() {
         resetBossbar();
         this.player = null;
     }
 
-    public void addPlayer(@NotNull Player p){
+    public void addPlayer(@NotNull Player p) {
         this.player = p;
         resetBossbar();
-        switch (type){
+        switch (type) {
             case A:
                 aBossbar.addPlayer(p);
                 break;

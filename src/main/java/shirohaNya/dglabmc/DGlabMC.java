@@ -21,12 +21,12 @@ import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
 
 public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
-    public static HashSet<Client> clients = new HashSet<>();
+    public static final HashSet<Client> clients = new HashSet<>();
     public static String mcUUID;
     public FileConfiguration config = getConfig();
-    public String ip = config.getString("ip");
+    public final String ip = config.getString("ip");
     public int port = config.getInt("port");
-    public boolean autoRunServer = config.getBoolean("autoRunServer");
+    public final boolean autoRunServer = config.getBoolean("autoRunServer");
     public MCWebSocketServer mcWebSocketServer = null;
     public String qrCode;
 

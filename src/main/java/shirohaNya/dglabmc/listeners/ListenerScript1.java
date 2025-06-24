@@ -19,6 +19,7 @@ import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
 public class ListenerScript1 implements Listener {
     private Player player;
     private final Script script = Objects.requireNonNull(getScript("script1"));
+
     @SuppressWarnings("deprecation")
     public static void playerDamageHandler(double damage, Player player) {
         Client client = getClient(player);
@@ -26,7 +27,7 @@ public class ListenerScript1 implements Listener {
         int valueB = (int) ((1 - (player.getHealth() - damage) / player.getMaxHealth()) * client.getBMaxStrength());
         client.adjustStrength(Channel.A, AdjustMode.SET, valueA);
         client.adjustStrength(Channel.B, AdjustMode.SET, valueB);
-        client.giveShock(5,Channel.BOTH, true);
+        client.giveShock(5, Channel.BOTH, true);
     }
 
     @SuppressWarnings("deprecation")
@@ -41,14 +42,16 @@ public class ListenerScript1 implements Listener {
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) player = (Player) e.getEntity(); else return;
+        if (e.getEntity() instanceof Player) player = (Player) e.getEntity();
+        else return;
         if (!isClientExist(player) || !script.isClientEnabled(getClient(player))) return;
         playerDamageHandler(e.getDamage(), player);
     }
 
     @EventHandler
     public void onPlayerHealthRegain(EntityRegainHealthEvent e) {
-        if (e.getEntity() instanceof Player) player = (Player) e.getEntity(); else return;
+        if (e.getEntity() instanceof Player) player = (Player) e.getEntity();
+        else return;
         if (!isClientExist(player) || !script.isClientEnabled(getClient(player))) return;
         playerHealthRegainHandler(e.getAmount(), player);
     }

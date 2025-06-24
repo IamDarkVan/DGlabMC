@@ -63,7 +63,7 @@ public class MCWebSocketServer extends WebSocketServer {
         String type = data.get("type"), clientId = data.get("clientId"),
                 targetId = data.get("targetId"), message = data.get("message");
         if (!Objects.equals(clientId, mcUUID) ||
-                !ClientUtils.isClientExist(targetId)||
+                !ClientUtils.isClientExist(targetId) ||
                 ClientUtils.getClient(targetId).getWebSocket() != webSocket) {
             client.output(toDGJson("msg", "", "", "404"));
             getLogger().info("该消息来源未知,已作废 404(2)");

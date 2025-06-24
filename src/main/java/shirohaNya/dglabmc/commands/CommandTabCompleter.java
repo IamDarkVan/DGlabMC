@@ -12,8 +12,8 @@ import static shirohaNya.dglabmc.utils.CommandUtils.getCommandList;
 
 public class CommandTabCompleter implements TabCompleter {
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args){
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (args.length == 1) return getCommandList(sender);
-        return getCommand(args[0].toLowerCase(),sender, args).tabComplete();
+        return getCommand(args[0].toLowerCase(), sender, args).tabComplete();
     }
 }

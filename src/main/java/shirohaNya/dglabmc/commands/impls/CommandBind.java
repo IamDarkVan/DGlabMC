@@ -20,6 +20,7 @@ import static org.bukkit.Bukkit.getPlayer;
 public class CommandBind extends CommandAbstract {
     private Client client;
     private Player player;
+
     public CommandBind(@NotNull CommandSender sender, @Nullable String[] args) {
         super("bind", sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", "dglab.bind");
     }
@@ -27,7 +28,8 @@ public class CommandBind extends CommandAbstract {
     @Override
     protected void errorHandle() throws CommandException {
         if (length == 2) {
-            if (!(sender instanceof Player)) throw new CommandException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
+            if (!(sender instanceof Player))
+                throw new CommandException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
             this.player = (Player) sender;
         }
         if (length == 3) {
@@ -37,7 +39,8 @@ public class CommandBind extends CommandAbstract {
         if (!isClientExist(args[1])) throw new CommandException("客户端不存在");
         this.client = getClient(args[1]);
         if (client.getPlayer() != null) throw new CommandException("你要绑定的客户端已被绑定");
-        if (!sender.hasPermission("dglab.bind.others") && !Objects.equals(player, sender)) throw new CommandException("你没有权限控制其他玩家");
+        if (!sender.hasPermission("dglab.bind.others") && !Objects.equals(player, sender))
+            throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override

@@ -99,6 +99,7 @@ public class DGlabUtils {
         view.addRenderer(new MapRenderer() {
             private final BufferedImage img = image;
             private boolean done = false;
+
             @Override
             public void render(@NotNull MapView mapView, @NotNull MapCanvas mapCanvas, @NotNull Player player) {
                 if (done) return;
@@ -120,7 +121,7 @@ public class DGlabUtils {
         try {
             Method mapViewMethod = mapMeta.getClass().getMethod("setMapView", MapView.class);
             mapViewMethod.invoke(mapMeta, view);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             try {
                 Method getIdMethod = view.getClass().getMethod("getId");
                 Object viewId = getIdMethod.invoke(view);
