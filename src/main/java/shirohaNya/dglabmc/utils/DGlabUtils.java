@@ -3,7 +3,6 @@ package shirohaNya.dglabmc.utils;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import org.bukkit.Bukkit;
@@ -18,11 +17,7 @@ import org.bukkit.map.MapView;
 import org.jetbrains.annotations.NotNull;
 import shirohaNya.dglabmc.MCWebSocketServer;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -82,20 +77,6 @@ public class DGlabUtils {
         return new Gson().fromJson(json, HashMap.class);
     }
 
-    public static void generateQRCodeFile(String text, String filePath) throws WriterException, IOException {
-        String FILE_FORMAT = "PNG";
-        int WIDTH = 128;
-        int HEIGHT = 128;
-        BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, WIDTH, HEIGHT);
-        BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        for (int x = 0; x < WIDTH; x++) {
-            for (int y = 0; y < HEIGHT; y++) {
-                image.setRGB(x, y, bitMatrix.get(x, y) ? Color.BLACK.getRGB() : Color.WHITE.getRGB());
-            }
-        }
-        File outputFile = new File(filePath);
-        ImageIO.write(image, FILE_FORMAT, outputFile);
-    }
 
     public static String getPlayerUrl(Player player) {
         return plugin.url + player.getUniqueId();
@@ -134,10 +115,12 @@ public class DGlabUtils {
         MapMeta mapMeta = (MapMeta) Objects.requireNonNull(mapItem.getItemMeta());
         try {
             Method mapViewMethod = mapMeta.getClass().getMethod("setMapView", MapView.class);
+            mapViewMethod.setAccessible(true);
             mapViewMethod.invoke(mapMeta, view);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             try {
                 Method getIdMethod = view.getClass().getMethod("getId");
+                getIdMethod.setAccessible(true);
                 Object viewId = getIdMethod.invoke(view);
                 short mapId;
                 if (viewId instanceof Integer) {

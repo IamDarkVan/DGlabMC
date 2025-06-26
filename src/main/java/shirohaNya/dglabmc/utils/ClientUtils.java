@@ -38,7 +38,6 @@ public class ClientUtils {
         throw new RuntimeException("未找到客户端");
     }
 
-    @Deprecated
     public static boolean isClientExist(@Nullable String id) {
         return clients.stream().anyMatch(cli -> Objects.equals(cli.getTargetId(), id));
     }
