@@ -13,13 +13,16 @@ import shirohaNya.dglabmc.utils.DGlabUtils;
 
 import static shirohaNya.dglabmc.utils.DGlabUtils.*;
 
-public class ListenerClearMap implements Listener {
+public class ListenerClearQrcodeMap implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player)) return;
+        Player p = (Player) e.getWhoClicked();
         if (isQrcodeMap(e.getCurrentItem())) removeMap(e.getCurrentItem(), e.getClickedInventory());
         if (isQrcodeMap(e.getCursor())) removeMap(e.getCursor(), e.getClickedInventory());
+        int hotbar = e.getHotbarButton();
+        if (hotbar >= 0 && hotbar <= 8 && isQrcodeMap(p.getInventory().getItem(hotbar))) removeMap(p.getInventory().getItem(e.getHotbarButton()), p.getInventory());
     }
 
     @EventHandler
@@ -34,7 +37,6 @@ public class ListenerClearMap implements Listener {
     @EventHandler
     public void onItemDrop(PlayerDropItemEvent e) {
         if (isQrcodeMap(e.getItemDrop().getItemStack())) {
-            e.setCancelled(true);
             e.getItemDrop().remove();
             removeMapView(e.getItemDrop().getItemStack());
         }
@@ -43,12 +45,10 @@ public class ListenerClearMap implements Listener {
     @EventHandler
     public void onItemSwap(PlayerSwapHandItemsEvent e) {
         if (isQrcodeMap(e.getOffHandItem())) {
-            e.setOffHandItem(null);
-            removeMapView(e.getOffHandItem());
+            removeMap(e.getOffHandItem(), e.getPlayer().getInventory());
         }
         if (isQrcodeMap(e.getMainHandItem())){
-            e.setMainHandItem(null);
-            removeMapView(e.getMainHandItem());
+            removeMap(e.getMainHandItem(), e.getPlayer().getInventory());
         }
     }
 

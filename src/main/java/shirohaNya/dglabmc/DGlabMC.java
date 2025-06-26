@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import shirohaNya.dglabmc.commands.CommandExecutor;
 import shirohaNya.dglabmc.commands.CommandTabCompleter;
 import shirohaNya.dglabmc.commands.impls.*;
-import shirohaNya.dglabmc.listeners.ListenerClearMap;
+import shirohaNya.dglabmc.listeners.ListenerClearQrcodeMap;
 import shirohaNya.dglabmc.listeners.ListenerScript1;
 import shirohaNya.dglabmc.listeners.ListenerUnbindOfflinePlayer;
 import shirohaNya.dglabmc.scripts.impls.Script1;
@@ -43,7 +43,7 @@ public final class DGlabMC extends JavaPlugin {
         //注册监听器
         Bukkit.getPluginManager().registerEvents(new ListenerUnbindOfflinePlayer(), this);
         Bukkit.getPluginManager().registerEvents(new ListenerScript1(), this);
-        Bukkit.getPluginManager().registerEvents(new ListenerClearMap() , this);
+        Bukkit.getPluginManager().registerEvents(new ListenerClearQrcodeMap() , this);
         // 注册子命令
         registerCommand("bind", CommandBind::new);
         registerCommand("info", CommandInfo::new);
