@@ -160,7 +160,7 @@ public class DGlabUtils {
         if (view != null) view.getRenderers().clear();
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("JavaReflectionMemberAccess")
     private static MapView getMapView(ItemStack map) {
         try {
             MapMeta meta = (MapMeta) map.getItemMeta();
@@ -170,11 +170,12 @@ public class DGlabUtils {
         } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             try {
                 Method getDurability = ItemStack.class.getMethod("getDurability");
-                getDurability.setAccessible(true);                 // 必须设置
+                getDurability.setAccessible(true);
+                Method getMapMethod = Bukkit.class.getMethod("getMap", short.class); // 注意是 short
                 short durability = (short) getDurability.invoke(map);
-                return Bukkit.getMap(durability);
-            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException ignored) {
-
+                return (MapView) getMapMethod.invoke(null, durability);
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException ex) {
+                ex.printStackTrace();
             }
         }
         return null;
