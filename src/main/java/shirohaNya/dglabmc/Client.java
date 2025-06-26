@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.java_websocket.WebSocket;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.enums.AdjustMode;
 import shirohaNya.dglabmc.enums.Channel;
@@ -19,12 +20,13 @@ import static shirohaNya.dglabmc.utils.DGlabUtils.toDGJson;
 
 @Data
 public class Client {
-    private final String clientId;
+    @Nullable
+    private Player player;
+    private String playerId;
+    private final String targetId;
     private final WebSocket webSocket;
     private final BossbarManager bossbar = new BossbarManager();
     private final HashSet<Script> enabledScripts = new HashSet<>();
-    @Nullable
-    private Player player;
     private Integer aStrength = 0;
     private Integer bStrength = 0;
     private Integer aMaxStrength = 0;
@@ -36,8 +38,8 @@ public class Client {
     @Nullable
     private BukkitTask aShockTask, bShockTask;
 
-    public Client(String clientId, WebSocket webSocket, @Nullable Player player) {
-        this.clientId = clientId;
+    public Client(String targetId, WebSocket webSocket, @Nullable Player player) {
+        this.targetId = targetId;
         this.webSocket = webSocket;
         this.player = player;
         clients.add(this);
@@ -51,9 +53,9 @@ public class Client {
 
     public void removeClient() {
         clients.remove(this);
-        getLogger().info("已断开" + clientId + "的连接");
-        if (player != null) player.sendMessage("你绑定的 " + clientId + " 已断开连接");
-        bossbar.removePlayer();
+        getLogger().info("已断开" + targetId + "的连接");
+        if (player != null) player.sendMessage("你绑定的 " + targetId + " 已断开连接");
+        bossbar.resetBossbar();
     }
 
     public void sendMessage(String msg) {
@@ -61,22 +63,23 @@ public class Client {
         player.sendMessage(msg);
     }
 
-    public void unbind() {
-        bind(null);
+    public void bind(@NotNull Player p) {
+        this.player = p;
+        resetBossbarTitle();
+        bossbar.resetBossbar();
+        bossbar.addPlayer(p);
+        player.sendMessage("你已成功绑定app");
     }
 
-    public void bind(@Nullable Player p) {
-        resetBossbarTitle();
-        if (player != null) bossbar.removePlayer();
-        this.player = p;
-        if (p != null) bossbar.addPlayer(p);
+    public void unbind(){
+        webSocket.close();
     }
 
     public void sendWave(Channel channel) {
         if ((channel == Channel.BOTH || channel == Channel.A) && aPulse != null)
-            output(toDGJson("msg", mcUUID, clientId, "pulse-A:" + aPulse));
+            output(toDGJson("msg", playerId, targetId, "pulse-A:" + aPulse));
         if ((channel == Channel.BOTH || channel == Channel.B) && bPulse != null)
-            output(toDGJson("msg", mcUUID, clientId, "pulse-B:" + bPulse));
+            output(toDGJson("msg", playerId, targetId, "pulse-B:" + bPulse));
     }
 
     @Deprecated
@@ -86,20 +89,20 @@ public class Client {
             return;
         }
         if (channel == Channel.BOTH) {
-            output(toDGJson("msg", mcUUID, clientId, "pulse-A:" + hex));
-            output(toDGJson("msg", mcUUID, clientId, "pulse-B:" + hex));
+            output(toDGJson("msg", playerId, targetId, "pulse-A:" + hex));
+            output(toDGJson("msg", playerId, targetId, "pulse-B:" + hex));
             return;
         }
-        output(toDGJson("msg", mcUUID, clientId, "pulse-" + channel.getText() + ":" + hex));
+        output(toDGJson("msg", playerId, targetId, "pulse-" + channel.getText() + ":" + hex));
     }
 
     public void clearWave(Channel channel) {
         if (channel == Channel.BOTH) {
-            output(toDGJson("msg", mcUUID, clientId, "clear-1"));
-            output(toDGJson("msg", mcUUID, clientId, "clear-2"));
+            output(toDGJson("msg", playerId, targetId, "clear-1"));
+            output(toDGJson("msg", playerId, targetId, "clear-2"));
             return;
         }
-        output(toDGJson("msg", mcUUID, clientId, "clear-" + channel.getValue()));
+        output(toDGJson("msg", playerId, targetId, "clear-" + channel.getValue()));
     }
 
     public void giveShock(int sec, Channel channel, boolean replace) {
@@ -176,11 +179,11 @@ public class Client {
     //数值: 范围在(0 ~ 200)的整型
     public void adjustStrength(Channel channel, AdjustMode type, int num) {
         if (channel == Channel.BOTH || channel == Channel.A) {
-            output(toDGJson("msg", mcUUID, clientId, "strength-1+" + type.getValue() + "+" + num));
+            output(toDGJson("msg", playerId, targetId, "strength-1+" + type.getValue() + "+" + num));
             this.aStrength = num;
         }
         if (channel == Channel.BOTH || channel == Channel.B) {
-            output(toDGJson("msg", mcUUID, clientId, "strength-2+" + type.getValue() + "+" + num));
+            output(toDGJson("msg", playerId, targetId, "strength-2+" + type.getValue() + "+" + num));
             this.bStrength = num;
         }
     }

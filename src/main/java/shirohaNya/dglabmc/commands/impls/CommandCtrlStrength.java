@@ -28,16 +28,17 @@ public class CommandCtrlStrength extends CommandAbstract {
 
     public CommandCtrlStrength(@NotNull CommandSender sender, @Nullable String[] args) {
         super("ctrl-strength", sender, args, 4, 5,
-                "/dglab ctrl-strength [clientId|player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)",
+                "/dglab ctrl-strength [player] (A|B|both) (add|dec|set) <value> -- 控制强度 (通道 模式 数值)",
                 "dglab.ctrl.strength");
     }
 
     @Override
     protected void errorHandle() throws CommandException {
+        Player player;
         if (length == 4) {
             if (!(sender instanceof Player))
-                throw new CommandException("服务器后台请使用 /dglab ctrl-strength <clientId|player> (A|B|both) (add|dec|set) <value>");
-            Player player = (Player) sender;
+                throw new CommandException("服务器后台请使用 /dglab ctrl-strength <player> (A|B|both) (add|dec|set) <value>");
+            player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             this.client = getClient(player);
             this.channel = args[1];
@@ -45,9 +46,9 @@ public class CommandCtrlStrength extends CommandAbstract {
             this.value = args[3];
         }
         if (length == 5) {
-            if (!isClientExist(args[1]) && isClientExist(getPlayer(args[1])))
-                throw new CommandException("客户端不存在或玩家未绑定");
-            this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
+            player = getPlayer(args[1]);
+            if (isClientExist(player)) throw new CommandException("玩家未绑定");
+            this.client = getClient(player);
             this.channel = args[2];
             this.mode = args[3];
             this.value = args[4];
@@ -71,8 +72,8 @@ public class CommandCtrlStrength extends CommandAbstract {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return concatList(CommandUtils.getPlayerAndClientList(sender), "A", "B", "both");
-        if (getPlayer(args[1]) != null || isClientExist(args[1])) {
+        if (length == 2) return concatList(CommandUtils.getPlayerList(sender), "A", "B", "both");
+        if (getPlayer(args[1]) != null) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return Arrays.asList("add", "dec", "set");
         } else {

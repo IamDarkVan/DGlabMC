@@ -23,14 +23,9 @@ public class BossbarManager {
         bBossbar.setProgress(0);
     }
 
-    private void resetBossbar() {
+    public void resetBossbar() {
         aBossbar.removeAll();
         bBossbar.removeAll();
-    }
-
-    public void removePlayer() {
-        resetBossbar();
-        this.player = null;
     }
 
     public void addPlayer(@NotNull Player p) {

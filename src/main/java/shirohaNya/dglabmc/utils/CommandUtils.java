@@ -42,14 +42,6 @@ public class CommandUtils {
         return getCommandList(sender, false);
     }
 
-    public static List<String> getPlayerAndClientList(CommandSender sender) {
-        if (sender.hasPermission("dglab.list") && sender.hasPermission("dglab.others"))
-            return Stream.concat(getOnlinePlayers().stream().map(Player::getName), clients.stream().map(Client::getClientId)).collect(Collectors.toList());
-        if (sender.hasPermission("dglab.others")) return getPlayerList(sender);
-        if (sender.hasPermission("dglab.list")) return getClientList(sender);
-        return null;
-    }
-
     public static List<String> concatList(List<String> list, String... args) {
         if (list == null) return Arrays.asList(args);
         return Stream.concat(list.stream(), Arrays.stream(args)).collect(Collectors.toList());
@@ -63,7 +55,16 @@ public class CommandUtils {
 
     public static List<String> getClientList(CommandSender sender) {
         if (sender.hasPermission("dglab.list"))
-            return clients.stream().map(Client::getClientId).collect(Collectors.toList());
+            return clients.stream().map(Client::getTargetId).collect(Collectors.toList());
+        return null;
+    }
+
+    @Deprecated
+    public static List<String> getPlayerAndClientList(CommandSender sender) {
+        if (sender.hasPermission("dglab.list") && sender.hasPermission("dglab.others"))
+            return Stream.concat(getOnlinePlayers().stream().map(Player::getName), clients.stream().map(Client::getTargetId)).collect(Collectors.toList());
+        if (sender.hasPermission("dglab.others")) return getPlayerList(sender);
+        if (sender.hasPermission("dglab.list")) return getClientList(sender);
         return null;
     }
 

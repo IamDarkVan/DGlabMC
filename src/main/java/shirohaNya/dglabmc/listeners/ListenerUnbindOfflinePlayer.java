@@ -13,6 +13,6 @@ public class ListenerUnbindOfflinePlayer implements Listener {
     public void onPlayerOffline(PlayerQuitEvent e) {
         if (!isClientExist(e.getPlayer())) return;
         Client client = getClient(e.getPlayer());
-        client.bind(null);
+        client.unbind();
     }
 }

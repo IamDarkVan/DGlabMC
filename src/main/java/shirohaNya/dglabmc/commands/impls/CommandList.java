@@ -22,7 +22,10 @@ public class CommandList extends CommandAbstract {
 
     @Override
     protected void run() {
-        clients.forEach(client -> sender.sendMessage(client.getClientId()));
+        clients.forEach(client -> {
+            if (client.getPlayer() != null)
+                sender.sendMessage(client.getPlayer().getName() + " <-> " + client.getTargetId());
+        });
     }
 
     @Override

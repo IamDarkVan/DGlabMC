@@ -60,7 +60,7 @@ public abstract class CommandAbstract implements Command {
     }
 
     private void checkPermission() throws CommandException {
-        if (permission != null && !sender.hasPermission(permission)) throw new CommandException("你没有权限");
+        if (permission != null && !sender.hasPermission(permission)) throw new CommandException("你没有权限使用该命令");
     }
 
     @Override

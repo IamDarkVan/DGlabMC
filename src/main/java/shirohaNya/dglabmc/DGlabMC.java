@@ -13,7 +13,6 @@ import shirohaNya.dglabmc.utils.DGlabUtils;
 
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.UUID;
 
 import static shirohaNya.dglabmc.commands.CommandManager.registerCommand;
 import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
@@ -22,7 +21,6 @@ import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
 public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
     public static final HashSet<Client> clients = new HashSet<>();
-    public static String mcUUID;
     public FileConfiguration config = getConfig();
     public final String ip = config.getString("ip");
     public int port = config.getInt("port");
@@ -30,7 +28,7 @@ public final class DGlabMC extends JavaPlugin {
     public final boolean logOutputMessage = config.getBoolean("logOutputMessage");
     public final boolean logInputMessage = config.getBoolean("logInputMessage");
     public MCWebSocketServer mcWebSocketServer = null;
-    public String qrCode;
+    public String url;
 
     @Override
     public void onEnable() {
@@ -47,13 +45,11 @@ public final class DGlabMC extends JavaPlugin {
         // 注册子命令
         registerCommand("bind", CommandBind::new);
         registerCommand("info", CommandInfo::new);
-        registerCommand("bind-list", CommandBindList::new);
         registerCommand("ctrl-pulse", CommandCtrlPulse::new);
         registerCommand("ctrl-strength", CommandCtrlStrength::new);
         registerCommand("script", CommandScript::new);
         registerCommand("script-list", CommandScriptList::new);
         registerCommand("getaddress", CommandGetAddress::new);
-        registerCommand("getqrcode", CommandGetQRCode::new);
         registerCommand("help", CommandHelp::new);
         registerCommand("list", CommandList::new);
         registerCommand("reload", CommandReload::new);
@@ -66,14 +62,7 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("bossbar", CommandBossbar::new);
         //生成二维码
         saveDefaultConfig();
-        mcUUID = config.getString("mcUUID");
-        if (mcUUID == null) {
-            mcUUID = UUID.randomUUID().toString();
-            config.set("mcUUID",mcUUID);
-        }
-        qrCode = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + ip + ":" + port + "/" + mcUUID;
-        getLogger().info("本机UUID为:" + mcUUID);
-        getLogger().info("本机生成二维码为: " + qrCode);
+        url = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + ip + ":" + port + "/";
         if (autoRunServer) DGlabUtils.runWebSocketServer(port);
         else getLogger().info("请使用/dglab server-run启动WebSocket服务器");
     }

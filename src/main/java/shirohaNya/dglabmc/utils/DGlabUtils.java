@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 import static org.bukkit.Bukkit.getLogger;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
@@ -67,6 +68,15 @@ public class DGlabUtils {
         return "{\"type\":\"" + str[0] + "\",\"clientId\":\"" + str[1] + "\",\"targetId\":\"" + str[2] + "\",\"message\":\"" + str[3] + "\"}";
     }
 
+    public static boolean isValidUUID(String input) {
+        try {
+            UUID.fromString(input);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static HashMap<String, String> toHashMap(String json) {
         return new Gson().fromJson(json, HashMap.class);
@@ -87,24 +97,27 @@ public class DGlabUtils {
         ImageIO.write(image, FILE_FORMAT, outputFile);
     }
 
+    public static String getPlayerUrl(Player player) {
+        return plugin.url + player.getUniqueId();
+    }
+
     public static BufferedImage generateQRCode(String text, int size) throws Exception {
         BitMatrix matrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, size, size);
         return MatrixToImageWriter.toBufferedImage(matrix);
     }
 
     @SuppressWarnings("deprecation")
-    public static void giveMap(Player player, BufferedImage image) {
+    public static void giveMap(Player player, BufferedImage image, String title) {
         World world = player.getWorld();
         MapView view = Bukkit.createMap(world);
         view.getRenderers().forEach(view::removeRenderer);         // 清掉默认渲染器
         view.addRenderer(new MapRenderer() {
-            private final BufferedImage img = image;
             private boolean done = false;
 
             @Override
             public void render(@NotNull MapView mapView, @NotNull MapCanvas mapCanvas, @NotNull Player player) {
                 if (done) return;
-                mapCanvas.drawImage(0, 0, img);
+                mapCanvas.drawImage(0, 0, image);
                 done = true;
             }
         });
@@ -139,7 +152,7 @@ public class DGlabUtils {
 
             }
         }
-        mapMeta.setDisplayName("§r二维码地图: ");
+        mapMeta.setDisplayName(title);
         mapItem.setItemMeta(mapMeta);
         player.getInventory().setItem(player.getInventory().getHeldItemSlot(), mapItem);
         player.updateInventory();

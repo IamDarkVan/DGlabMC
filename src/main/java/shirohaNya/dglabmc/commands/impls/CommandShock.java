@@ -27,15 +27,16 @@ public class CommandShock extends CommandAbstract {
     private Channel _channel;
 
     public CommandShock(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("shock", sender, args, 3, 4, "/dglab shock [clientId|player] <A|B|both> <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
+        super("shock", sender, args, 3, 4, "/dglab shock [player] <A|B|both> <time(sec)> -- 放电,时间正加负减,无符号为重置,0停止", "dglab.shock");
     }
 
     @Override
     protected void errorHandle() throws CommandException {
+        Player player;
         if (length == 3) {
             if (!(sender instanceof Player))
-                throw new CommandException("服务器后台请使用 /dglab shock <clientId|player> <A|B|both> <time(sec)>");
-            Player player = (Player) sender;
+                throw new CommandException("服务器后台请使用 /dglab shock <player> <A|B|both> <time(sec)>");
+            player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             if (!args[2].matches("^[+-]?\\d+$")) throw new CommandException("时间(秒)必须为不含小数的纯数字");
             this.client = getClient(player);
@@ -44,10 +45,10 @@ public class CommandShock extends CommandAbstract {
             this.channel = args[1];
         }
         if (length == 4) {
-            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1])))
-                throw new CommandException("客户端不存在或玩家未绑定");
+            player = getPlayer(args[1]);
+            if (!isClientExist(player)) throw new CommandException("玩家未绑定");
             if (!args[3].matches("^[+-]?\\d+$")) throw new CommandException("时间(秒)必须为不含小数的纯数字");
-            this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
+            this.client = getClient(player);
             this.second = Integer.parseInt(args[3]);
             this.replace = !args[3].matches("^[+-].*");
             this.channel = args[2];
@@ -77,8 +78,8 @@ public class CommandShock extends CommandAbstract {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return concatList(CommandUtils.getPlayerAndClientList(sender), "A", "B", "both");
-        if (getPlayer(args[1]) != null || isClientExist(args[1])) {
+        if (length == 2) return concatList(CommandUtils.getPlayerList(sender), "A", "B", "both");
+        if (getPlayer(args[1]) != null) {
             if (length == 3) return Arrays.asList("A", "B", "both");
         }
         return null;

@@ -15,12 +15,16 @@ public class ClientUtils {
         throw new Exception("工具类不允许实例化");
     }
 
-    public static Client createClient(String clientId, WebSocket webSocket, @Nullable Player player) {
-        return new Client(clientId, webSocket, player);
+    public static Client createClient(String targetId, WebSocket webSocket) {
+        return createClient(targetId, webSocket, null);
+    }
+
+    public static Client createClient(String targetId, WebSocket webSocket, Player player) {
+        return new Client(targetId, webSocket, player);
     }
 
     public static @NotNull Client getClient(@Nullable String id) throws RuntimeException {
-        for (Client cli : clients) if (Objects.equals(cli.getClientId(), id)) return cli;
+        for (Client cli : clients) if (Objects.equals(cli.getTargetId(), id)) return cli;
         throw new RuntimeException("未找到客户端");
     }
 
@@ -34,8 +38,9 @@ public class ClientUtils {
         throw new RuntimeException("未找到客户端");
     }
 
+    @Deprecated
     public static boolean isClientExist(@Nullable String id) {
-        return clients.stream().anyMatch(cli -> Objects.equals(cli.getClientId(), id));
+        return clients.stream().anyMatch(cli -> Objects.equals(cli.getTargetId(), id));
     }
 
     public static boolean isClientExist(@Nullable WebSocket ws) {

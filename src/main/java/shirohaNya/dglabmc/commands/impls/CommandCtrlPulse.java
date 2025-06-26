@@ -17,8 +17,7 @@ import java.util.Objects;
 import static org.bukkit.Bukkit.getPlayer;
 import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
 import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
-import static shirohaNya.dglabmc.utils.CommandUtils.concatList;
-import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerAndClientList;
+import static shirohaNya.dglabmc.utils.CommandUtils.*;
 
 public class CommandCtrlPulse extends CommandAbstract {
     private String channel, hex;
@@ -27,25 +26,26 @@ public class CommandCtrlPulse extends CommandAbstract {
 
     public CommandCtrlPulse(@NotNull CommandSender sender, @Nullable String[] args) {
         super("ctrl-pulse", sender, args, 3, 4,
-                "/dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]",
+                "/dglab ctrl-pulse [player] (A|B|both) (<HEX[]>|clear) -- 控制波形 例:[xxxxxxxxxxxxxxxx,xxxxxxxxxxxxxxxx,......,xxxxxxxxxxxxxxxx]",
                 "dglab.ctrl.pulse");
     }
 
     @Override
     protected void errorHandle() throws CommandException {
+        Player player;
         if (length == 3) {
             if (!(sender instanceof Player))
-                throw new CommandException("服务器后台请使用 /dglab ctrl-pulse <clientId|player> (A|B|both) (<HEX[]>|clear)");
-            Player player = (Player) sender;
+                throw new CommandException("服务器后台请使用 /dglab ctrl-pulse <player> (A|B|both) (<HEX[]>|clear)");
+            player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             this.client = getClient(player);
             this.channel = args[1];
             this.hex = args[2].toUpperCase();
         }
         if (length == 4) {
-            if (!isClientExist(args[1]) && !isClientExist(getPlayer(args[1])))
-                throw new CommandException("客户端不存在或玩家未绑定");
-            this.client = isClientExist(args[1]) ? getClient(args[1]) : getClient(getPlayer(args[1]));
+            player = getPlayer(args[1]);
+            if (!isClientExist(player)) throw new CommandException("玩家未绑定");
+            this.client = getClient(player);
             this.channel = args[2];
             this.hex = args[3].toUpperCase();
         }
@@ -68,8 +68,8 @@ public class CommandCtrlPulse extends CommandAbstract {
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return concatList(getPlayerAndClientList(sender), "A", "B", "both");
-        if (getPlayer(args[1]) != null || isClientExist(args[1])) {
+        if (length == 2) return concatList(getPlayerList(sender), "A", "B", "both");
+        if (getPlayer(args[1]) != null) {
             if (length == 3) return Arrays.asList("A", "B", "both");
             if (length == 4) return Collections.singletonList("clear");
         } else {

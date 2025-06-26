@@ -11,26 +11,25 @@ permissions:
   dglab.*:
     default: op
     children:
-      dglab.getQRcode: true
+      dglab.bind: true
       dglab.reload: true
       dglab.getAddress: true
       dglab.info: true
-      dglab.bind: true
       dglab.ctrl: true
       dglab.script: true
       dglab.others: true
       dglab.send: true
       dglab.shock: true
       dglab.server: true
-      dglab.bossbar: true
+################################################################
+  dglab.bossbar:
+    default: true
+    children:
+      dglab.bossbar.others: false
 ################################################################
   dglab.reload:
     default: op
-  dglab.getQRcode:
-    default: true
   dglab.getAddress:
-    default: true
-  dglab.bossbar:
     default: true
 ################################################################
   dglab.info:
@@ -43,10 +42,7 @@ permissions:
   dglab.bind:
     default: true
     children:
-      dglab.bind.list: false
       dglab.bind.others: false
-  dglab.bind.list:
-    default: op
   dglab.bind.others:
     default: op
 ################################################################
@@ -119,6 +115,7 @@ permissions:
       dglab.ctrl.others: true
       dglab.script.others: true
       dglab.shock.others: true
+      dglab.bossbar.others: true
 ################################################################
 
 

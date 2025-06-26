@@ -1,58 +1,63 @@
 package shirohaNya.dglabmc.commands.impls;
 
-import shirohaNya.dglabmc.Client;
-import shirohaNya.dglabmc.commands.CommandException;
-import shirohaNya.dglabmc.commands.CommandAbstract;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.commands.CommandAbstract;
+import shirohaNya.dglabmc.commands.CommandException;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Objects;
 
-import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
-import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
-import static shirohaNya.dglabmc.utils.CommandUtils.getClientList;
-import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerList;
 import static org.bukkit.Bukkit.getPlayer;
+import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerList;
+import static shirohaNya.dglabmc.utils.DGlabUtils.*;
 
 public class CommandBind extends CommandAbstract {
-    private Client client;
-    private Player player;
+    private Player player, bindPlayer;
 
     public CommandBind(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("bind", sender, args, 2, 3, "/dglab bind <clientId> [player] -- 玩家绑定app 使用ctrl-指令不需要clientId", "dglab.bind");
+        super("getqrcode", sender, args, 1, 2, "/dglab bind [player] -- 获取二维码地图绑定app", "dglab.bind");
     }
 
     @Override
     protected void errorHandle() throws CommandException {
+        if (!(sender instanceof Player)) throw new CommandException("服务器后台请查看插件配置文件夹");
+        this.player = (Player) sender;
+        if (length == 1) {
+            this.bindPlayer = player;
+        }
         if (length == 2) {
-            if (!(sender instanceof Player))
-                throw new CommandException("服务器后台绑定玩家请使用 /dglab bind <player> <clientId>");
-            this.player = (Player) sender;
+            this.bindPlayer = getPlayer(args[1]);
+            if (bindPlayer == null) throw new CommandException("玩家不存在");
         }
-        if (length == 3) {
-            if (getPlayer(args[2]) == null) throw new CommandException("玩家不存在");
-            this.player = getPlayer(args[2]);
-        }
-        if (!isClientExist(args[1])) throw new CommandException("客户端不存在");
-        this.client = getClient(args[1]);
-        if (client.getPlayer() != null) throw new CommandException("你要绑定的客户端已被绑定");
-        if (!sender.hasPermission("dglab.bind.others") && !Objects.equals(player, sender))
+
+        if (player.getInventory().getItemInMainHand().getType() != Material.AIR)
+            throw new CommandException("请空手执行该指令");
+        if (!sender.hasPermission("dglab.bind.others") && !Objects.equals(bindPlayer, sender))
             throw new CommandException("你没有权限控制其他玩家");
     }
 
     @Override
     protected void run() {
-        client.bind(player);
-        sender.sendMessage("成功绑定: " + player.getName() + " <-> " + args[1]);
+        try {
+            String url = getPlayerUrl(bindPlayer);
+            BufferedImage img = generateQRCode(url, 128);
+            giveMap(player, img, "§r二维码地图");
+            sender.sendMessage("二维码生成成功 请使用app扫描");
+        } catch (Exception e) {
+            sender.sendMessage("二维码生成失败 未知错误");
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<String> tabComplete() {
-        if (length == 2) return getClientList(sender);
-        if (length == 3) return getPlayerList(sender);
+        if (length == 2) return getPlayerList(sender);
         return null;
     }
+
 }
