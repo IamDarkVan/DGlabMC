@@ -18,6 +18,7 @@ import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.ConfigManager;
 import shirohaNya.dglabmc.MCWebSocketServer;
 
 import java.awt.image.BufferedImage;
@@ -47,7 +48,8 @@ public class DGlabUtils {
     public static void reloadConfigFile() {
         getLogger().info("正在重载");
         plugin.reloadConfig();
-        plugin.config = plugin.getConfig();
+        ConfigManager.reload();
+        getLogger().info("重载结束");
     }
 
     @Deprecated

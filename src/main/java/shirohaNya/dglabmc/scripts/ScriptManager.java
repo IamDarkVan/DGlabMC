@@ -7,13 +7,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 
+import static shirohaNya.dglabmc.ConfigManager.getMapList;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class ScriptManager {
 
     private static final HashMap<String, Script> scriptMap = new HashMap<>();
     //["script1": {"default": false, "time": 5, "replace": true},"script2": {...}, ...]
-    private static final List<Map<?, ?>> scriptConfigs = plugin.config.getMapList("scripts");
+    private static final List<Map<?, ?>> scriptConfigs = getMapList("scripts");
     @Getter
     private static final HashSet<Script> defaultScripts = new HashSet<>();
 

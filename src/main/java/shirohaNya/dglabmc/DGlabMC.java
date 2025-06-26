@@ -1,7 +1,6 @@
 package shirohaNya.dglabmc;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import shirohaNya.dglabmc.commands.CommandExecutor;
 import shirohaNya.dglabmc.commands.CommandTabCompleter;
@@ -15,6 +14,7 @@ import shirohaNya.dglabmc.utils.DGlabUtils;
 import java.util.HashSet;
 import java.util.Objects;
 
+import static shirohaNya.dglabmc.ConfigManager.*;
 import static shirohaNya.dglabmc.commands.CommandManager.registerCommand;
 import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
 
@@ -22,12 +22,6 @@ import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
 public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
     public static final HashSet<Client> clients = new HashSet<>();
-    public FileConfiguration config = getConfig();
-    public final String ip = config.getString("ip");
-    public int port = config.getInt("port");
-    public final boolean autoRunServer = config.getBoolean("autoRunServer");
-    public final boolean logOutputMessage = config.getBoolean("logOutputMessage");
-    public final boolean logInputMessage = config.getBoolean("logInputMessage");
     public MCWebSocketServer mcWebSocketServer = null;
     public String url;
 
@@ -64,8 +58,8 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("bossbar", CommandBossbar::new);
         //生成二维码
         saveDefaultConfig();
-        url = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + ip + ":" + port + "/";
-        if (autoRunServer) DGlabUtils.runWebSocketServer(port);
+        url = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + getIp() + ":" + getPort() + "/";
+        if (isAutoRunServer()) DGlabUtils.runWebSocketServer(getPort());
         else getLogger().info("请使用/dglab server-run启动WebSocket服务器");
     }
 

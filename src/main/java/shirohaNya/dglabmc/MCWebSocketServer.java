@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.net.InetSocketAddress;
 import java.util.*;
 
+import static shirohaNya.dglabmc.ConfigManager.*;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 import static shirohaNya.dglabmc.utils.ClientUtils.*;
 import static shirohaNya.dglabmc.utils.DGlabUtils.*;
@@ -47,30 +48,30 @@ public class MCWebSocketServer extends WebSocketServer {
     @Override
     public void onMessage(WebSocket ws, String text) {
         Client client = ClientUtils.getClient(ws);
-        if (plugin.logInputMessage) getLogger().info("服务器收到: " + client.getTargetId() + ": " + text);
+        if (isLogInputMessage()) getLogger().info("服务器收到: " + client.getTargetId() + ": " + text);
         HashMap<String, String> data;
         //输入消息异常处理
         try {
             data = toHashMap(text);
         } catch (Exception e) {
             client.output(toDGJson("msg", "", "", "403"));
-            if (plugin.logInputMessage) getLogger().info("该消息非JSON,已作废 403");
+            if (isLogInputMessage()) getLogger().info("该消息非JSON,已作废 403");
             return;
         }
         if (!(data.keySet().containsAll(Arrays.asList("type", "clientId", "targetId", "message")))) {
             client.output(toDGJson("msg", "", "", "404"));
-            if (plugin.logInputMessage) getLogger().info("该消息无必要键值,已作废 404(1)");
+            if (isLogInputMessage()) getLogger().info("该消息无必要键值,已作废 404(1)");
             return;
         }
         String type = data.get("type"), clientId = data.get("clientId"),
                 targetId = data.get("targetId"), message = data.get("message");
         if (!isValidUUID(clientId) || !isValidUUID(targetId)) {
             client.output(toDGJson("msg", "", "", "404"));
-            if (plugin.logInputMessage) getLogger().info("该消息来源非UUID,已作废 404(2)");
+            if (isLogInputMessage()) getLogger().info("该消息来源非UUID,已作废 404(2)");
         }
         if (!isClientExist(targetId) || getClient(targetId).getWebSocket() != ws) {
             client.output(toDGJson("msg", "", "", "404"));
-            if (plugin.logInputMessage) getLogger().info("该消息来源未知,已作废 404(3)");
+            if (isLogInputMessage()) getLogger().info("该消息来源未知,已作废 404(3)");
             return;
         }
         // bind绑定玩家
@@ -78,11 +79,11 @@ public class MCWebSocketServer extends WebSocketServer {
             Player player = Bukkit.getPlayer(UUID.fromString(clientId));
             if (player == null) {
                 client.output(toDGJson("bind", clientId, targetId, "400"));
-                if (plugin.logInputMessage) getLogger().info("该消息未知或玩家不在线,已作废 400");
+                if (isLogInputMessage()) getLogger().info("该消息未知或玩家不在线,已作废 400");
                 return;
             }
             client.output(toDGJson("bind", clientId, targetId, "200"));
-            if (plugin.logInputMessage) getLogger().info("成功连接 200");
+            if (isLogInputMessage()) getLogger().info("成功连接 200");
             client.bind(player);
         }
         // msg消息
@@ -122,7 +123,7 @@ public class MCWebSocketServer extends WebSocketServer {
         getLogger().info("Server started!");
         setConnectionLostTimeout(0);
         setConnectionLostTimeout(100);
-        getLogger().info("WebSocket Server started on port: " + plugin.port);
+        getLogger().info("WebSocket Server started on port: " + getPort());
     }
 }
 

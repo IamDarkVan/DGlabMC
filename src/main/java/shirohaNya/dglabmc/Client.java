@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
+import static shirohaNya.dglabmc.ConfigManager.isLogOutputMessage;
 import static shirohaNya.dglabmc.DGlabMC.clients;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 import static shirohaNya.dglabmc.utils.DGlabUtils.toDGJson;
@@ -49,7 +50,7 @@ public class Client {
     }
 
     public void output(String text) {
-        if (plugin.logOutputMessage) getLogger().info("服务器发出: " + text);
+        if (isLogOutputMessage()) getLogger().info("服务器发出: " + text);
         webSocket.send(text);
     }
 
