@@ -23,8 +23,6 @@ public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
     public static final HashSet<Client> clients = new HashSet<>();
     public MCWebSocketServer mcWebSocketServer = null;
-    public String url;
-
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -58,7 +56,6 @@ public final class DGlabMC extends JavaPlugin {
         registerCommand("bossbar", CommandBossbar::new);
         //生成二维码
         saveDefaultConfig();
-        url = "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + getIp() + ":" + getPort() + "/";
         if (isAutoRunServer()) DGlabUtils.runWebSocketServer(getPort());
         else getLogger().info("请使用/dglab server-run启动WebSocket服务器");
     }

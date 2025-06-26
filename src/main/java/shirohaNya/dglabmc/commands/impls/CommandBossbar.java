@@ -57,6 +57,7 @@ public class CommandBossbar extends CommandAbstract {
     @Override
     protected void run() {
         client.getBossbar().setBossbarType(_type);
+        sender.sendMessage("成功设置boss栏样式为 " + type);
     }
 
     @Override

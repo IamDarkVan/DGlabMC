@@ -22,12 +22,14 @@ public class CommandList extends CommandAbstract {
 
     @Override
     protected void run() {
+        sender.sendMessage("========== 绑定列表 ==========");
         clients.forEach(client -> {
             if (client.getPlayer() != null)
                 sender.sendMessage(client.getTargetId() + " <-> " + client.getPlayer().getName());
             else
                 sender.sendMessage(client.getTargetId() + " 未绑定");
         });
+        sender.sendMessage("=============================");
     }
 
     @Override

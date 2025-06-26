@@ -32,7 +32,7 @@ public class CommandServerRun extends CommandAbstract {
     protected void run() {
         setConfigValue("port", port);
         runWebSocketServer(port);
-        sender.sendMessage("成功运行WebSocket服务器");
+        sender.sendMessage("成功运行WebSocket服务器 端口号: " + port);
     }
 
     @Override

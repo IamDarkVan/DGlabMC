@@ -45,6 +45,7 @@ public class CommandInfo extends CommandAbstract {
 
     @Override
     protected void run() {
+        sender.sendMessage("========== 绑定信息 ==========");
         sender.sendMessage(client.getTargetId() + " " + (client.getPlayer() == null ? "未绑定" : client.getPlayer().getName()));
         sender.sendMessage("A通道强度:" + client.getAStrength() + "/" + client.getAMaxStrength() +
                 "电击剩余时间:" + (client.getATotalTime() - client.getATicks() / 20) + "秒");
@@ -52,6 +53,7 @@ public class CommandInfo extends CommandAbstract {
                 "电击剩余时间:" + (client.getBTotalTime() - client.getBTicks() / 20) + "秒");
         sender.sendMessage("已启用的脚本: ");
         client.getEnabledScripts().forEach(script -> sender.sendMessage(script.getName()));
+        sender.sendMessage("=============================");
     }
 
     @Override

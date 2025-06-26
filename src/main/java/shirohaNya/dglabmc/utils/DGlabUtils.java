@@ -27,6 +27,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.bukkit.Bukkit.getLogger;
+import static shirohaNya.dglabmc.ConfigManager.getIp;
+import static shirohaNya.dglabmc.ConfigManager.getPort;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class DGlabUtils {
@@ -50,11 +52,6 @@ public class DGlabUtils {
         plugin.reloadConfig();
         ConfigManager.reload();
         getLogger().info("重载结束");
-    }
-
-    @Deprecated
-    public static <K, V> K getKeyByValue(@NotNull Map<K, V> map, @NotNull V value) {
-        return map.entrySet().stream().filter(entry -> Objects.equals(entry.getValue(), value)).findFirst().map(Map.Entry::getKey).orElse(null);
     }
 
     public static String toDGJson(String type, String clientId, String targetId, String message) {
@@ -81,7 +78,7 @@ public class DGlabUtils {
 
 
     public static String getPlayerUrl(Player player) {
-        return plugin.url + player.getUniqueId();
+        return "https://www.dungeon-lab.com/app-download.php#DGLAB-SOCKET#" + "ws://" + getIp() + ":" + getPort() + "/" + player.getUniqueId();
     }
 
     public static BufferedImage generateQRCode(String text, int size) throws Exception {

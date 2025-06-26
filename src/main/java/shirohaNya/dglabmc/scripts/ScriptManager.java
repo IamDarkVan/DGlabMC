@@ -8,7 +8,6 @@ import java.util.*;
 
 
 import static shirohaNya.dglabmc.ConfigManager.getMapList;
-import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 public class ScriptManager {
 
