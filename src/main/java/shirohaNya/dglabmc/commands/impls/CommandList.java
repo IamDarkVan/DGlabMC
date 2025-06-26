@@ -24,7 +24,9 @@ public class CommandList extends CommandAbstract {
     protected void run() {
         clients.forEach(client -> {
             if (client.getPlayer() != null)
-                sender.sendMessage(client.getPlayer().getName() + " <-> " + client.getTargetId());
+                sender.sendMessage(client.getTargetId() + " <-> " + client.getPlayer().getName());
+            else
+                sender.sendMessage(client.getTargetId() + " 未绑定");
         });
     }
 

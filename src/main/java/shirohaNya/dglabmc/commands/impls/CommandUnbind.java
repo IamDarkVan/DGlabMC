@@ -36,7 +36,7 @@ public class CommandUnbind extends CommandAbstract {
         }
         if (length == 2) {
             if (!isClientExist(getPlayer(args[1])))
-                throw new CommandException("客户端不存在或玩家未绑定");
+                throw new CommandException("玩家未绑定");
             player = getPlayer(args[1]);
             this.client = getClient(player);
         }

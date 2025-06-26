@@ -9,21 +9,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.MapMeta;
 import org.bukkit.map.MapCanvas;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.MCWebSocketServer;
 
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import static org.bukkit.Bukkit.getLogger;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
@@ -136,8 +136,48 @@ public class DGlabUtils {
             }
         }
         mapMeta.setDisplayName(title);
+        mapMeta.setLore(Collections.singletonList("§7DGLAB二维码地图"));
         mapItem.setItemMeta(mapMeta);
         player.getInventory().setItem(player.getInventory().getHeldItemSlot(), mapItem);
         player.updateInventory();
+    }
+
+    public static boolean isQrcodeMap(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return false;
+        ItemMeta meta = item.getItemMeta();
+        if (meta == null) return false;
+        return meta.hasLore() && Objects.requireNonNull(meta.getLore()).contains("§7DGLAB二维码地图");
+    }
+
+    public static void removeMap(ItemStack map, @Nullable Inventory inv) {
+        assert inv != null;
+        inv.remove(map);
+        removeMapView(map);
+    }
+
+    public static void removeMapView(ItemStack map) {
+        // 还可同时删除 MapView 上的渲染器以避免内存泄漏
+        MapView view = getMapView(map);
+        if (view != null) view.getRenderers().clear();
+    }
+
+    @SuppressWarnings("deprecation")
+    private static MapView getMapView(ItemStack map) {
+        try {
+            MapMeta meta = (MapMeta) map.getItemMeta();
+            assert meta != null;
+            Method m = meta.getClass().getMethod("getMapView");
+            return (MapView) m.invoke(meta);
+        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            try {
+                Method getDurability = ItemStack.class.getMethod("getDurability");
+                getDurability.setAccessible(true);                 // 必须设置
+                short durability = (short) getDurability.invoke(map);
+                return Bukkit.getMap(durability);
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException ignored) {
+
+            }
+        }
+        return null;
     }
 }

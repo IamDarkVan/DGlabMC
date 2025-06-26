@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.bukkit.Bukkit.getPlayer;
+import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
 import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerList;
 import static shirohaNya.dglabmc.utils.DGlabUtils.*;
 
@@ -20,7 +21,7 @@ public class CommandBind extends CommandAbstract {
     private Player player, bindPlayer;
 
     public CommandBind(@NotNull CommandSender sender, @Nullable String[] args) {
-        super("getqrcode", sender, args, 1, 2, "/dglab bind [player] -- 获取二维码地图绑定app", "dglab.bind");
+        super("bind", sender, args, 1, 2, "/dglab bind [player] -- 获取二维码地图绑定app", "dglab.bind");
     }
 
     @Override
@@ -34,7 +35,7 @@ public class CommandBind extends CommandAbstract {
             this.bindPlayer = getPlayer(args[1]);
             if (bindPlayer == null) throw new CommandException("玩家不存在");
         }
-
+        if (isClientExist(player)) throw new CommandException("你已绑定过app");
         if (player.getInventory().getItemInMainHand().getType() != Material.AIR)
             throw new CommandException("请空手执行该指令");
         if (!sender.hasPermission("dglab.bind.others") && !Objects.equals(bindPlayer, sender))

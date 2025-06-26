@@ -13,9 +13,11 @@ import shirohaNya.dglabmc.scripts.Script;
 import shirohaNya.dglabmc.scripts.ScriptManager;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 import static org.bukkit.Bukkit.getLogger;
-import static shirohaNya.dglabmc.DGlabMC.*;
+import static shirohaNya.dglabmc.DGlabMC.clients;
+import static shirohaNya.dglabmc.DGlabMC.plugin;
 import static shirohaNya.dglabmc.utils.DGlabUtils.toDGJson;
 
 @Data
@@ -65,6 +67,7 @@ public class Client {
 
     public void bind(@NotNull Player p) {
         this.player = p;
+        this.playerId = p.getUniqueId().toString();
         resetBossbarTitle();
         bossbar.resetBossbar();
         bossbar.addPlayer(p);
@@ -191,5 +194,18 @@ public class Client {
     public void adjustPulse(Channel channel, @Nullable String hex) {
         if (channel == Channel.BOTH || channel == Channel.A) this.aPulse = hex;
         if (channel == Channel.BOTH || channel == Channel.B) this.bPulse = hex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client that = (Client) o;
+        return Objects.equals(targetId, that.targetId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(targetId);
     }
 }
