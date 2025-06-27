@@ -12,7 +12,7 @@ import java.util.Objects;
 
 import static org.bukkit.Bukkit.getPlayer;
 import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerList;
-import static shirohaNya.dglabmc.utils.DGlabUtils.getPlayerUrl;
+import static shirohaNya.dglabmc.utils.QrcodeMapUtils.getPlayerUrl;
 
 public class CommandGetAddress extends CommandAbstract {
     private Player bindPlayer;

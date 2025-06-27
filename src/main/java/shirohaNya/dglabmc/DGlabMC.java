@@ -11,7 +11,6 @@ import shirohaNya.dglabmc.listeners.ListenerUnbindOfflinePlayer;
 import shirohaNya.dglabmc.scripts.impls.Script1;
 import shirohaNya.dglabmc.utils.DGlabUtils;
 
-import java.util.HashSet;
 import java.util.Objects;
 
 import static shirohaNya.dglabmc.ConfigManager.*;
@@ -21,7 +20,6 @@ import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
 
 public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
-    public static final HashSet<Client> clients = new HashSet<>();
     public MCWebSocketServer mcWebSocketServer = null;
     @Override
     public void onEnable() {

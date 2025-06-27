@@ -1,6 +1,6 @@
 package shirohaNya.dglabmc.scripts.impls;
 
-import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.scripts.ScriptAbstract;
 
 

@@ -9,9 +9,9 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import shirohaNya.dglabmc.utils.DGlabUtils;
+import shirohaNya.dglabmc.utils.QrcodeMapUtils;
 
-import static shirohaNya.dglabmc.utils.DGlabUtils.*;
+import static shirohaNya.dglabmc.utils.QrcodeMapUtils.*;
 
 public class ListenerClearQrcodeMap implements Listener {
 
@@ -73,7 +73,7 @@ public class ListenerClearQrcodeMap implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        event.getDrops().removeIf(DGlabUtils::isQrcodeMap);
+        event.getDrops().removeIf(QrcodeMapUtils::isQrcodeMap);
         for (ItemStack i : event.getDrops()) if (isQrcodeMap(i)) removeMapView(i);
     }
 }

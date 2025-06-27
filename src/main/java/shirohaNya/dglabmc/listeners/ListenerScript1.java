@@ -5,20 +5,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.enums.AdjustMode;
 import shirohaNya.dglabmc.enums.Channel;
-import shirohaNya.dglabmc.scripts.Script;
-
-import java.util.Objects;
+import shirohaNya.dglabmc.api.Script;
 
 import static shirohaNya.dglabmc.scripts.ScriptManager.getScript;
-import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
-import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
+import static shirohaNya.dglabmc.client.ClientManager.getClient;
+import static shirohaNya.dglabmc.client.ClientManager.isClientExist;
 
 public class ListenerScript1 implements Listener {
     private Player player;
-    private final Script script = Objects.requireNonNull(getScript("script1"));
+    private final Script script = getScript("script1");
 
     @SuppressWarnings("deprecation")
     public static void playerDamageHandler(double damage, Player player) {
@@ -27,7 +25,7 @@ public class ListenerScript1 implements Listener {
         int valueB = (int) ((1 - (player.getHealth() - damage) / player.getMaxHealth()) * client.getBMaxStrength());
         client.adjustStrength(Channel.A, AdjustMode.SET, valueA);
         client.adjustStrength(Channel.B, AdjustMode.SET, valueB);
-        client.giveShock(5, Channel.BOTH, true);
+        client.giveShock(Channel.BOTH, 5, true);
     }
 
     @SuppressWarnings("deprecation")
@@ -37,7 +35,7 @@ public class ListenerScript1 implements Listener {
         int valueB = (int) ((1 - (player.getHealth() + amount) / player.getMaxHealth()) * client.getBMaxStrength());
         client.adjustStrength(Channel.A, AdjustMode.SET, valueA);
         client.adjustStrength(Channel.B, AdjustMode.SET, valueB);
-        if (valueA == 0 && valueB == 0) client.giveShock(0, Channel.BOTH, true);
+        if (valueA == 0 && valueB == 0) client.giveShock(Channel.BOTH, 0, true);
     }
 
     @EventHandler

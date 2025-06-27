@@ -9,8 +9,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
-import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
-import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
+import static shirohaNya.dglabmc.client.ClientManager.getClient;
+import static shirohaNya.dglabmc.client.ClientManager.isClientExist;
 import static shirohaNya.dglabmc.utils.CommandUtils.getClientList;
 import static shirohaNya.dglabmc.utils.DGlabUtils.toDGJson;
 

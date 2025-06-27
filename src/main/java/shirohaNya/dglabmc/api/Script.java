@@ -1,6 +1,4 @@
-package shirohaNya.dglabmc.scripts;
-
-import shirohaNya.dglabmc.Client;
+package shirohaNya.dglabmc.api;
 
 import java.util.Map;
 

@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import static shirohaNya.dglabmc.DGlabMC.clients;
+import static shirohaNya.dglabmc.client.ClientManager.clients;
 
 public class CommandList extends CommandAbstract {
 

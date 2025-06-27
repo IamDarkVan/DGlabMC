@@ -1,6 +1,6 @@
 package shirohaNya.dglabmc.utils;
 
-import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.commands.CommandManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static shirohaNya.dglabmc.DGlabMC.clients;
+import static shirohaNya.dglabmc.client.ClientManager.clients;
 import static org.bukkit.Bukkit.getOnlinePlayers;
 
 public class CommandUtils {

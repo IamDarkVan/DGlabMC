@@ -1,12 +1,12 @@
 package shirohaNya.dglabmc.listeners;
 
-import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.api.Client;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
-import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
+import static shirohaNya.dglabmc.client.ClientManager.getClient;
+import static shirohaNya.dglabmc.client.ClientManager.isClientExist;
 
 public class ListenerUnbindOfflinePlayer implements Listener {
     @EventHandler

@@ -3,7 +3,8 @@ package shirohaNya.dglabmc.scripts;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
-import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.api.Client;
+import shirohaNya.dglabmc.api.Script;
 
 import java.util.Map;
 

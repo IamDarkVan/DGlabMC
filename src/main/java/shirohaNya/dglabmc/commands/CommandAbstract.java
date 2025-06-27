@@ -3,6 +3,7 @@ package shirohaNya.dglabmc.commands;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.api.Command;
 
 import java.util.Arrays;
 import java.util.List;

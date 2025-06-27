@@ -2,7 +2,9 @@ package shirohaNya.dglabmc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import shirohaNya.dglabmc.utils.ClientUtils;
+import shirohaNya.dglabmc.api.Client;
+import shirohaNya.dglabmc.enums.Channel;
+import shirohaNya.dglabmc.client.ClientManager;
 import lombok.SneakyThrows;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -14,7 +16,7 @@ import java.util.*;
 
 import static shirohaNya.dglabmc.ConfigManager.*;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
-import static shirohaNya.dglabmc.utils.ClientUtils.*;
+import static shirohaNya.dglabmc.client.ClientManager.*;
 import static shirohaNya.dglabmc.utils.DGlabUtils.*;
 import static org.bukkit.Bukkit.getLogger;
 
@@ -42,12 +44,12 @@ public class MCWebSocketServer extends WebSocketServer {
 
     @Override
     public void onClose(@NotNull WebSocket ws, int code, String reason, boolean remote) {
-        ClientUtils.getClient(ws).removeClient();
+        ClientManager.getClient(ws).removeClient();
     }
 
     @Override
     public void onMessage(WebSocket ws, String text) {
-        Client client = ClientUtils.getClient(ws);
+        Client client = ClientManager.getClient(ws);
         if (isLogInputMessage()) getLogger().info("服务器收到: " + client.getTargetId() + ": " + text);
         HashMap<String, String> data;
         //输入消息异常处理
@@ -89,14 +91,18 @@ public class MCWebSocketServer extends WebSocketServer {
         // msg消息
         if (Objects.equals(type, "msg")) {
             if (message.contains("strength")) {
-                // strength-0+1+2+3, [0, 1, 2, 3]
-                Integer[] strength = Arrays.stream(message.split("-")[1].split("\\+")).map(Integer::parseInt).toArray(Integer[]::new);
-                client.setAStrength(strength[0]);
-                client.setBStrength(strength[1]);
-                client.setAMaxStrength(strength[2]);
-                client.setBMaxStrength(strength[3]);
+                try {
+                    // strength-0+1+2+3, [0, 1, 2, 3]
+                    Integer[] strength = Arrays.stream(message.split("-")[1].split("\\+")).map(Integer::parseInt).toArray(Integer[]::new);
+                    client.setStrength(Channel.A, strength[0]);
+                    client.setStrength(Channel.B, strength[1]);
+                    client.setMaxStrength(Channel.A, strength[2]);
+                    client.setMaxStrength(Channel.B, strength[3]);
+                } catch (RuntimeException e) {
+                    if (isLogInputMessage()) getLogger().info("强度消息未知,已作废 400");
+                }
                 if (client.getPlayer() == null) return;
-                client.resetBossbarTitle();
+                client.updateBossbarTitle();
                 return;
             }
             if (message.contains("feedback")) {

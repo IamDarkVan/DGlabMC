@@ -1,6 +1,6 @@
-package shirohaNya.dglabmc;
+package shirohaNya.dglabmc.client;
 
-import lombok.Data;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import shirohaNya.dglabmc.enums.BossbarType;
 
-@Data
+@Getter
 public class BossbarManager {
     private final BossBar aBossbar, bBossbar;
     private Player player;
@@ -28,7 +28,7 @@ public class BossbarManager {
         bBossbar.removeAll();
     }
 
-    public void addPlayer(@NotNull Player p) {
+    public void setPlayer(@NotNull Player p) {
         this.player = p;
         resetBossbar();
         switch (type) {
@@ -51,7 +51,7 @@ public class BossbarManager {
     public void setBossbarType(BossbarType type) {
         this.type = type;
         if (this.player == null) return;
-        addPlayer(player);
+        setPlayer(player);
     }
 
     public void setAProgress(double p) {

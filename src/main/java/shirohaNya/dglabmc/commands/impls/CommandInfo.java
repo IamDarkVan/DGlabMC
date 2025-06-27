@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import shirohaNya.dglabmc.Client;
+import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.commands.CommandAbstract;
 import shirohaNya.dglabmc.commands.CommandException;
 
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.bukkit.Bukkit.getPlayer;
-import static shirohaNya.dglabmc.utils.ClientUtils.getClient;
-import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
+import static shirohaNya.dglabmc.client.ClientManager.getClient;
+import static shirohaNya.dglabmc.client.ClientManager.isClientExist;
 import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerList;
 
 public class CommandInfo extends CommandAbstract {

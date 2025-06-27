@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.bukkit.Bukkit.getPlayer;
-import static shirohaNya.dglabmc.utils.ClientUtils.isClientExist;
+import static shirohaNya.dglabmc.client.ClientManager.isClientExist;
 import static shirohaNya.dglabmc.utils.CommandUtils.getPlayerList;
-import static shirohaNya.dglabmc.utils.DGlabUtils.*;
+import static shirohaNya.dglabmc.utils.QrcodeMapUtils.*;
 
 public class CommandBind extends CommandAbstract {
     private Player player, bindPlayer;

@@ -1,4 +1,4 @@
-package shirohaNya.dglabmc.commands;
+package shirohaNya.dglabmc.api;
 
 import java.util.List;
 

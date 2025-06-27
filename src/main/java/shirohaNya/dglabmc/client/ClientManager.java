@@ -1,18 +1,19 @@
-package shirohaNya.dglabmc.utils;
+package shirohaNya.dglabmc.client;
 
-import shirohaNya.dglabmc.Client;
 import org.bukkit.entity.Player;
 import org.java_websocket.WebSocket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import shirohaNya.dglabmc.api.Client;
 
+import java.util.HashSet;
 import java.util.Objects;
 
-import static shirohaNya.dglabmc.DGlabMC.clients;
+public class ClientManager {
+    public static final HashSet<Client> clients = new HashSet<>();
 
-public class ClientUtils {
-    private ClientUtils() throws Exception {
-        throw new Exception("工具类不允许实例化");
+    private ClientManager() throws Exception {
+        throw new Exception("管理类不允许实例化");
     }
 
     public static Client createClient(String targetId, WebSocket webSocket) {
@@ -20,7 +21,7 @@ public class ClientUtils {
     }
 
     public static Client createClient(String targetId, WebSocket webSocket, Player player) {
-        return new Client(targetId, webSocket, player);
+        return new ClientImpl(targetId, webSocket, player);
     }
 
     public static @NotNull Client getClient(@Nullable String id) throws RuntimeException {
