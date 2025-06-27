@@ -2,8 +2,6 @@ package shirohaNya.dglabmc.api;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.Map;
-
 @SuppressWarnings("unused")
 public interface Script {
     boolean isClientEnabled(Client client);

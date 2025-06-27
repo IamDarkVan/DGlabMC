@@ -7,8 +7,6 @@ import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.api.Script;
 
-import java.util.Map;
-
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 @Getter
@@ -57,22 +55,6 @@ public abstract class ScriptAbstract implements Script {
     public void toggleClient(Client client) {
         if (isClientEnabled(client)) disableClient(client);
         else enableClient(client);
-    }
-
-    public int getIntSettings(String key) {
-        return (int) settings.get(key);
-    }
-
-    public double getDoubleSettings(String key) {
-        return (double) settings.get(key);
-    }
-
-    public boolean getBooleanSettings(String key) {
-        return (boolean) settings.get(key);
-    }
-
-    public @Nullable String getStringSettings(String key) {
-        return (String) settings.get(key);
     }
 
     public abstract boolean onEnable(Client client);

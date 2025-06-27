@@ -3,9 +3,6 @@ package shirohaNya.dglabmc;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.List;
-import java.util.Map;
-
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 
