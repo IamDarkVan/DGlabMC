@@ -9,6 +9,7 @@ import shirohaNya.dglabmc.listeners.ListenerClearQrcodeMap;
 import shirohaNya.dglabmc.listeners.ListenerScript1;
 import shirohaNya.dglabmc.listeners.ListenerUnbindOfflinePlayer;
 import shirohaNya.dglabmc.scripts.impls.Script1;
+import shirohaNya.dglabmc.scripts.impls.Script2;
 import shirohaNya.dglabmc.utils.DGlabUtils;
 
 import java.util.Objects;
@@ -30,6 +31,7 @@ public final class DGlabMC extends JavaPlugin {
         Objects.requireNonNull(getCommand("dglab")).setTabCompleter(new CommandTabCompleter());
         //注册脚本
         registerScript("script1", new Script1());
+        registerScript("script2", new Script2());
         //注册监听器
         Bukkit.getPluginManager().registerEvents(new ListenerUnbindOfflinePlayer(), this);
         Bukkit.getPluginManager().registerEvents(new ListenerScript1(), this);

@@ -1,8 +1,21 @@
+#服务器的公网IP 用于链接app
 ip: "127.0.0.1"
+
+#WebSocket服务器在本机使用的端口
 port: 9999
+
+#是否在开服时自动开启WebSocket服务器
 autoRunServer: true
+
+#是否向WebSocket发送消息时在后台显示
 logOutputMessage: false
+
+#是否从WebSocket收到消息时在后台显示
 logInputMessage: false
+
+###############################
+# 新增脚本后必须在此处定义
+#
 scripts:
   - script1:
       default: false

@@ -1,5 +1,7 @@
 package shirohaNya.dglabmc.api;
 
+import org.bukkit.configuration.ConfigurationSection;
+
 import java.util.Map;
 
 @SuppressWarnings("unused")
@@ -12,9 +14,9 @@ public interface Script {
 
     void toggleClient(Client client);
 
-    void onEnable(Client client);
+    boolean onEnable(Client client);
 
-    void onDisable(Client client);
+    boolean onDisable(Client client);
 
     String getName();
 
@@ -22,5 +24,5 @@ public interface Script {
 
     String getPermission();
 
-    Map<?, ?> getSettings();
+    ConfigurationSection getSettings();
 }

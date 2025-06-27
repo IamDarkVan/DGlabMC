@@ -1,6 +1,7 @@
 package shirohaNya.dglabmc.scripts;
 
 import lombok.Getter;
+import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.api.Script;
@@ -8,13 +9,13 @@ import shirohaNya.dglabmc.api.Script;
 import java.util.*;
 
 
-import static shirohaNya.dglabmc.ConfigManager.getMapList;
+import static shirohaNya.dglabmc.ConfigManager.getScriptConfigPart;
 
 public class ScriptManager {
 
     private static final HashMap<String, Script> scriptMap = new HashMap<>();
     //["script1": {"default": false, "time": 5, "replace": true},"script2": {...}, ...]
-    private static final List<Map<?, ?>> scriptConfigs = getMapList("scripts");
+    private static ConfigurationSection scriptConfigs = getScriptConfigPart("scripts");
     @Getter
     private static final HashSet<Script> defaultScripts = new HashSet<>();
 
@@ -34,8 +35,12 @@ public class ScriptManager {
         return scriptMap.values();
     }
 
-    public static @Nullable Map<?, ?> getConfig(@NotNull String name) {
-        return scriptConfigs.stream().filter(script -> script.containsKey(name)).findFirst().orElse(null);
+    public static @Nullable ConfigurationSection getScriptConfig(@NotNull String name) {
+        return scriptConfigs.getConfigurationSection(name);
+    }
+
+    public static void reloadScriptConfig() {
+        scriptConfigs = getScriptConfigPart("scripts");
     }
 
     public static @NotNull Script getScript(@NotNull String name) {

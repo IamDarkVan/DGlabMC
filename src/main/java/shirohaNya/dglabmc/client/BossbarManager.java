@@ -50,7 +50,7 @@ public class BossbarManager {
 
     public void setBossbarType(BossbarType type) {
         this.type = type;
-        if (this.player == null) return;
+        if (player == null) return;
         setPlayer(player);
     }
 

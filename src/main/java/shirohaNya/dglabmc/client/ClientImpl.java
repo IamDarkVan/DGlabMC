@@ -151,20 +151,18 @@ public class ClientImpl implements Client {
         updateBossbarTitle();
     }
 
-    private void sendWave(Channel channel) {
+    protected void sendWave(Channel channel) {
         if ((channel == Channel.BOTH || channel == Channel.A) && aPulse != null)
             output(toDGJson("msg", playerId, targetId, "pulse-A:" + aPulse));
         if ((channel == Channel.BOTH || channel == Channel.B) && bPulse != null)
             output(toDGJson("msg", playerId, targetId, "pulse-B:" + bPulse));
     }
 
-    private void clearWave(Channel channel) {
-        if (channel == Channel.BOTH) {
+    protected void clearWave(Channel channel) {
+        if (channel == Channel.BOTH || channel == Channel.A)
             output(toDGJson("msg", playerId, targetId, "clear-1"));
+        if (channel == Channel.BOTH || channel == Channel.B)
             output(toDGJson("msg", playerId, targetId, "clear-2"));
-            return;
-        }
-        output(toDGJson("msg", playerId, targetId, "clear-" + channel.getValue()));
     }
 
     @Override

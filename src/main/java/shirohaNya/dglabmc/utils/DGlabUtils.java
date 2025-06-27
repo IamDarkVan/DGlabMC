@@ -3,6 +3,7 @@ package shirohaNya.dglabmc.utils;
 import com.google.gson.Gson;
 import shirohaNya.dglabmc.ConfigManager;
 import shirohaNya.dglabmc.MCWebSocketServer;
+import shirohaNya.dglabmc.scripts.ScriptManager;
 
 import java.util.*;
 
@@ -29,6 +30,7 @@ public class DGlabUtils {
         getLogger().info("正在重载");
         plugin.reloadConfig();
         ConfigManager.reload();
+        ScriptManager.reloadScriptConfig();
         getLogger().info("重载结束");
     }
 

@@ -2,6 +2,7 @@ package shirohaNya.dglabmc.scripts;
 
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.api.Script;
@@ -12,25 +13,23 @@ import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 @Getter
 public abstract class ScriptAbstract implements Script {
-
-
     private final String name;
     @Nullable
     private final String description;
     @Nullable
     private final String permission;
-    private final Map<?, ?> settings;
+    private final @Nullable ConfigurationSection settings;
 
     public ScriptAbstract(String name, @Nullable String description, @Nullable String permission) {
         this.name = name;
         this.description = description;
         this.permission = permission;
-        this.settings = ScriptManager.getConfig(name);
+        this.settings = ScriptManager.getScriptConfig(name);
         if (settings == null) {
             Bukkit.getPluginManager().disablePlugin(plugin);
             throw new RuntimeException("未在config.yml中注册游戏");
         }
-        if (settings.containsKey("default") && settings.get("default") instanceof Boolean && (Boolean) settings.get("default")) {
+        if (settings.getBoolean("default")) {
             ScriptManager.putDefaultScript(this);
         }
     }
@@ -42,15 +41,16 @@ public abstract class ScriptAbstract implements Script {
 
     @Override
     public void enableClient(Client client) {
-        client.getEnabledScripts().add(this);
-        onEnable(client);
+        if (client.getEnabledScripts().contains(this)) return;
+        if (onEnable(client)) client.getEnabledScripts().add(this);
+        else client.sendMessage("你现在不能启用该脚本");
     }
 
     @Override
     public void disableClient(Client client) {
         if (!client.getEnabledScripts().contains(this)) return;
-        client.getEnabledScripts().remove(this);
-        onDisable(client);
+        if (onDisable(client)) client.getEnabledScripts().remove(this);
+        else client.sendMessage("你现在不能禁用该脚本");
     }
 
     @Override
@@ -59,8 +59,24 @@ public abstract class ScriptAbstract implements Script {
         else enableClient(client);
     }
 
-    public abstract void onEnable(Client client);
+    public int getIntSettings(String key) {
+        return (int) settings.get(key);
+    }
 
-    public abstract void onDisable(Client client);
+    public double getDoubleSettings(String key) {
+        return (double) settings.get(key);
+    }
+
+    public boolean getBooleanSettings(String key) {
+        return (boolean) settings.get(key);
+    }
+
+    public @Nullable String getStringSettings(String key) {
+        return (String) settings.get(key);
+    }
+
+    public abstract boolean onEnable(Client client);
+
+    public abstract boolean onDisable(Client client);
 
 }

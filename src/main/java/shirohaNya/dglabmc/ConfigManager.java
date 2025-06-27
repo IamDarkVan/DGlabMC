@@ -1,5 +1,6 @@
 package shirohaNya.dglabmc;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ConfigManager {
         return cfg.getBoolean("logInputMessage");
     }
 
-    public static List<Map<?,?>> getMapList(String scripts) {
-        return cfg.getMapList(scripts);
+    public static ConfigurationSection getScriptConfigPart(String scripts) {
+        return cfg.getConfigurationSection(scripts);
     }
 }

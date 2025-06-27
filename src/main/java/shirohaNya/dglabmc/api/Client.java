@@ -11,6 +11,8 @@ import java.util.HashSet;
 public interface Client {
     Player getPlayer();
 
+    String getPlayerId();
+
     String getTargetId();
 
     WebSocket getWebSocket();

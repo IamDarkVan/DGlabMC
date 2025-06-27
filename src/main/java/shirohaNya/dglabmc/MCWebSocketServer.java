@@ -79,9 +79,9 @@ public class MCWebSocketServer extends WebSocketServer {
         // bind绑定玩家
         if (Objects.equals(type, "bind")) {
             Player player = Bukkit.getPlayer(UUID.fromString(clientId));
-            if (player == null) {
+            if (!"DGLAB".equals(message) || player == null || isClientExist(player)) {
                 client.output(toDGJson("bind", clientId, targetId, "400"));
-                if (isLogInputMessage()) getLogger().info("该消息未知或玩家不在线,已作废 400");
+                if (isLogInputMessage()) getLogger().info("绑定失败或玩家不在线,已作废 400");
                 return;
             }
             client.output(toDGJson("bind", clientId, targetId, "200"));

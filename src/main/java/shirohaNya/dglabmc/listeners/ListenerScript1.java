@@ -19,17 +19,17 @@ public class ListenerScript1 implements Listener {
     private final Script script = getScript("script1");
 
     @SuppressWarnings("deprecation")
-    public static void playerDamageHandler(double damage, Player player) {
+    public void playerDamageHandler(double damage, Player player) {
         Client client = getClient(player);
         int valueA = (int) ((1 - (player.getHealth() - damage) / player.getMaxHealth()) * client.getAMaxStrength());
         int valueB = (int) ((1 - (player.getHealth() - damage) / player.getMaxHealth()) * client.getBMaxStrength());
         client.adjustStrength(Channel.A, AdjustMode.SET, valueA);
         client.adjustStrength(Channel.B, AdjustMode.SET, valueB);
-        client.giveShock(Channel.BOTH, 5, true);
+        client.giveShock(Channel.BOTH, script.getSettings().getInt("time"), script.getSettings().getBoolean("replace"));
     }
 
     @SuppressWarnings("deprecation")
-    public static void playerHealthRegainHandler(double amount, Player player) {
+    public void playerHealthRegainHandler(double amount, Player player) {
         Client client = getClient(player);
         int valueA = (int) ((1 - (player.getHealth() + amount) / player.getMaxHealth()) * client.getAMaxStrength());
         int valueB = (int) ((1 - (player.getHealth() + amount) / player.getMaxHealth()) * client.getBMaxStrength());
