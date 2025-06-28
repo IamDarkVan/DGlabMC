@@ -1,13 +1,11 @@
 package shirohaNya.dglabmc.scripts;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.api.Script;
-
-import static shirohaNya.dglabmc.DGlabMC.plugin;
 
 @Getter
 public abstract class ScriptAbstract implements Script {
@@ -16,17 +14,13 @@ public abstract class ScriptAbstract implements Script {
     private final String description;
     @Nullable
     private final String permission;
-    private final @Nullable ConfigurationSection settings;
+    private final @NotNull ConfigurationSection settings;
 
     public ScriptAbstract(String name, @Nullable String description, @Nullable String permission) {
         this.name = name;
         this.description = description;
         this.permission = permission;
         this.settings = ScriptManager.getScriptConfig(name);
-        if (settings == null) {
-            Bukkit.getPluginManager().disablePlugin(plugin);
-            throw new RuntimeException("未在config.yml中注册游戏");
-        }
         if (settings.getBoolean("default")) {
             ScriptManager.putDefaultScript(this);
         }

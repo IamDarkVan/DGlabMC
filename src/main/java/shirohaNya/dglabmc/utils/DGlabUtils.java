@@ -5,6 +5,7 @@ import shirohaNya.dglabmc.ConfigManager;
 import shirohaNya.dglabmc.MCWebSocketServer;
 import shirohaNya.dglabmc.scripts.ScriptManager;
 
+import java.io.File;
 import java.util.*;
 
 import static org.bukkit.Bukkit.getLogger;
@@ -28,10 +29,22 @@ public class DGlabUtils {
 
     public static void reloadConfigFile() {
         getLogger().info("正在重载");
+        plugin.saveDefaultConfig();
         plugin.reloadConfig();
         ConfigManager.reload();
         ScriptManager.reloadScriptConfig();
         getLogger().info("重载结束");
+    }
+
+    public static void overwriteConfig() {
+        File configFile = new File(plugin.getDataFolder(), "config.yml");
+        if (configFile.exists()) {
+            if (configFile.delete()) getLogger().info("覆盖config成功");
+            else getLogger().warning("覆盖config失败");
+        }
+
+        // 复制 jar 内的 config.yml 到 plugins/YourPlugin/config.yml
+        plugin.saveResource("config.yml", false); // false = 不会覆盖，但现在文件被删了就能成功复制
     }
 
     public static String toDGJson(String type, String clientId, String targetId, String message) {

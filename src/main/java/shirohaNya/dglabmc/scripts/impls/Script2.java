@@ -23,7 +23,7 @@ public class Script2 extends ScriptAbstract{
     public boolean onEnable(Client client) {
         if (client instanceof SharedClient) return true;
         if (client.getPlayer() == null) return false;
-        Player player = getSharePlayer(client.getPlayer(), 2);
+        Player player = getSharePlayer(client.getPlayer(), getSettings().getInt("range"));
         if (player == null) {
             client.sendMessage("未找到目标, 请让共享目标使用 /dglab bind 手持二维码地图并紧贴目标");
             return false;

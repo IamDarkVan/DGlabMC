@@ -23,6 +23,7 @@ scripts:
     replace: true
   script2:
     default: false
+    range: 2
 
 ################################
 #           Example            #
