@@ -2,6 +2,7 @@ package shirohaNya.dglabmc.client;
 
 import lombok.Getter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.java_websocket.WebSocket;
@@ -21,6 +22,8 @@ import static shirohaNya.dglabmc.ConfigManager.isLogOutputMessage;
 import static shirohaNya.dglabmc.client.ClientManager.clients;
 import static shirohaNya.dglabmc.DGlabMC.plugin;
 import static shirohaNya.dglabmc.utils.DGlabUtils.toDGJson;
+import static shirohaNya.dglabmc.utils.QrcodeMapUtils.isQrcodeMap;
+import static shirohaNya.dglabmc.utils.QrcodeMapUtils.removeMap;
 
 @Getter
 public class ClientImpl implements Client {
@@ -46,6 +49,7 @@ public class ClientImpl implements Client {
         this.targetId = targetId;
         this.webSocket = webSocket;
         this.player = player;
+        if (player != null) this.playerId = player.getUniqueId().toString();
         clients.add(this);
         enabledScripts.addAll(ScriptManager.getDefaultScripts());
     }
@@ -63,6 +67,8 @@ public class ClientImpl implements Client {
         updateBossbarTitle();
         bossbar.resetBossbar();
         bossbar.setPlayer(p);
+        ItemStack map = player.getInventory().getItemInMainHand();
+        if (isQrcodeMap(map)) removeMap(map, player.getInventory());
         player.sendMessage("你已成功绑定app");
     }
 
@@ -169,10 +175,8 @@ public class ClientImpl implements Client {
     public void updateBossbarTitle() {
         double aTime = aTotalTime - aTicks / 20;
         double bTime = bTotalTime - bTicks / 20;
-        bossbar.getABossbar().setTitle("A:" + aStrength + "/" + aMaxStrength +
-                " 电击剩余时间:" + aTime + "秒");
-        bossbar.getBBossbar().setTitle("B:" + bStrength + "/" + bMaxStrength +
-                " 电击剩余时间:" + bTime + "秒");
+        bossbar.setTitle(Channel.A, "A:" + aStrength + "/" + aMaxStrength + " 电击剩余时间:" + aTime + "秒");
+        bossbar.setTitle(Channel.B, "B:" + bStrength + "/" + bMaxStrength + " 电击剩余时间:" + bTime + "秒");
     }
 
     //通道: 1 - A 通道；2 - B 通道
@@ -181,9 +185,9 @@ public class ClientImpl implements Client {
     @Override
     public void adjustStrength(Channel channel, AdjustMode type, int num) {
         //不会修改本地储存值 app会发送变更后强度信息
-        if (channel == Channel.BOTH || channel == Channel.A)
+        if ((channel == Channel.BOTH || channel == Channel.A) && aPulse != null)
             output(toDGJson("msg", playerId, targetId, "strength-1+" + type.getValue() + "+" + num));
-        if (channel == Channel.BOTH || channel == Channel.B)
+        if ((channel == Channel.BOTH || channel == Channel.B) && bPulse != null)
             output(toDGJson("msg", playerId, targetId, "strength-2+" + type.getValue() + "+" + num));
     }
 

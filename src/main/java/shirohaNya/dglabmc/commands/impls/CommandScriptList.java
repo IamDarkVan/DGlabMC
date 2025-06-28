@@ -25,7 +25,7 @@ public class CommandScriptList extends CommandAbstract {
     protected void run() {
         sender.sendMessage("========== 脚本列表 ==========");
         ScriptManager.getScriptSet().forEach(script -> sender.sendMessage(script.getName() + " - " + script.getDescription()));
-        sender.sendMessage("=============================");
+        sender.sendMessage("===============================");
     }
 
     @Override

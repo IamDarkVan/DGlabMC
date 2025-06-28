@@ -8,6 +8,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import shirohaNya.dglabmc.enums.BossbarType;
+import shirohaNya.dglabmc.enums.Channel;
 
 @Getter
 public class BossbarManager {
@@ -46,6 +47,11 @@ public class BossbarManager {
                 break;
 
         }
+    }
+
+    public void setTitle(Channel channel, String title) {
+        if (channel == Channel.BOTH || channel == Channel.A) aBossbar.setTitle(title);
+        if (channel == Channel.BOTH || channel == Channel.B) bBossbar.setTitle(title);
     }
 
     public void setBossbarType(BossbarType type) {

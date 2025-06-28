@@ -121,12 +121,15 @@ public class QrcodeMapUtils {
             MapMeta meta = (MapMeta) map.getItemMeta();
             assert meta != null;
             Method m = meta.getClass().getMethod("getMapView");
+            m.setAccessible(true);
             return (MapView) m.invoke(meta);
         } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+            e.printStackTrace();
             try {
                 Method getDurability = ItemStack.class.getMethod("getDurability");
                 getDurability.setAccessible(true);
                 Method getMapMethod = Bukkit.class.getMethod("getMap", short.class); // 注意是 short
+                getMapMethod.setAccessible(true);
                 short durability = (short) getDurability.invoke(map);
                 return (MapView) getMapMethod.invoke(null, durability);
             } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException ex) {

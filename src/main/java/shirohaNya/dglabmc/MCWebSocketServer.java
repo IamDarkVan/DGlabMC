@@ -30,6 +30,7 @@ public class MCWebSocketServer extends WebSocketServer {
     @SneakyThrows
     public void stop() {
         plugin.mcWebSocketServer = null;
+        clients.clear();
         super.stop(0);
         getLogger().info("服务器停止运行");
     }

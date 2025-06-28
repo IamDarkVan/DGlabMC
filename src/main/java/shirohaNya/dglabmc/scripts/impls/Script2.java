@@ -2,6 +2,7 @@ package shirohaNya.dglabmc.scripts.impls;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.api.Client;
 import shirohaNya.dglabmc.enums.BossbarType;
@@ -11,6 +12,7 @@ import shirohaNya.dglabmc.scripts.impls.script2Tools.SharedClient;
 
 import static shirohaNya.dglabmc.client.ClientManager.clients;
 import static shirohaNya.dglabmc.utils.QrcodeMapUtils.isQrcodeMap;
+import static shirohaNya.dglabmc.utils.QrcodeMapUtils.removeMap;
 
 public class Script2 extends ScriptAbstract{
     public Script2() {
@@ -23,7 +25,7 @@ public class Script2 extends ScriptAbstract{
         if (client.getPlayer() == null) return false;
         Player player = getSharePlayer(client.getPlayer(), 2);
         if (player == null) {
-            client.sendMessage("未找到目标, 请让其使用 /dglab bind 手持二维码地图");
+            client.sendMessage("未找到目标, 请让共享目标使用 /dglab bind 手持二维码地图并紧贴目标");
             return false;
         }
         SharedClient sharedClient = new SharedClient(player, client);
@@ -36,8 +38,12 @@ public class Script2 extends ScriptAbstract{
         sharedClient.getBossbar().setBossbarType(BossbarType.B);
 
         super.enableClient(sharedClient);
+
+        ItemStack map = player.getInventory().getItemInMainHand();
+        if (isQrcodeMap(map)) removeMap(map, player.getInventory());
         return true;
     }
+
     @Override
     public boolean onDisable(Client client) {
         Client c1;

@@ -2,6 +2,7 @@ package shirohaNya.dglabmc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Nullable;
 import shirohaNya.dglabmc.commands.CommandExecutor;
 import shirohaNya.dglabmc.commands.CommandTabCompleter;
 import shirohaNya.dglabmc.commands.impls.*;
@@ -21,6 +22,7 @@ import static shirohaNya.dglabmc.scripts.ScriptManager.registerScript;
 
 public final class DGlabMC extends JavaPlugin {
     public static DGlabMC plugin;
+    @Nullable
     public MCWebSocketServer mcWebSocketServer = null;
     @Override
     public void onEnable() {
@@ -63,7 +65,7 @@ public final class DGlabMC extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        mcWebSocketServer.stop();
+        if (mcWebSocketServer != null) mcWebSocketServer.stop();
         saveDefaultConfig();
         getLogger().info("已退出插件");
     }

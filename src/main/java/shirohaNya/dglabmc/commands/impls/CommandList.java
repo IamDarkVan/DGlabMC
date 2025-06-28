@@ -29,7 +29,7 @@ public class CommandList extends CommandAbstract {
             else
                 sender.sendMessage(client.getTargetId() + " 未绑定");
         });
-        sender.sendMessage("=============================");
+        sender.sendMessage("===============================");
     }
 
     @Override

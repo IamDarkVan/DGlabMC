@@ -29,7 +29,7 @@ public class CommandUnbind extends CommandAbstract {
         Player player;
         if (length == 1) {
             if (!(sender instanceof Player))
-                throw new CommandException("服务器后台请使用 /dglab ctrl-pulse [clientId|player] (A|B|both) (<HEX[]>|clear)");
+                throw new CommandException("服务器后台请使用 /dglab unbind <clientId|player>");
             player = (Player) sender;
             if (!isClientExist(player)) throw new CommandException("你还没有绑定的app");
             this.client = getClient(player);

@@ -36,7 +36,7 @@ public class CommandInfo extends CommandAbstract {
             this.client = getClient(player);
         }
         if (length == 2) {
-            if (isClientExist(getPlayer(args[1]))) throw new CommandException("客户端不存在或玩家未绑定");
+            if (!isClientExist(getPlayer(args[1]))) throw new CommandException("客户端不存在或玩家未绑定");
             this.client = getClient(getPlayer(args[1]));
         }
         if (!sender.hasPermission("dglab.info.others") && !Objects.equals(sender, client.getPlayer()))

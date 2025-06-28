@@ -16,6 +16,10 @@ public class SharedClient extends ClientImpl{
     public SharedClient(@NotNull Player player, Client sourceClient) {
         super(null, null, player);
         this.sourceClient = sourceClient;
+        updateBossbarTitle();
+        getBossbar().resetBossbar();
+        getBossbar().setPlayer(player);
+        player.sendMessage("你已被绑定共享app");
     }
 
     @Override
@@ -25,7 +29,7 @@ public class SharedClient extends ClientImpl{
 
     @Override
     public Integer getAStrength() {
-        return sourceClient.getBStrength();
+        return sourceClient.getAStrength();
     }
 
     @Override
@@ -35,7 +39,7 @@ public class SharedClient extends ClientImpl{
 
     @Override
     public Integer getAMaxStrength() {
-        return sourceClient.getBMaxStrength();
+        return sourceClient.getAMaxStrength();
     }
 
     @Override
@@ -44,8 +48,13 @@ public class SharedClient extends ClientImpl{
     }
 
     @Override
-    public String getAPulse() {
-        return super.getBPulse();
+    public double getATotalTime() {
+        return sourceClient.getATotalTime();
+    }
+
+    @Override
+    public int getATicks() {
+        return sourceClient.getATicks();
     }
 
     @Override
@@ -71,6 +80,19 @@ public class SharedClient extends ClientImpl{
     @Override
     protected void sendWave(Channel channel) {
         if (getBPulse() != null) output(toDGJson("msg", sourceClient.getPlayerId(), sourceClient.getTargetId(), "pulse-B:" + getBPulse()));
+    }
+
+    @Override
+    protected void clearWave(Channel channel) {
+        output(toDGJson("msg", sourceClient.getPlayerId(), sourceClient.getTargetId(), "clear-2"));
+    }
+
+    @Override
+    public void updateBossbarTitle() {
+        double aTime = getATotalTime() - getATicks() / 20;
+        double bTime = getBTotalTime() - getBTicks() / 20;
+        getBossbar().setTitle(Channel.A, "A:" + getAStrength() + "/" + getAMaxStrength() + " 电击剩余时间:" + aTime + "秒");
+        getBossbar().setTitle(Channel.B, "B:" + getBStrength() + "/" + getBMaxStrength() + " 电击剩余时间:" + bTime + "秒");
     }
 
     @Override
